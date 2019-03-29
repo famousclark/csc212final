@@ -2,6 +2,13 @@
   "name": "sever",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && npm start",
+    "server": "nodemon app.js",
+    "install-all": "npm install && cd client && npm install",
+    "dev": "concurrently --kill-others-on-fail \" npm run client\" \"npm run server\""
+  },
   "dependencies": {
     "async": "latest",
     "basic-auth-connect": "latest",
