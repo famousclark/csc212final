@@ -7,11 +7,7 @@
   },
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd client && npm start",
-    "start": "nodemon app.js",
-    "install-all": "npm install && cd client && npm install",
-    "dev": "concurrently --kill-others-on-fail \" npm run client\" \"npm run server\""
+    "start": "node app.js"
   },
   "dependencies": {
     "async": "latest",
@@ -48,5 +44,24 @@
     "serve-favicon": "^2.5.0",
     "simple-encryptor": "latest",
     "underscore": "latest"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }
