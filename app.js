@@ -6,7 +6,7 @@ var constants = require('constants');
 var constant = require('./config/constants');
 
 
-var port = process.env.PORT || 8042;
+//var cors = require('cors');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -20,6 +20,7 @@ var bodyParser = require('body-parser');
 var dateFormat = require('dateformat');
 var now = new Date();
 var dummyData = require('./config/dummyUserData');
+var router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -38,12 +39,13 @@ var conn = mongoose.connect(
       throw err;
     }
 
-    dummyData();
+    //dummyData();
   });
 
 require('./config/passport')(passport); // pass passport for configuration
 
 //set up our express application
+//app.use(cors());
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 //app.use(bodyParser()); // get information from html forms
@@ -69,12 +71,12 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
-require('./config/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-
+require('./config/routes.js')(app, passport, router); // load our routes and pass in our app and fully configured passport
+app.use(configDB.basename, router);
 
 //launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+app.listen(configDB.port);
+console.log('The magic happens on port ' + configDB.port);
 
 //catch 404 and forward to error handler
 app.use(function (req, res, next) {

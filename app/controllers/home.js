@@ -17,15 +17,15 @@ exports.loggedIn = function(req, res, next)
 }
 
 exports.home = function(req, res) {
-	
-	
-	res.render('home.ejs', {
+
+
+	res.render('index.ejs', {
 		error : req.flash("error"),
 		success: req.flash("success"),
 		session:req.session,
-	
+
 	 });
-	 
+
 }
 
 
@@ -50,7 +50,7 @@ exports.signup = function(req, res) {
 exports.login = function(req, res) {
 
 
-	
+
 	if (req.session.user) {
 
 		res.redirect('/home');
@@ -64,8 +64,5 @@ exports.login = function(req, res) {
 		});
 
 	}
-	
+
 }
-
-
-    
