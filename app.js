@@ -19,7 +19,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var dateFormat = require('dateformat');
 var now = new Date();
-
+var dummyData = require('./config/dummyUserData');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -27,9 +27,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 /***************Mongodb configuratrion********************/
 var mongoose = require('mongoose');
 var configDB = require('./config/database.js');
+var connPromise = mongoose.Promise = global.Promise;
 //configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+var conn = mongoose.connect(
+  configDB.mongoURL,
+  {useNewUrlParser: true},
+  (err) => {
+    if (err) {
+      console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
+      throw err;
+    }
 
+    dummyData();
+  });
 
 require('./config/passport')(passport); // pass passport for configuration
 
