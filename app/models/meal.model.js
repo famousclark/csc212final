@@ -3,8 +3,9 @@
 var mongoose = require('mongoose');
 
 //define the schema for our meal model
-var restaurantSchema = mongoose.Schema({
-	_id:{ type: Number, default: 1 },
+var mealSchema = mongoose.Schema({
+    _id:{ type: Number, default: 1 },
+    meal_id: String,
     name: String,
     description:String,
     r_code: String,//restaurant code
@@ -34,3 +35,8 @@ var restaurantSchema = mongoose.Schema({
 
 
 //methods ======================
+
+
+
+//create the model for users and expose it to our app
+module.exports = mongoose.model('meals', mealSchema);
