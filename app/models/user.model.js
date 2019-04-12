@@ -12,6 +12,20 @@ var userSchema = mongoose.Schema({
         date: Date,
         meal_id: String
     }],
+    balance:String,
+    spend_goal:[{
+        amount: String,
+        effective: Date,
+        expires: Date
+    }],
+    nutri_goal:[{
+        calories: Number,
+        carbs: Number,
+        fiber:Number,
+        effective: Date,
+        expires: Date
+    }],
+    avatar: String
 
 
 });
