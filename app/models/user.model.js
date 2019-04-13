@@ -12,7 +12,10 @@ var userSchema = mongoose.Schema({
         date: Date,
         meal_id: String
     }],
-    balance:String,
+    d_plan:{
+        plan: String,
+        balance:String
+    },
     spend_goal:[{
         amount: String,
         effective: Date,
@@ -25,7 +28,8 @@ var userSchema = mongoose.Schema({
         effective: Date,
         expires: Date
     }],
-    avatar: String
+    diet:String, // especial dietary restrictions
+    profile_pic: String
 
 
 });

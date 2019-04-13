@@ -9,6 +9,7 @@ var mealSchema = mongoose.Schema({
     name: String,
     description:String,
     r_code: String,//restaurant code
+    dinning_hall_item: Boolean, // is the item a dinning hall item
     allergens: [String],
     serve_amount: Number,// amount of serving
     nutrition:{
