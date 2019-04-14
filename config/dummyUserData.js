@@ -1,4 +1,5 @@
-const User = require('../app/models/home');
+const User = require('../models/home');
+
 
 module.exports = function () {
   User.estimatedDocumentCount().exec((err, count) => {

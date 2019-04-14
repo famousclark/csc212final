@@ -3,8 +3,8 @@
 var mongoose = require('mongoose');
 
 //define the schema for our restaurant model
-var restaurantSchema = mongoose.Schema({
-	_id:{ type: Number, default: 1 },
+var restaurantSchema = new mongoose.Schema({
+	//_id:{ type: Number, default: 1 },
 	name: String,
     type: String,
     location: String,

@@ -1,4 +1,12 @@
-var home = require('../app/controllers/home');
+var mongoose = require('mongoose');
+
+var home = require('../controllers/home');
+
+var ctrlRestaurant = require('../controllers/restaurant.controller');
+var ctrlUser = require('../controllers/user.controller');
+
+
+//mongoose.model('restaurants');
 
 //you can include all your controllers
 
@@ -31,5 +39,24 @@ module.exports = (app, passport, router) => {
 
 
     // process the login form
+
+    //routes for restaurants
+    router.get('/api/restaurant/get/all', ctrlRestaurant.getAllRestaurants);
+    router.post('/api/restaurant/add', ctrlRestaurant.saveRestaurant);
+    router.post('/api/restaurant/edit', ctrlRestaurant.editRestaurant);
+    router.post('/api/restaurant/delete', ctrlRestaurant.deleteRestaurants);
+    
+
+    //routes for user
+    router.post('/api/user/add', ctrlUser.saveUser);
+    router.get('/api/user/get/all', ctrlUser.getAllUsers);
+    router.get('/api/user/get/', ctrlUser.getUserByEmail);
+    router.post('/api/user/edit', ctrlUser.editUser);
+    router.post('/api/user/delete', ctrlUser.deleteUser);
+
+
+
+
+
 
 }

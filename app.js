@@ -5,6 +5,9 @@ var multer = require('multer')
 var constants = require('constants');
 var constant = require('./config/constants');
 
+ 
+
+
 
 //var cors = require('cors');
 var mongoose = require('mongoose');
@@ -20,7 +23,9 @@ var bodyParser = require('body-parser');
 var dateFormat = require('dateformat');
 var now = new Date();
 var dummyData = require('./config/dummyUserData');
+
 var router = express.Router();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -43,6 +48,7 @@ var conn = mongoose.connect(
   });
 
 require('./config/passport')(passport); // pass passport for configuration
+//require('./app/controllers/restaurant.controller');
 
 //set up our express application
 //app.use(cors());
