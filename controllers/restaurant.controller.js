@@ -58,7 +58,7 @@ module.exports.editRestaurant = (req,res,next) => {
                   type : req.body.type,
                   location : req.body.location,
                   campus : req.body.campus,
-                  r_code : req.body.r_code,
+                  r_code : req.body.r_code
                } 
         }, function (err, restaurant) {
 
@@ -67,7 +67,7 @@ module.exports.editRestaurant = (req,res,next) => {
                 res.send(restaurant);
         }
             else {
-              res.send(restaurant);
+              res.send(err);
             }
           }
         
@@ -75,7 +75,7 @@ module.exports.editRestaurant = (req,res,next) => {
 
 }
 
-module.exports.deleteRestaurants  = (req,res,next) => {
+module.exports.deleteRestaurant  = (req,res,next) => {
 
     Restaurant.remove({ r_code: req.body.r_code }, function(err) {
         if (!err) {

@@ -173,7 +173,7 @@ module.exports.addSpendGoal = (req,res,next) => {
     User.findOneAndUpdate(
         { email: req.body.email }, 
         { $addToSet: { 
-                nutri_goal: req.body.nutri_goal
+                nutri_goal: req.body.spend_goal
                } 
         },
         {new: true},

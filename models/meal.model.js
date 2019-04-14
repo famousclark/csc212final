@@ -4,13 +4,14 @@ var mongoose = require('mongoose');
 
 //define the schema for our meal model
 var mealSchema = mongoose.Schema({
-    _id:{ type: Number, default: 1 },
+    //_id:{ type: Number, default: 1 },
     meal_id: String,
     name: String,
     description:String,
     r_code: String,//restaurant code
     dinning_hall_item: Boolean, // is the item a dinning hall item
     allergens: [String],
+    diet_restrinctions: [String],
     serve_amount: Number,// amount of serving
     nutrition:{
         calories: Number,
