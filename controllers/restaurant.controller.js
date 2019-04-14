@@ -21,6 +21,17 @@ module.exports.saveRestaurant = (req,res,next) => {
     });
 }
 
+module.exports.getRestaurant = (req, res, next) => {
+    Restaurant.findOne({ r_code: req.body.r_code },
+        (err, restaurant) => {
+            if(!restaurant)
+                return res.status(404).json({ status: false, message: 'Restaurant record not found' });
+            else 
+                return res.status(200).send(restaurant);
+        }
+    );
+}
+
 module.exports.getAllRestaurants = (req,res) => {
 
     Restaurant.find().sort('-name').find(function (err, restaurants) {

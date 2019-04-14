@@ -8,4 +8,5 @@ class LoginContainer extends Component {
     return (
       <div>Hello</div>
     );
+  }
 }
