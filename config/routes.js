@@ -42,6 +42,7 @@ module.exports = (app, passport, router) => {
 
     //routes for restaurants
     router.get('/api/restaurant/get/all', ctrlRestaurant.getAllRestaurants);
+    router.get('/api/restaurant/get/', ctrlRestaurant.getRestaurant);
     router.post('/api/restaurant/add', ctrlRestaurant.saveRestaurant);
     router.post('/api/restaurant/edit', ctrlRestaurant.editRestaurant);
     router.post('/api/restaurant/delete', ctrlRestaurant.deleteRestaurants);
@@ -54,6 +55,17 @@ module.exports = (app, passport, router) => {
     router.post('/api/user/edit', ctrlUser.editUser);
     router.post('/api/user/delete', ctrlUser.deleteUser);
 
+    router.post('/api/user/add/meal', ctrlUser.addMeal);
+    router.post('/api/user/delete/meal', ctrlUser.deleteMeal);
+    router.get('/api/user/get/meal/all', ctrlUser.getMeals);
+
+    router.post('/api/user/edit/dplan', ctrlUser.editDiningPlan);
+
+    router.post('/api/user/add/spendgoal', ctrlUser.addSpendGoal);
+    router.get('/api/user/get/spendgoal/all', ctrlUser.getSpendGoals);
+
+    router.post('/api/user/add/nutrigoal', ctrlUser.addNutriGoal);
+    router.get('/api/user/get/nutrigoal/all', ctrlUser.getNutriGoals);
 
 
 
