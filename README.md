@@ -8,4 +8,5 @@
     "start": "node server.js",
     "server": "nodemon server.js",
 }
-3. 
+3. Added server.js in root file 
+4.  
