@@ -10,7 +10,7 @@ app.use(
 );
 app.use(bodyParser.json());
 // DB Config
-const db = require("./config/database").mongoURI;
+const db = require("./config/database").mongoURL;
 // Connect to MongoDB
 mongoose
   .connect(
@@ -21,4 +21,4 @@ mongoose
   .catch(err => console.log(err));
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port when we're ready to deploy
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
-mongoose.connect(config.DB,{ useNewUrlParser: true });
+//mongoose.connect(config.DB,{ useNewUrlParser: true });
