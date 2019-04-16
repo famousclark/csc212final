@@ -21,6 +21,10 @@ var userSchema = new mongoose.Schema({
         required: 'Password name can\'t be empty',
         minlength : [4,'Password must be at least 4 character long']
     },
+    date: {
+        type: Date,
+        default: Date.now
+    },
     meals:[{
         date: Date,
         meal_id: String
