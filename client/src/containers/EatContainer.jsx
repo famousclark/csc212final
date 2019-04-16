@@ -151,11 +151,10 @@ class EatContainer extends Component {
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                          Lizard
+                          Danforth
                         </Typography>
                         <Typography component="p">
-                          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                          across all continents except Antarctica
+                          Loreum ipseum
                         </Typography>
                       </CardContent>
                     </CardActionArea>
@@ -181,11 +180,10 @@ class EatContainer extends Component {
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                          Lizard
+                          Douglass
                         </Typography>
                         <Typography component="p">
-                          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                          across all continents except Antarctica
+                          Loreum ipseum
                         </Typography>
                       </CardContent>
                     </CardActionArea>
@@ -211,11 +209,10 @@ class EatContainer extends Component {
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                          Lizard
+                          Medical Center
                         </Typography>
                         <Typography component="p">
-                          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                          across all continents except Antarctica
+                          Loreum ipseum
                         </Typography>
                       </CardContent>
                     </CardActionArea>
@@ -241,11 +238,10 @@ class EatContainer extends Component {
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                          Lizard
+                          Pit
                         </Typography>
                         <Typography component="p">
-                          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                          across all continents except Antarctica
+                          Loreum ipseum
                         </Typography>
                       </CardContent>
                     </CardActionArea>
