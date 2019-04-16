@@ -2,23 +2,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// CSS -- not used
-import './index.css';
-
-import App from './App';
-
-// Store
-import { sagaMiddleware, configureStore } from './store/configure';
-
-// Sagas
-import rootSaga from './middleware/saga';
-
-const store: Object = configureStore();
-
-sagaMiddleware.run(rootSaga);
+// Containers
+import Root from './containers/Root';
 
 ReactDOM.render(
-  <App store = {store}/>,
+  <Root/>,
   document.getElementById('root')
 );
 
