@@ -11,6 +11,9 @@ import rootSaga from '../middleware/Saga';
 // Containers
 import RouterContainer from './RouterContainer';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+
 const store = configureStore();
 
 sagaMiddleware.run(rootSaga);
