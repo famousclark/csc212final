@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Restaurant from '@material-ui/icons/Restaurant';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+
 function TabContainer({ children, dir }) {
   return (
     <Typography component="div" dir={dir}>
@@ -19,10 +22,19 @@ function TabContainer({ children, dir }) {
 
 const styles = theme => ({
   icon: {
-    fontSize: 170,
+    fontSize: 180,
+    paddingTop: "50px",
     display: "block",
     marginLeft: "auto",
     marginRight: "auto"
+  },
+  progress: {
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "-170px",
+    zIndex: 1,
+    margin: theme.spacing.unit * 2,
   }
 });
 
@@ -57,6 +69,7 @@ class BudgetContainer extends Component {
         </Paper>
         <Paper levation={4}>
           <Restaurant className={classes.icon}/>
+          <CircularProgress className={classes.progress} variant="static" value={25} size={200} thickness={5}/>
           <Typography align="center" variant="h5" style={{ padding: "24px" }}>
             $ 6.65/25
           </Typography>
