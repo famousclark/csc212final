@@ -103,7 +103,6 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -183,7 +182,7 @@ class LoginContainer extends Component {
 
   render() {
     const { classes, theme } = this.props;
-    const { open } = this.state;
+    const { open, value } = this.state;
 
     const drawer = (
       <div>
@@ -300,14 +299,14 @@ class LoginContainer extends Component {
         <main
           className={classNames(classes.content, {[classes.contentShift]: open && !(theme.breakpoints.up('sm'))})}>
           {/*<div className={classes.drawerHeader} />*/}
-          <SwipeableViews
+          {/*<SwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={this.state.value}
-            onChangeIndex={this.handleChangeIndex}>
-            <BudgetContainer dir={theme.direction}/>
-            <EatContainer dir={theme.direction}/>
-            <CommunityContainer dir={theme.direction}/>
-          </SwipeableViews>
+            onChangeIndex={this.handleChangeIndex}>*/}
+            {value === 0 && <BudgetContainer open={open} dir={theme.direction}/>}
+            {value === 1 &&<EatContainer open={open} dir={theme.direction}/>}
+            {value === 2 &&<CommunityContainer open={open} dir={theme.direction}/>}
+          {/*</SwipeableViews>*/}
           <div className={classes.drawerHeader} />
         </main>
       </div>
