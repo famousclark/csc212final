@@ -6,10 +6,22 @@ var mongoose = require('mongoose');
 var restaurantSchema = new mongoose.Schema({
 	//_id:{ type: Number, default: 1 },
 	name: String,
-    type: String,
+    type: {
+        type: String,
+        enum:['DINNING_HALL', 'PIT']
+    },
     location: String,
-    campus: String,
-    r_code: String
+    campus:  {
+        type: String,
+        enum:['RIVER_C', 'EASTMAN', 'URMC']
+    },
+    r_code: {
+        type: Number,
+        min : 1000,
+        max : 9999,
+        unique: true,
+        index: true
+    }
 });
 
 

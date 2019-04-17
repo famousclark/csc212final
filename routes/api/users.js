@@ -17,17 +17,17 @@ var ctrlUser= require('../../controllers/user.controller');
 
 //routes
 
-router.post('/add', ctrlUser.saveUser); /* Adds a new user. JSON body payload format :: {"email":"someString", "name":"someString", "password":"someString", "d_plan":"someString", "diet":"someString"}*/
+//router.post('/add', ctrlUser.saveUser); /* Adds a new user. JSON body payload format :: {"email":"someString", "name":"someString", "password":"someString", "d_plan":"some enum (see model)", "diet":"[Array of enums (see model)]"}*/
 router.get('/get/all', ctrlUser.getAllUsers); /* Returns all users. JSON body payload format :: {}*/
 router.get('/get/', ctrlUser.getUserByEmail); /* Returns an user matching the given email. JSON body payload format :: {"email":"someEmail"}*/
-router.post('/edit', ctrlUser.editUser); /* Edits an user matching the given email. JSON body payload format :: {"email":"someString", "name":"someString", "password":"someString", "meals":[Array of objects(see model)], "d_plan":"someString", "spend_goal":[Array of objects(see model)], "nutri_goal":[Array of objects(see model)], "diet":"someString", "profile_pic":"someString" }*/
+router.post('/edit', ctrlUser.editUser); /* Edits an user matching the given email. JSON body payload format :: {"email":"someString", "name":"someString", "password":"someString", "meals":[Array of objects(see model)], "d_plan":"some enum (see model)", "spend_goal":[Array of objects(see model)], "nutri_goal":[Array of objects(see model)], "diet":[Array of enums (see model)], "profile_pic":"someString" }*/
 router.post('/delete', ctrlUser.deleteUser);/* Deletes a user matching the given email. JSON body payload format :: {"email":"someEmail"}*/
 
 router.post('/add/meal', ctrlUser.addMeal);   /* Adds a meal to an user matching the given email. JSON body payload format :: {"email":"someEmail, "meal":{meal_id:"someString", "date":"a date"}}*/
 router.post('/delete/meal', ctrlUser.deleteMeal); /* Deletes a meal from an user matching the given email. JSON body payload format :: {"email":"someEmail, "meal_id":"someString"}*/
 router.get('/get/meal/all', ctrlUser.getMeals); /* Returns all meals of a user matching the given email. JSON body payload format :: {"email":"someEmail"}*/
 
-router.post('/edit/dplan', ctrlUser.editDiningPlan); /* Edits the dining plan of a user matching the given email. JSON body payload format :: {"email":"someEmail", "d_plan":"someString"}*/
+router.post('/edit/dplan', ctrlUser.editDiningPlan); /* Edits the dining plan of a user matching the given email. JSON body payload format :: {"email":"someEmail", "d_plan":"some enum (see model)"}*/
 
 router.post('/add/spendgoal', ctrlUser.addSpendGoal);  /* Adds a spending goal to an user matching the given email. JSON body payload format :: {"email":"someEmail, "spend_goal":{"amount":"someString", "effective":"a date", "expires":"a date"}}*/
 router.get('/get/spendgoal/all', ctrlUser.getSpendGoals); /* Returns all spending goals of a user matching the given email. JSON body payload format :: {"email":"someEmail"}*/
@@ -57,7 +57,15 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+
+        d_plan : req.body.d_plan,
+        diet : req.body.diet,
+
+        meals : [],
+        spend_goal: [],
+        nutri_goal: [],
+        profile_pic:  "some url"
       });
 
       // Hash password before saving in database
