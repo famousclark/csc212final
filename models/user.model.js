@@ -30,7 +30,7 @@ var userSchema = new mongoose.Schema({
             type: Date,
             default: Date.now
         },
-        meal_id: String
+        meal_id: Number
     }],
     d_plan:{
         plan: {
@@ -51,6 +51,7 @@ var userSchema = new mongoose.Schema({
         calories: Number,
         carbs: Number,
         fiber:Number,
+        fat: Number,
         effective: {
             type: Date,
             default: Date.now

@@ -8,7 +8,7 @@ var restaurantSchema = new mongoose.Schema({
 	name: String,
     type: {
         type: String,
-        enum:['DINNING_HALL', 'PIT']
+        enum:['DINNING_HALL', 'PIT', 'GROCERY', 'CAFE', 'OTHER']
     },
     location: String,
     campus:  {
@@ -20,6 +20,7 @@ var restaurantSchema = new mongoose.Schema({
         min : 1000,
         max : 9999,
         unique: true,
+        required: true,
         index: true
     }
 });
