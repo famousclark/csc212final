@@ -41,7 +41,7 @@ app.use("/api/reviews", reviews);
 
 
 
-//const seed= require("./seed/seeder");
+const seed= require("./seed/seeder");
 
 
 

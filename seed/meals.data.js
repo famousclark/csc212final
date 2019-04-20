@@ -1,10 +1,39 @@
 
 module.exports.mealSeed=[
     {      
+        meal_id:1205,
+        name : "Shrimp Po' Boy",
+        description: "",
+        r_code: 1211,
+        dinning_hall_item: true,
+        allergens: [],
+        diet_restrinctions: [],
+        serve_amount: 5,// amount of serving
+        nutrition:{
+            calories: 270,
+            calories_fat: 70, 
+            fat: {
+                total: 2, 
+                saturated: 0, 
+                trans: 0
+            }, 
+            cholesterol: 40, 
+            sodium: 400, 
+            carbs:{
+                total: 20, 
+                fiber: 0, 
+                sugars: 10
+            }, 
+            proteins: 9
+        },
+        image:"",
+        price:"0"
+    },
+    {      
         meal_id:1223,
         name : "BBQ Glazed Chicken",
         description: "",
-        r_code: "1212",
+        r_code: 1212,
         dinning_hall_item: true,
         allergens: [],
         diet_restrinctions: [],
@@ -33,7 +62,7 @@ module.exports.mealSeed=[
         meal_id:1240,
         name : "Chow Mein with Orange Chicken",
         description: "",
-        r_code: "1204",
+        r_code: 1204,
         dinning_hall_item: false,
         allergens: ['peanut'],
         diet_restrinctions: [],
@@ -62,7 +91,7 @@ module.exports.mealSeed=[
         meal_id:1224,
         name : "Vegetable Bean Soup",
         description: "",
-        r_code: "1212",
+        r_code: 1212,
         dinning_hall_item: true,
         allergens: [],
         diet_restrinctions: ['vegan', 'gluten'],
@@ -91,7 +120,7 @@ module.exports.mealSeed=[
         meal_id:1245,
         name : "Italian Sub - 6\"",
         description: "",
-        r_code: "1201",
+        r_code: 1201,
         dinning_hall_item: false,
         allergens: [],
         diet_restrinctions: [],
@@ -121,10 +150,10 @@ module.exports.mealSeed=[
         meal_id:1246,
         name : "Veggie Sub - 6\"",
         description: "",
-        r_code: "1201",
+        r_code: 1201,
         dinning_hall_item: false,
         allergens: [],
-        diet_restrinctions: [],
+        diet_restrinctions: ['veggie'],
         serve_amount: 290,// amount of serving
         nutrition:{
             calories: 350,
@@ -148,13 +177,13 @@ module.exports.mealSeed=[
     },
 
     {      
-        meal_id:1246,
-        name : "Veggie Sub - 6\"",
+        meal_id:1247,
+        name : "Vegan Sub - 6\"",
         description: "",
-        r_code: "1201",
+        r_code: 1201,
         dinning_hall_item: false,
         allergens: [],
-        diet_restrinctions: [],
+        diet_restrinctions: ['vegan'],
         serve_amount: 290,// amount of serving
         nutrition:{
             calories: 350,
@@ -181,11 +210,11 @@ module.exports.mealSeed=[
         meal_id:1255,
         name : "Rice Bowl - No Meat",
         description: "",
-        r_code: "1207",
+        r_code: 1207,
         dinning_hall_item: false,
         allergens: [],
         diet_restrinctions: [],
-        serve_amount: 300,// amount of serving
+        serve_amount: 500,// amount of serving
         nutrition:{
             calories: 350,
             calories_fat: 11, 
@@ -211,11 +240,11 @@ module.exports.mealSeed=[
         meal_id:1256,
         name : "Rice Bowl - Meat",
         description: "",
-        r_code: "1207",
+        r_code: 1207,
         dinning_hall_item: false,
         allergens: [],
         diet_restrinctions: [],
-        serve_amount: 330,// amount of serving
+        serve_amount: 530,// amount of serving
         nutrition:{
             calories: 460,
             calories_fat: 12, 
@@ -236,5 +265,122 @@ module.exports.mealSeed=[
         image:"",
         price:"7.50"
     },
+    {      
+        meal_id:1201,
+        name : "Made-to-Order Pasta - Pesto Penne ",
+        description: "",
+        r_code: 1212,
+        dinning_hall_item: true,
+        allergens: [],
+        diet_restrinctions: [],
+        serve_amount: 100,// amount of serving
+        nutrition:{
+            calories: 230,
+            calories_fat: 10, 
+            fat: {
+                total: 3, 
+                saturated: 0, 
+                trans: 0
+            }, 
+            cholesterol: 30, 
+            sodium: 100, 
+            carbs:{
+                total: 13, 
+                fiber: 0, 
+                sugars: 4
+            }, 
+            proteins: 4
+        },
+        image:"",
+        price:"0"
+    },
+    {      
+        meal_id:1202,
+        name : "Fresh Cheese Pizza",
+        description: "",
+        r_code: 1212,
+        dinning_hall_item: true,
+        allergens: [],
+        diet_restrinctions: [],
+        serve_amount: 40,// amount of serving
+        nutrition:{
+            calories: 240,
+            calories_fat: 70, 
+            fat: {
+                total: 8, 
+                saturated: 4, 
+                trans: 0
+            }, 
+            cholesterol: 15, 
+            sodium: 740, 
+            carbs:{
+                total: 30, 
+                fiber: 2, 
+                sugars: 0
+            }, 
+            proteins: 14
+        },
+        image:"",
+        price:"0"
+    },
+    {      
+        meal_id:1203,
+        name : "Allergen-Free Chicken Pad Thai",
+        description: "",
+        r_code: 1212,
+        dinning_hall_item: true,
+        allergens: [],
+        diet_restrinctions: [],
+        serve_amount: 30,// amount of serving
+        nutrition:{
+            calories: 770,
+            calories_fat: 15, 
+            fat: {
+                total: 2, 
+                saturated: 0, 
+                trans: 0
+            }, 
+            cholesterol: 40, 
+            sodium: 5500, 
+            carbs:{
+                total: 14, 
+                fiber: 0, 
+                sugars: 12
+            }, 
+            proteins: 47
+        },
+        image:"",
+        price:"0"
+    },
 
+    {      
+        meal_id:1205,
+        name : "Buffalo Blue Chicken Panini",
+        description: "",
+        r_code: 1211,
+        dinning_hall_item: true,
+        allergens: [],
+        diet_restrinctions: [],
+        serve_amount: 5,// amount of serving
+        nutrition:{
+            calories: 370,
+            calories_fat: 170, 
+            fat: {
+                total: 2, 
+                saturated: 0, 
+                trans: 0
+            }, 
+            cholesterol: 40, 
+            sodium: 500, 
+            carbs:{
+                total: 29, 
+                fiber: 0, 
+                sugars: 12
+            }, 
+            proteins: 16
+        },
+        image:"",
+        price:"0"
+    }
+  
 ];

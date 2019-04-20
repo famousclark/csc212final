@@ -22,6 +22,11 @@ var reviewSchema = new mongoose.Schema({
         type: Number,
         min : 1000,
         max : 9999,
+    },
+    date:{
+        type : Date,
+        default: Date.now()
+
     }
 });
 
