@@ -38,7 +38,7 @@ app.use("/api/restaurants", restaurants);
 app.use("/api/meals", meals);
 
 
-const seed= require("./seed/seeder");
+//const seed= require("./seed/seeder");
 
 
 

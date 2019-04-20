@@ -9,6 +9,8 @@ router.post('/add', ctrlMeal.saveMeal); /* Adds a new meal. JSON body payload fo
 router.post('/edit', ctrlMeal.editMeal); /* Edits a meal matching the given meal id. JSON body payload format :: { "name":"someString", "description":"someString", "r_code":"number between 1000-9999", "dinning_hall_item":"someString" , "allergens":[Array of Strings], "diet_restrinctions":[Array of Strings], "serve_amount":"a number", "nutrition":{Object (see model)}, "image":"someString", "price":"someString"}*/
 router.post('/delete', ctrlMeal.deleteMeal); /* Deletes a meal matching the given meal id. JSON body payload format :: {"meal_id":"number between 1000-9999"}*/
 
+router.get('/get', ctrlMeal.getMealsByRestaurants); /* Returns a restaurant matching the given a restaurant code. JSON body payload format :: {"r_code":"number between 1000-9999"}*/
+
 
 
 module.exports = router;
