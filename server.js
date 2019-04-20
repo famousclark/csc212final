@@ -6,6 +6,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const restaurants = require("./routes/api/restaurants");
 const meals = require("./routes/api/meals");
+const reviews = require("./routes/api/reviews");
 
 
 
@@ -36,6 +37,8 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/restaurants", restaurants);
 app.use("/api/meals", meals);
+app.use("/api/reviews", reviews);
+
 
 
 //const seed= require("./seed/seeder");

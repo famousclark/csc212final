@@ -23,6 +23,13 @@ module.exports.restaurantSeed=[
         r_code: "1204"
     } ,   
     {      
+        name : "Freshens",
+        type : "PIT",
+        location: "Wilson Commons",
+        campus : "RIVER_C",
+        r_code: "1207"
+    } , 
+    {      
         name : "Starbucks",
         type : "CAFE",
         location: "Wilson Commons",
