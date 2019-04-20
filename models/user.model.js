@@ -26,26 +26,49 @@ var userSchema = new mongoose.Schema({
         default: Date.now
     },
     meals:[{
-        date: Date,
-        meal_id: String
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        meal_id: Number
     }],
     d_plan:{
-        plan: String,
+        plan: {
+                type: String,
+                enum:['MelUlm', 'BlueUlm', '150Pass', 'OptionA', 'OptionB', 'OptionC', 'OptionD', 'Com']
+            },
         balance:String
     },
     spend_goal:[{
         amount: String,
-        effective: Date,
+        effective: {
+            type: Date,
+            default: Date.now
+        },
         expires: Date
     }],
     nutri_goal:[{
         calories: Number,
         carbs: Number,
         fiber:Number,
-        effective: Date,
+        fat: Number,
+        effective: {
+            type: Date,
+            default: Date.now
+        },
         expires: Date
     }],
-    diet:String, // especial dietary restrictions
+    diet:[{ // especial dietary restrictions
+        type: String,        
+        enum:[
+            'peanut', //peanut allergy
+            'gluten', // gluten allergy
+            'veg', 
+            'vegan', 
+            'halal',
+            'kosher'
+        ]
+    }],
     profile_pic: String
 
 

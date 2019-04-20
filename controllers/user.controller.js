@@ -65,7 +65,7 @@ module.exports.editUser = (req,res,next) => {
                   spend_goal : req.body.spend_goal,
                   nutri_goal : req.body.nutri_goal,
                   diet : req.body.diet,
-                  profile_pic : req.body.profile_pic,
+                  profile_pic : req.body.profile_pic
 
                } 
         }, function (err, user) {

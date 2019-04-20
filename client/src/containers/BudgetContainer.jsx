@@ -86,6 +86,7 @@ class BudgetContainer extends Component {
 
   render(){
     const { classes, theme, dir, open} = this.props;
+    const { value } = this.state;
     return(
       <TabContainer className={classes.root} dir={dir}>
         <AppBar
@@ -108,11 +109,13 @@ class BudgetContainer extends Component {
           </Toolbar>
         </AppBar>
         <section className={classes.content}>
-          <SwipeableViews
+          {/*<SwipeableViews
             className={classes.tabsContainer}
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={this.state.value}
             onChangeIndex={this.handleChangeIndex}>
+            <TabContainer dir={theme.direction}>*/}
+            {value === 0 &&
             <TabContainer dir={theme.direction}>
               <Paper levation={5}>
                 <Typography align="center" variant="h6" style={{ padding: "24px" }}>
@@ -147,7 +150,8 @@ class BudgetContainer extends Component {
                   ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
                 </Typography>
               </Paper>
-            </TabContainer>
+            </TabContainer>}
+            {value === 1 &&
             <TabContainer dir={theme.direction}>
               <Paper levation={5}>
                 <Typography align="center" variant="h6" style={{ padding: "24px" }}>
@@ -182,7 +186,8 @@ class BudgetContainer extends Component {
                   ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
                 </Typography>
               </Paper>
-            </TabContainer>
+            </TabContainer>}
+            {value === 2 &&
             <TabContainer dir={theme.direction}>
               <Paper levation={5}>
                 <Typography align="center" variant="h6" style={{ padding: "24px" }}>
@@ -190,13 +195,11 @@ class BudgetContainer extends Component {
                 </Typography>
               </Paper>
               <Paper levation={4}>
-
                 <Restaurant className={classes.icon}/>
                 <CircularProgress className={classes.progress} variant="static" value={75} size={200} thickness={5}/>
                 <Typography align="center" variant="h5" style={{ padding: "24px" }}>
                   $ 6.65/25
                 </Typography>
-
               </Paper>
               <Paper style={{ background: "#FFF"}} levation={3}>
                 <Typography align="center" style={{ padding: "24px" }}>
@@ -217,8 +220,8 @@ class BudgetContainer extends Component {
                   ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
                 </Typography>
               </Paper>
-            </TabContainer>
-          </SwipeableViews>
+            </TabContainer>}
+          {/*</SwipeableViews>*/}
         </section>
       </TabContainer>
     );

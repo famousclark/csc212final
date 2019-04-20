@@ -25,6 +25,7 @@ const styles = theme => ({
     fontSize: 170,
     display: "block",
     marginLeft: "auto",
+    
     marginRight: "auto"
   }
 });

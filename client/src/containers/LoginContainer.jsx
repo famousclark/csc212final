@@ -308,7 +308,7 @@ class LoginContainer extends Component {
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={this.state.value}
             onChangeIndex={this.handleChangeIndex}>*/}
-            {value === 0 && <BudgetContainer open={open} dir={theme.direction}/>}
+            {value === 0 &&<BudgetContainer open={open} dir={theme.direction}/>}
             {value === 1 &&<EatContainer open={open} dir={theme.direction}/>}
             {value === 2 &&<CommunityContainer open={open} dir={theme.direction}/>}
           {/*</SwipeableViews>*/}

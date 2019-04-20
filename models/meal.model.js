@@ -5,10 +5,20 @@ var mongoose = require('mongoose');
 //define the schema for our meal model
 var mealSchema = mongoose.Schema({
     //_id:{ type: Number, default: 1 },
-    meal_id: String,
+    meal_id: {
+        type: Number,
+        min : 1000,
+        max : 9999,
+        unique: true,
+        index: true
+    },
     name: String,
     description:String,
-    r_code: String,//restaurant code
+    r_code: {
+        type: Number,
+        min : 1000,
+        max : 9999
+    },//restaurant code
     dinning_hall_item: Boolean, // is the item a dinning hall item
     allergens: [String],
     diet_restrinctions: [String],

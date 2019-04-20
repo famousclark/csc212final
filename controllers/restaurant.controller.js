@@ -13,10 +13,10 @@ module.exports.saveRestaurant = (req,res,next) => {
 
     restaurant.save((err, restaurant) => {
         if(!err) {
-            res.send(restaurant);
+            res.status(200).send(restaurant);
         }
         else {
-            return next(err);
+            res.status(500).send(err);
         }
     });
 }
