@@ -77,7 +77,6 @@ function TabContainer({ children, dir }) {
       marginRight: "auto"
     },
     card: {
-
     },
     media: {
       height: 140,
@@ -183,7 +182,7 @@ class EatContainer extends Component {
                           Douglass
                         </Typography>
                         <Typography component="p">
-                          Loreum ipseum
+                          Lunch Hours until 3:30PM
                         </Typography>
                       </CardContent>
                     </CardActionArea>
@@ -212,7 +211,7 @@ class EatContainer extends Component {
                           Medical Center
                         </Typography>
                         <Typography component="p">
-                          Loreum ipseum
+                          Open until 6 PM
                         </Typography>
                       </CardContent>
                     </CardActionArea>
@@ -241,7 +240,7 @@ class EatContainer extends Component {
                           Pit
                         </Typography>
                         <Typography component="p">
-                          Loreum ipseum
+                          Open until 11 PM
                         </Typography>
                       </CardContent>
                     </CardActionArea>

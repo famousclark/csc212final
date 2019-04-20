@@ -29,8 +29,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-
-import Restaurant from '@material-ui/icons/Restaurant';
+import BudgetIcon from '@material-ui/icons/Assessment'
+import EatIcon from '@material-ui/icons/Restaurant';
+import CommunityIcon from '@material-ui/icons/People'
+import ProfileIcon from '@material-ui/icons/Person'
+import LogOutIcon from '@material-ui/icons/ExitToApp'
 
 import BudgetContainer from './BudgetContainer';
 import EatContainer from './EatContainer';
@@ -188,9 +191,11 @@ class LoginContainer extends Component {
       <div>
         <div className={classes.topper} />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Eat', 'Budget', 'Community'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon style={{color: "#fff" }} >{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon style={{color: "#fff" }} >
+              {index == 1 ? <BudgetIcon /> : index == 0 ? <EatIcon/> : <CommunityIcon/>}
+              </ListItemIcon>
               <ListItemText
                 disableTypography={false}
                 primaryTypographyProps={{
@@ -204,9 +209,9 @@ class LoginContainer extends Component {
         </List>
         <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['My Profile', 'Log Out'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon style={{color: "#fff" }} >{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon style={{color: "#fff" }} >{index % 2 === 0 ? <ProfileIcon /> : <LogOutIcon />}</ListItemIcon>
               <ListItemText
                 disableTypography={false}
                 primaryTypographyProps={{
