@@ -7,7 +7,7 @@ router.get('/get/all', ctrlRestaurant.getAllRestaurants); /* Returns all restaur
 router.get('/get/', ctrlRestaurant.getRestaurant); /* Returns a restaurant matching the given restaurant code. JSON body payload format :: {"number between 1000-9999":"someString"}*/
 router.post('/add', ctrlRestaurant.saveRestaurant); /* Adds a new restaurant. JSON body payload format :: {"r_code":"number between 1000-9999", "name":"someString", "location":"someString", "campus":"some enum (see model)", "type":"some enum (see model)"}*/
 router.post('/edit', ctrlRestaurant.editRestaurant); /* Edits a  restaurant matching the given restaurant code. JSON body payload format :: {"r_code":"number between 1000-9999", "name":"someString", "location":"someString", "campus":"some enum (see model)", "type":"some enum (see model)"}*/
-router.post('/r', ctrlRestaurant.deleteRestaurant); /* Deletes a restaurant matching the given restaurant code. JSON body payload format :: {"r_code":"number between 1000-9999"}*/
+router.post('/delete', ctrlRestaurant.deleteRestaurant); /* Deletes a restaurant matching the given restaurant code. JSON body payload format :: {"r_code":"number between 1000-9999"}*/
 
 
 
