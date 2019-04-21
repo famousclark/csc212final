@@ -55,6 +55,10 @@ export const DELETE_RESTAURANT: string = 'DELETE_RESTAURANT';
 export const RESTAURANT_DELETED: string = 'RESTAURANT_DELETED';
 
 export const GET_ALL_REVIEWS: string = 'GET_ALL_REVIEWS';
+export const ALL_REVIEWS_LOADED: string = 'ALL_REVIEWS_LOADED';
 export const GET_REVIEW_BY_REVIEW: string = 'GET_REVIEW_BY_REVIEW';
+export const REVIEW_BY_REVIEW_LOADED: string = 'REVIEW_BY_REVIEW_LOADED';
 export const GET_REVIEW_BY_RESTAURANT: string = 'GET_REVIEW_BY_RESTAURANT';
+export const REVIEW_BY_RESTAURANT_LOADED: string = 'REVIEW_BY_RESTAURANT_LOADED';
 export const ADD_REVIEW: string = 'ADD_REVIEW';
+export const REVIEW_ADDED: string = 'REVIEW_ADDED';
