@@ -40,17 +40,14 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
     this.hasAdminBackend = true;
   }
 
-  addUser(userInfo: Object): Promise {
-    const body = JSON.stringify(userInfo);
-    return this._post(ADD_USER_ENDPOINT, body, {
-      headers: { "Content-Type": "application/json" }
-    })
+  getUser(email: String): Promise {
+    return this._get(GET_USER_ENDPOINT + email, {})
       .then(result => result)
       .catch(error => console.log(error));
   }
 
-  deleteUser(email: String): Promise {
-    return this._delete(DELETE_USER_ENDPOINT + email, {})
+  getAllUsers(): Promise {
+    return this._get(GET_ALL_USERS_ENDPOINT, {})
       .then(result => result)
       .catch(error => console.log(error));
   }
@@ -62,14 +59,16 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
       .catch(error => console.log(error));
   }
 
-  getUser(email: String): Promise {
-    return this._get(GET_USER_ENDPOINT + email, {})
+  deleteUser(email: String): Promise {
+    return this._delete(DELETE_USER_ENDPOINT + email, {})
       .then(result => result)
       .catch(error => console.log(error));
   }
-
-  getAllUsers(): Promise {
-    return this._get(GET_ALL_USERS_ENDPOINT, {})
+  addUser(userInfo: Object): Promise {
+    const body = JSON.stringify(userInfo);
+    return this._post(ADD_USER_ENDPOINT, body, {
+      headers: { "Content-Type": "application/json" }
+    })
       .then(result => result)
       .catch(error => console.log(error));
   }

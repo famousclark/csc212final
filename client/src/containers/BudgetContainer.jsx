@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,6 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Restaurant from '@material-ui/icons/Restaurant';
 import Table from '@material-ui/core/Table';
 import { TableRow, TableCell } from "@material-ui/core";
+
+import * as ActionCreators from '../actions/Actions';
 
 
 function TabContainer({ children, dir }) {
@@ -73,13 +76,45 @@ class BudgetContainer extends Component {
     super(props);
     // (this : any).handleChange = this.handleChange.bind(this);
     // (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
+    (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
 
       this.state = {
-        user: {}
+        userInfo: null
       };
+  }
+  loadAsyncUserData = (userEmail) =>  new Promise( (resolve, reject) => {
+    setTimeout( () => {
+      this.props.getUser(userEmail);
+      resolve(this.props.userInfo);
+    }, 1000)
+  });
+
+  loadAsyncMealData = (userEmail) =>  new Promise( (resolve, reject) => {
+    setTimeout( () => {
+      this.props.getMeal(userEmail);
+      resolve(this.props.userInfo);
+    }, 1000)
+  });
+
+  handleLoadAsync = async () => {
+    this._asyncRequest = this.loadAsyncUserData("1111@gmail.com")
+    .then(
+      userInfo => {
+        this.setState({userInfo});
+      }
+    )
+    .then( () => {
+      setTimeout ( () => {
+        console.log(this.props.userInfo);
+        console.log(this.state.userInfo);
+      }, 1000)
+    });
   }
 
   componentDidMount() {
+    this.handleLoadAsync();
+    //console.log(this.state);
+    /*
     fetch("localhost:5000/api/users/get/",
     { method: 'GET',
       body: '{email : "1111@gmail.com"}',
@@ -100,11 +135,15 @@ class BudgetContainer extends Component {
           });
         }
       )
+      */
   }
 
   render(){
-    const { classes, theme, dir, open} = this.props;
-    const { value, user } = this.state;
+    const { classes, theme, dir, open, userInfo} = this.props;
+    //const { userInfo } = this.props;
+    if (this.state.userInfo == userInfo) {
+      console.log(this.state.userInfo);
+    }
     return(
       <TabContainer className={classes.root} dir={dir}>
         <AppBar
@@ -112,27 +151,30 @@ class BudgetContainer extends Component {
           color="white"
           elevation="0"
           className={classes.appBar}>
-           <Typography align="center" variant="h6" style={{ padding: "12px" }}>
-                  UR EATS
-            </Typography>
+          <Typography
+            align="center"
+            variant="h6"
+            style={{ padding: "12px" }}>
+              UR EATS
+          </Typography>
         </AppBar>
         <section className={classes.content}>
-        <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))"}}>
-              {/* <Paper elevation={0}> */}
-              <Typography align="center" variant="body1" style={{padding: "40px" }}>
-                Declining Left to Spend Today:
-                <Typography align="center" variant="h2" style={{ padding: "24px" }}>
-                $ 6.65
-                </Typography>
+          <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))"}}>
+            {/* <Paper elevation={0}> */}
+            <Typography align="center" variant="body1" style={{padding: "40px" }}>
+              Declining Left to Spend Today:
+              <Typography align="center" variant="h2" style={{ padding: "24px" }}>
+              $ 6.65
               </Typography>
+            </Typography>
 
-              <Typography align="center" style={{ padding: "24px" }}>
-                  You are doing great, {user.name}. Keep up UR healthy eats
-              </Typography>
+            <Typography align="center" style={{ padding: "24px" }}>
+                You are doing great, {userInfo.name}. Keep up UR healthy eats
+            </Typography>
 
 
-              {/* <Paper style={{}} elevation={2}> */}
-              <Table className={classes.table}>
+            {/* <Paper style={{}} elevation={2}> */}
+            <Table className={classes.table}>
               <TableRow>
                 <TableCell style={{padding: "0px 0px 20px 20px"}}>
                 <div className={classes.detailHeading}>
@@ -162,30 +204,30 @@ class BudgetContainer extends Component {
                   </div>
                 </TableCell>
               </TableRow>
-              </Table>
+            </Table>
 
-              {/* <Typography style={{ padding: "24px" }}>
-                 Meal Plan
-                 <span style={{float:"right"}}>Option A Declining</span>
-                </Typography>
-                <Typography style={{ padding: "24px" }}>
-                 Daily Budget
-                 <span style={{float:"right"}}>30.00</span>
-                </Typography>
-                <Typography style={{ padding: "24px" }}>
-                 URos
-                 <span style={{float:"right"}}>32.12</span>
-                </Typography>
-                <Typography style={{ padding: "24px" }}>
-                 Declining
-                 <span style={{float:"right"}}>980.30</span>
-                </Typography>
-                <Typography style={{ padding: "24px" }}>
-                 Swipes
-                 <span style={{float:"right"}}>0</span>
-                </Typography> */}
-              {/* </Paper> */}
-            </div>
+            {/* <Typography style={{ padding: "24px" }}>
+               Meal Plan
+               <span style={{float:"right"}}>Option A Declining</span>
+              </Typography>
+              <Typography style={{ padding: "24px" }}>
+               Daily Budget
+               <span style={{float:"right"}}>30.00</span>
+              </Typography>
+              <Typography style={{ padding: "24px" }}>
+               URos
+               <span style={{float:"right"}}>32.12</span>
+              </Typography>
+              <Typography style={{ padding: "24px" }}>
+               Declining
+               <span style={{float:"right"}}>980.30</span>
+              </Typography>
+              <Typography style={{ padding: "24px" }}>
+               Swipes
+               <span style={{float:"right"}}>0</span>
+              </Typography> */}
+            {/* </Paper> */}
+          </div>
 
         </section>
       </TabContainer>
@@ -193,4 +235,16 @@ class BudgetContainer extends Component {
   }
 }
 
-export default withStyles(styles,{ withTheme: true })(BudgetContainer);
+function mapStateToProps(state) {
+  return {
+    userInfo: state.app.userInfo,
+    mealInfo: state.app.mealInfo,
+    restaurantInfo: state.app.restaurantInfo
+  }
+}
+
+function mapActionCreatorsToProps(dispatch: Object) {
+  return bindActionCreators(ActionCreators, dispatch);
+}
+
+export default connect(mapStateToProps, mapActionCreatorsToProps)(withStyles(styles,{ withTheme: true })(BudgetContainer));

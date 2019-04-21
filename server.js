@@ -6,12 +6,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const restaurants = require("./routes/api/restaurants");
 const meals = require("./routes/api/meals");
-<<<<<<< HEAD
 const cors = require('cors');
-=======
-const reviews = require("./routes/api/reviews");
-
->>>>>>> 92d1f0449d0a2c210f0bc99d5b70daf397014f23
 
 
 const app = express();

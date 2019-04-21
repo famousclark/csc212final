@@ -26,10 +26,17 @@ export const EDIT_MEAL_ENDPOINT: string = 'http://localhost:5000/api/meals/edit/
 export const DELETE_MEAL_ENDPOINT: string = 'http://localhost:5000/api/meals/delete/';
 /*============MEAL endpoints=============*/
 
-/*============MEAL endpoints=============*/
+/*============RESTAURANTS endpoints=============*/
 export const GET_ALL_RESTAURANTS_ENDPOINT: string ='http://localhost:5000/api/restaurants/get/all/';
 export const GET_RESTAURANT_ENDPOINT: string = 'http://localhost:5000/api/restaurants/get/';
 export const ADD_RESTAURANT_ENDPOINT: string = 'http://localhost:5000/api/restaurants/add/';
 export const EDIT_RESTAURANT_ENDPOINT: string = 'http://localhost:5000/api/restaurants/edit/';
 export const DELETE_RESTAURANT_ENDPOINT: string = 'http://localhost:5000/api/restaurants/delete/';
-/*============MEAL endpoints=============*/
+/*============RESTAURANTS endpoints=============*/
+
+/*============REVIEW endpoints=============*/
+export const GET_ALL_REVIEWS_ENDPOINT: string ='http://localhost:5000/api/reviews/get/all/';
+export const GET_REVIEW_BY_REVIEW_ENDPOINT: string = 'http://localhost:5000/api/reviews/get/byReview/';
+export const GET_REVIEW_BY_RESTAURANT_ENDPOINT: string = 'http://localhost:5000/api/reviews/get/byRestaurant/';
+export const ADD_REVIEW_ENDPOINT: string = 'http://localhost:5000/api/reviews/add/';
+/*============REVIEW endpoints=============*/

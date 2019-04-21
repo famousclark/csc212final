@@ -39,12 +39,8 @@ module.exports.getAllUsers = (req,res) => {
 }
 
 module.exports.getUserByEmail = (req, res, next) => {
-<<<<<<< HEAD
   console.log(req.params.email);
     User.findOne({ email: req.params.email },
-=======
-    User.findOne({ email: req.body.email },
->>>>>>> 92d1f0449d0a2c210f0bc99d5b70daf397014f23
         (err, user) => {
             if(!user)
                 return res.status(404).json({ status: false, message: 'User record not found' });
@@ -124,7 +120,7 @@ module.exports.addMeal = (req,res,next) => {
 
 module.exports.deleteMeal = (req,res,next) => {
     User.update({ email: req.params.email },
-        { "$pull": { "meals": { "meal_id": req.body.meal_id } }},
+        { "$pull": { "meals": { "meal_id": req.params.meal_id } }},
         { safe: true, multi:true },
         function(err, user) {
             if (!err) {
