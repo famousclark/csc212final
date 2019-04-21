@@ -14,7 +14,6 @@ import { TableRow, TableCell } from "@material-ui/core";
 
 import * as ActionCreators from '../actions/Actions';
 
-
 function TabContainer({ children, dir }) {
   return (
     <Typography component="div" dir={dir}>
@@ -72,6 +71,8 @@ const styles = theme => ({
 
 class BudgetContainer extends Component {
 
+  readyToLoad = false;
+
   constructor(props){
     super(props);
     // (this : any).handleChange = this.handleChange.bind(this);
@@ -100,6 +101,7 @@ class BudgetContainer extends Component {
     this._asyncRequest = this.loadAsyncUserData("1111@gmail.com")
     .then(
       userInfo => {
+        this.readyToLoad = true;
         this.setState({userInfo});
       }
     )
@@ -141,97 +143,103 @@ class BudgetContainer extends Component {
   render(){
     const { classes, theme, dir, open, userInfo} = this.props;
     //const { userInfo } = this.props;
-    if (this.state.userInfo == userInfo) {
-      console.log(this.state.userInfo);
+    if (this.readyToLoad) {
+      return(
+        <TabContainer className={classes.root} dir={dir}>
+          <AppBar
+            position="static"
+            color="white"
+            elevation="0"
+            className={classes.appBar}>
+            <Typography
+              align="center"
+              variant="h6"
+              style={{ padding: "12px" }}>
+                UR EATS
+            </Typography>
+          </AppBar>
+          <section className={classes.content}>
+            <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))"}}>
+              {/* <Paper elevation={0}> */}
+              <Typography align="center" variant="body1" style={{padding: "40px" }}>
+                Declining Left to Spend Today:
+                <Typography align="center" variant="h2" style={{ padding: "24px" }}>
+                $ 6.65
+                </Typography>
+              </Typography>
+
+              <Typography align="center" style={{ padding: "24px" }}>
+                  You are doing great, {userInfo.name}. Keep up UR healthy eats
+              </Typography>
+
+
+              {/* <Paper style={{}} elevation={2}> */}
+              <Table className={classes.table}>
+                <TableRow>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <div className={classes.detailHeading}>
+                    Meal Plan
+                    <div className={classes.details}>Option A Declining
+                    {}</div>
+                  </div>
+                  </TableCell>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                    Daily Budget
+                    <div className={classes.details}> 30.00</div>
+                    </div>
+
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                  Declining
+                   <div className={classes.details}>980.32</div>
+                   </div>
+                  </TableCell>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                    Swipes
+                    <div className={classes.details}> 0</div>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </Table>
+
+              {/* <Typography style={{ padding: "24px" }}>
+                 Meal Plan
+                 <span style={{float:"right"}}>Option A Declining</span>
+                </Typography>
+                <Typography style={{ padding: "24px" }}>
+                 Daily Budget
+                 <span style={{float:"right"}}>30.00</span>
+                </Typography>
+                <Typography style={{ padding: "24px" }}>
+                 URos
+                 <span style={{float:"right"}}>32.12</span>
+                </Typography>
+                <Typography style={{ padding: "24px" }}>
+                 Declining
+                 <span style={{float:"right"}}>980.30</span>
+                </Typography>
+                <Typography style={{ padding: "24px" }}>
+                 Swipes
+                 <span style={{float:"right"}}>0</span>
+                </Typography> */}
+              {/* </Paper> */}
+            </div>
+
+          </section>
+        </TabContainer>
+      );
+    }else{
+      return(
+          <div>lodading</div>
+      );
+      
     }
-    return(
-      <TabContainer className={classes.root} dir={dir}>
-        <AppBar
-          position="static"
-          color="white"
-          elevation="0"
-          className={classes.appBar}>
-          <Typography
-            align="center"
-            variant="h6"
-            style={{ padding: "12px" }}>
-              UR EATS
-          </Typography>
-        </AppBar>
-        <section className={classes.content}>
-          <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))"}}>
-            {/* <Paper elevation={0}> */}
-            <Typography align="center" variant="body1" style={{padding: "40px" }}>
-              Declining Left to Spend Today:
-              <Typography align="center" variant="h2" style={{ padding: "24px" }}>
-              $ 6.65
-              </Typography>
-            </Typography>
 
-            <Typography align="center" style={{ padding: "24px" }}>
-                You are doing great, {userInfo.name}. Keep up UR healthy eats
-            </Typography>
-
-
-            {/* <Paper style={{}} elevation={2}> */}
-            <Table className={classes.table}>
-              <TableRow>
-                <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                <div className={classes.detailHeading}>
-                  Meal Plan
-                  <div className={classes.details}>Option A Declining</div>
-                </div>
-                </TableCell>
-                <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                  <div className={classes.detailHeading}>
-                  Daily Budget
-                  <div className={classes.details}> 30.00</div>
-                  </div>
-
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                  <div className={classes.detailHeading}>
-                Declining
-                 <div className={classes.details}>980.32</div>
-                 </div>
-                </TableCell>
-                <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                  <div className={classes.detailHeading}>
-                  Swipes
-                  <div className={classes.details}> 0</div>
-                  </div>
-                </TableCell>
-              </TableRow>
-            </Table>
-
-            {/* <Typography style={{ padding: "24px" }}>
-               Meal Plan
-               <span style={{float:"right"}}>Option A Declining</span>
-              </Typography>
-              <Typography style={{ padding: "24px" }}>
-               Daily Budget
-               <span style={{float:"right"}}>30.00</span>
-              </Typography>
-              <Typography style={{ padding: "24px" }}>
-               URos
-               <span style={{float:"right"}}>32.12</span>
-              </Typography>
-              <Typography style={{ padding: "24px" }}>
-               Declining
-               <span style={{float:"right"}}>980.30</span>
-              </Typography>
-              <Typography style={{ padding: "24px" }}>
-               Swipes
-               <span style={{float:"right"}}>0</span>
-              </Typography> */}
-            {/* </Paper> */}
-          </div>
-
-        </section>
-      </TabContainer>
-    );
   }
 }
 
