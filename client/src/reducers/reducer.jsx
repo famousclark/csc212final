@@ -5,7 +5,36 @@ import { combineReducers } from 'redux';
 import * as ActionConstants from '../constants/actions';
 
 const defaultState = {
-  users: [],
+  users:[{
+    name: null,
+    email: {
+      password: null,
+      date: null,
+      meals: [{
+        date: null,
+        meal_id: null
+      }],
+      d_plan: {
+        plan: null,
+        balance: null
+      },
+      spend_goal: [{
+        amount: null,
+        effective: null,
+        expires: null
+      }],
+      nutri_goal:[{
+        calories: null,
+        carbs: null,
+        fiber: null,
+        fat: null,
+        effective: null,
+        expires: null
+      }],
+      profile_pic: null
+    }
+  }] ,
+  userInfo: {},
   meals: [],
   resturants: []
 };
@@ -17,7 +46,7 @@ function UserReducer(state: Object = defaultState, action: Object) {
       case ActionConstants.USER_LOADED:
         return{
           ...state,
-          users: action.users
+          userInfo: action.info
         }
 
       case ActionConstants.MEAL_LOADED:
@@ -39,7 +68,7 @@ function UserReducer(state: Object = defaultState, action: Object) {
 
 const appReducer = combineReducers({
     user: UserReducer,
-    //Food: FoodReducer
+    //Meal: FoodReducer
 });
 
 export default appReducer;

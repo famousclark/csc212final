@@ -6,16 +6,14 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const restaurants = require("./routes/api/restaurants");
 const meals = require("./routes/api/meals");
-
+const cors = require('cors');
 
 
 const app = express();
+
+app.use(cors());
 // Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 // DB Config
 const db = require("./config/database").mongoURL;
@@ -38,7 +36,7 @@ app.use("/api/restaurants", restaurants);
 app.use("/api/meals", meals);
 
 
-const seed= require("./seed/seeder");
+const seed = require("./seed/seeder");
 
 
 

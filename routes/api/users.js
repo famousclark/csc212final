@@ -19,7 +19,7 @@ var ctrlUser= require('../../controllers/user.controller');
 
 //router.post('/add', ctrlUser.saveUser); /* Adds a new user. JSON body payload format :: {"email":"someString", "name":"someString", "password":"someString", "d_plan":"some enum (see model)", "diet":"[Array of enums (see model)]"}*/
 router.get('/get/all', ctrlUser.getAllUsers); /* Returns all users. JSON body payload format :: {}*/
-router.get('/get/', ctrlUser.getUserByEmail); /* Returns an user matching the given email. JSON body payload format :: {"email":"someEmail"}*/
+router.get('/get/:email', ctrlUser.getUserByEmail); /* Returns an user matching the given email. JSON body payload format :: {"email":"someEmail"}*/
 router.post('/edit', ctrlUser.editUser); /* Edits an user matching the given email. JSON body payload format :: {"email":"someString", "name":"someString", "password":"someString", "meals":[Array of objects(see model)], "d_plan":"some enum (see model)", "spend_goal":[Array of objects(see model)], "nutri_goal":[Array of objects(see model)], "diet":[Array of enums (see model)], "profile_pic":"someString" }*/
 router.post('/delete', ctrlUser.deleteUser);/* Deletes a user matching the given email. JSON body payload format :: {"email":"someEmail"}*/
 
@@ -42,7 +42,7 @@ router.get('/get/nutrigoal/all', ctrlUser.getNutriGoals);  /* Returns all nutrit
 // @access Public
 router.post("/register", (req, res) => {
   // Form validation
-
+  console.log(req.body);
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check validation

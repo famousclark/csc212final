@@ -5,11 +5,11 @@ var multer = require('multer')
 var constants = require('constants');
 var constant = require('./config/constants');
 
- 
 
 
 
-//var cors = require('cors');
+
+var cors = require('cors');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -25,7 +25,7 @@ var now = new Date();
 var dummyData = require('./config/dummyUserData');
 
 var router = express.Router();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -51,7 +51,6 @@ require('./config/passport')(passport); // pass passport for configuration
 //require('./app/controllers/restaurant.controller');
 
 //set up our express application
-//app.use(cors());
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 //app.use(bodyParser()); // get information from html forms

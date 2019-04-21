@@ -3,19 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { withStyles } from '@material-ui/core/styles';
-
-import CssBaseline from '@material-ui/core/CssBaseline';
-
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Restaurant from '@material-ui/icons/Restaurant';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import SwipeableViews from 'react-swipeable-views';
-
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Table from '@material-ui/core/Table';
+import { TableRow, TableCell } from "@material-ui/core";
 
 
 function TabContainer({ children, dir }) {
@@ -61,167 +55,138 @@ const styles = theme => ({
     display: "flex",
     marginLeft: "auto",
     marginRight: "auto"
+  },
+  details: {
+    fontSize : "20px",
+    color: "white",
+  },
+  detailHeading:{
+    fontSize: "16px",
+    paddingTop: "24px",
   }
+
 });
 
 class BudgetContainer extends Component {
 
-  constructor(props: Object){
+  constructor(props){
     super(props);
-    (this : any).handleChange = this.handleChange.bind(this);
-    (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
-    (this : any)
-      .state = {
-        value: 0
+    // (this : any).handleChange = this.handleChange.bind(this);
+    // (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
+
+      this.state = {
+        user: {}
       };
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
+  componentDidMount() {
+    fetch("localhost:5000/api/users/get/",
+    { method: 'GET',
+      body: '{email : "1111@gmail.com"}',
+    })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            user: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      )
+  }
 
   render(){
     const { classes, theme, dir, open} = this.props;
-    const { value } = this.state;
+    const { value, user } = this.state;
     return(
       <TabContainer className={classes.root} dir={dir}>
         <AppBar
           position="static"
-          color="secondary"
+          color="white"
+          elevation="0"
           className={classes.appBar}>
-          <Toolbar disableGutters={!open}>
-            <Tabs
-              className={classes.tabsContainer}
-              value={this.state.value}
-              onChange={this.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              variant="fullWidth"
-              centered>
-              <Tab label="Weekly" />
-              <Tab label="Monthly" />
-              <Tab label="Yearly" />
-            </Tabs>
-          </Toolbar>
+           <Typography align="center" variant="h6" style={{ padding: "12px" }}>
+                  UR EATS
+            </Typography>
         </AppBar>
         <section className={classes.content}>
-          {/*<SwipeableViews
-            className={classes.tabsContainer}
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={this.state.value}
-            onChangeIndex={this.handleChangeIndex}>
-            <TabContainer dir={theme.direction}>*/}
-            {value === 0 &&
-            <TabContainer dir={theme.direction}>
-              <Paper levation={5}>
-                <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                  Your Balance
+        <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))"}}>
+              {/* <Paper elevation={0}> */}
+              <Typography align="center" variant="body1" style={{padding: "40px" }}>
+                Declining Left to Spend Today:
+                <Typography align="center" variant="h2" style={{ padding: "24px" }}>
+                $ 6.65
                 </Typography>
-              </Paper>
-              <Paper levation={4}>
+              </Typography>
 
-                <Restaurant className={classes.icon}/>
-                <CircularProgress className={classes.progress} variant="static" value={25} size={200} thickness={5}/>
-                <Typography align="center" variant="h5" style={{ padding: "24px" }}>
-                  $ 6.65/25
-                </Typography>
+              <Typography align="center" style={{ padding: "24px" }}>
+                  You are doing great, {user.name}. Keep up UR healthy eats
+              </Typography>
 
-              </Paper>
-              <Paper style={{ background: "#FFF"}} levation={3}>
-                <Typography align="center" style={{ padding: "24px" }}>
-                  You are doing great, Ehsan. Keep up UR healthy eats
-                </Typography>
-              </Paper>
-              <Paper style={{ background: "#DDD"}} elevation={2}>
-                <Typography style={{ padding: "24px" }} paragraph>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-                  elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-                  hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-                  velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-                  Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-                  viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-                  Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-                  at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-                  ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-                </Typography>
-              </Paper>
-            </TabContainer>}
-            {value === 1 &&
-            <TabContainer dir={theme.direction}>
-              <Paper levation={5}>
-                <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                  Your Balance
-                </Typography>
-              </Paper>
-              <Paper levation={4}>
 
-                <Restaurant className={classes.icon}/>
-                <CircularProgress className={classes.progress} variant="static" value={50} size={200} thickness={5}/>
-                <Typography align="center" variant="h5" style={{ padding: "24px" }}>
-                  $ 6.65/25
-                </Typography>
+              {/* <Paper style={{}} elevation={2}> */}
+              <Table className={classes.table}>
+              <TableRow>
+                <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                <div className={classes.detailHeading}>
+                  Meal Plan
+                  <div className={classes.details}>Option A Declining</div>
+                </div>
+                </TableCell>
+                <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <div className={classes.detailHeading}>
+                  Daily Budget
+                  <div className={classes.details}> 30.00</div>
+                  </div>
 
-              </Paper>
-              <Paper style={{ background: "#FFF"}} levation={3}>
-                <Typography align="center" style={{ padding: "24px" }}>
-                  You are doing great, Ehsan. Keep up UR healthy eats
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <div className={classes.detailHeading}>
+                Declining
+                 <div className={classes.details}>980.32</div>
+                 </div>
+                </TableCell>
+                <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <div className={classes.detailHeading}>
+                  Swipes
+                  <div className={classes.details}> 0</div>
+                  </div>
+                </TableCell>
+              </TableRow>
+              </Table>
+
+              {/* <Typography style={{ padding: "24px" }}>
+                 Meal Plan
+                 <span style={{float:"right"}}>Option A Declining</span>
                 </Typography>
-              </Paper>
-              <Paper style={{ background: "#DDD"}} elevation={2}>
-                <Typography style={{ padding: "24px" }} paragraph>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-                  elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-                  hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-                  velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-                  Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-                  viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-                  Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-                  at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-                  ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
+                <Typography style={{ padding: "24px" }}>
+                 Daily Budget
+                 <span style={{float:"right"}}>30.00</span>
                 </Typography>
-              </Paper>
-            </TabContainer>}
-            {value === 2 &&
-            <TabContainer dir={theme.direction}>
-              <Paper levation={5}>
-                <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                  Your Balance
+                <Typography style={{ padding: "24px" }}>
+                 URos
+                 <span style={{float:"right"}}>32.12</span>
                 </Typography>
-              </Paper>
-              <Paper levation={4}>
-                <Restaurant className={classes.icon}/>
-                <CircularProgress className={classes.progress} variant="static" value={75} size={200} thickness={5}/>
-                <Typography align="center" variant="h5" style={{ padding: "24px" }}>
-                  $ 6.65/25
+                <Typography style={{ padding: "24px" }}>
+                 Declining
+                 <span style={{float:"right"}}>980.30</span>
                 </Typography>
-              </Paper>
-              <Paper style={{ background: "#FFF"}} levation={3}>
-                <Typography align="center" style={{ padding: "24px" }}>
-                  You are doing great, Ehsan. Keep up UR healthy eats
-                </Typography>
-              </Paper>
-              <Paper style={{ background: "#DDD"}} elevation={2}>
-                <Typography style={{ padding: "24px" }} paragraph>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-                  elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-                  hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-                  velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-                  Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-                  viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-                  Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-                  at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-                  ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-                </Typography>
-              </Paper>
-            </TabContainer>}
-          {/*</SwipeableViews>*/}
+                <Typography style={{ padding: "24px" }}>
+                 Swipes
+                 <span style={{float:"right"}}>0</span>
+                </Typography> */}
+              {/* </Paper> */}
+            </div>
+
         </section>
       </TabContainer>
     );

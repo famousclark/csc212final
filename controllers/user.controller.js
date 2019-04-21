@@ -39,11 +39,12 @@ module.exports.getAllUsers = (req,res) => {
 }
 
 module.exports.getUserByEmail = (req, res, next) => {
-    User.findOne({ email: req.email },
+  console.log(req.params.email);
+    User.findOne({ email: req.params.email },
         (err, user) => {
             if(!user)
                 return res.status(404).json({ status: false, message: 'User record not found' });
-            else 
+            else
                 return res.status(200).send(user);
         }
     );
@@ -53,10 +54,9 @@ module.exports.getUserByEmail = (req, res, next) => {
 
 module.exports.editUser = (req,res,next) => {
 
-
     User.findOneAndUpdate(
-        { email: req.body.email }, 
-        { $set: { 
+        { email: req.body.email },
+        { $set: {
                   name : req.body.name,
                   email : req.body.email,
                   password : req.body.password,
@@ -67,7 +67,7 @@ module.exports.editUser = (req,res,next) => {
                   diet : req.body.diet,
                   profile_pic : req.body.profile_pic
 
-               } 
+               }
         }, function (err, user) {
 
 
@@ -78,14 +78,14 @@ module.exports.editUser = (req,res,next) => {
               res.send(err);
             }
           }
-        
+
         );
 
 }
 
 module.exports.deleteUser  = (req,res,next) => {
 
-    User.remove({ email: req.body.email }, function(err) {
+    User.remove({ email: req.params.email }, function(err) {
         if (!err) {
                 res.status(200).json(true);
         }
@@ -99,10 +99,10 @@ module.exports.deleteUser  = (req,res,next) => {
 
 module.exports.addMeal = (req,res,next) => {
     User.findOneAndUpdate(
-        { email: req.body.email }, 
-        { $addToSet: { 
+        { email: req.body.email },
+        { $addToSet: {
                 meals: req.body.meal
-               } 
+               }
         },
         {new: true},
         (err, user) => {
@@ -114,14 +114,14 @@ module.exports.addMeal = (req,res,next) => {
                 res.status(500).json(err);
              }
         }
-        
+
     );
 }
 
 module.exports.deleteMeal = (req,res,next) => {
-    User.update({ email: req.body.email }, 
-        { "$pull": { "meals": { "meal_id": req.body.meal_id } }}, 
-        { safe: true, multi:true }, 
+    User.update({ email: req.params.email },
+        { "$pull": { "meals": { "meal_id": req.body.meal_id } }},
+        { safe: true, multi:true },
         function(err, user) {
             if (!err) {
                 res.send(user);
@@ -134,11 +134,11 @@ module.exports.deleteMeal = (req,res,next) => {
 }
 
 module.exports.getMeals = (req, res, next) => {
-    User.findOne({ email: req.body.email },
+    User.findOne({ email: req.params.email },
         (err, user) => {
             if(!user)
                 return res.status(404).json({ status: false, message: 'User record not found' });
-            else 
+            else
                 return res.status(200).send(user.meals);
         }
     );
@@ -147,12 +147,12 @@ module.exports.getMeals = (req, res, next) => {
 module.exports.editDiningPlan = (req,res,next) => {
 
     User.findOneAndUpdate(
-        { email: req.body.email }, 
-        { $set: { 
-  
+        { email: req.body.email },
+        { $set: {
+
                   d_plan : req.body.d_plan
 
-               } 
+               }
         }, function (err, user) {
 
 
@@ -163,7 +163,7 @@ module.exports.editDiningPlan = (req,res,next) => {
               res.send(err);
             }
           }
-        
+
         );
 
 }
@@ -171,10 +171,10 @@ module.exports.editDiningPlan = (req,res,next) => {
 
 module.exports.addSpendGoal = (req,res,next) => {
     User.findOneAndUpdate(
-        { email: req.body.email }, 
-        { $addToSet: { 
+        { email: req.body.email },
+        { $addToSet: {
                 nutri_goal: req.body.spend_goal
-               } 
+               }
         },
         {new: true},
         (err, user) => {
@@ -186,18 +186,18 @@ module.exports.addSpendGoal = (req,res,next) => {
                 res.status(500).json(err);
              }
         }
-        
+
     );
 }
 
 
 
 module.exports.getSpendGoals = (req, res, next) => {
-    User.findOne({ email: req.body.email },
+    User.findOne({ email: req.params.email },
         (err, user) => {
             if(!user)
                 return res.status(404).json({ status: false, message: 'User record not found' });
-            else 
+            else
                 return res.status(200).send(user.spend_goal);
         }
     );
@@ -206,10 +206,10 @@ module.exports.getSpendGoals = (req, res, next) => {
 
 module.exports.addNutriGoal = (req,res,next) => {
     User.findOneAndUpdate(
-        { email: req.body.email }, 
-        { $addToSet: { 
+        { email: req.body.email },
+        { $addToSet: {
                 spend_goal: req.body.spend_goal
-               } 
+               }
         },
         {new: true},
         (err, user) => {
@@ -221,21 +221,19 @@ module.exports.addNutriGoal = (req,res,next) => {
                 res.status(500).json(err);
              }
         }
-        
+
     );
 }
 
 
 
 module.exports.getNutriGoals = (req, res, next) => {
-    User.findOne({ email: req.body.email },
+    User.findOne({ email: req.params.email },
         (err, user) => {
             if(!user)
                 return res.status(404).json({ status: false, message: 'User record not found' });
-            else 
+            else
                 return res.status(200).send(user.nutri_goal);
         }
     );
 }
-
-

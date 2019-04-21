@@ -3,30 +3,16 @@ import React, { Component } from 'react';
 
 // Redux
 import {Provider} from 'react-redux';
-import {configureStore, sagaMiddleware} from '../store/configure';
-
-// Sagas
-import rootSaga from '../middleware/saga';
 
 // Containers
 import RouterContainer from './RouterContainer';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
+const Root = (props: Object) => (
 
-const store = configureStore();
+  <Provider store={props.store}>
+    <RouterContainer />
+  </Provider>
 
-sagaMiddleware.run(rootSaga);
-
-class Root extends Component {
-
-  render() {
-    return(
-      <Provider store={store}>
-        <RouterContainer />
-      </Provider>
-    );
-  }
-}
+);
 
 export default Root;
