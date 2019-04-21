@@ -172,72 +172,45 @@ class BudgetContainer extends Component {
                 </Typography>
               </Typography>
 
-
-      if (this.readyToLoad) {
-        console.log(userInfo);
-        return(
-          <TabContainer className={classes.root} dir={dir}>
-            <AppBar
-              position="static"
-              color="white"
-              elevation="0"
-              className={classes.appBar}>
-              <Typography
-                align="center"
-                variant="h6"
-                style={{ padding: "12px" }}>
-                  UR EATS
+              <Typography align="center" style={{ padding: "24px" }}>
+                  You are doing great, {userInfo.name}. Keep up UR healthy eats
               </Typography>
-            </AppBar>
-            <section className={classes.content}>
-              <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))"}}>
-                {/* <Paper elevation={0}> */}
-                <Typography align="center" variant="body1" style={{padding: "40px" }}>
-                  Declining Left to Spend Today:
-                  <Typography align="center" variant="h2" style={{ padding: "24px" }}>
-                  $ 6.65
-                  </Typography>
-                </Typography>
-
-                <Typography align="center" style={{ padding: "24px" }}>
-                    You are doing great, {userInfo.name}. Keep up UR healthy eats
-                </Typography>
 
 
-                {/* <Paper style={{}} elevation={2}> */}
-                <Table className={classes.table}>
-                  <TableRow>
-                    <TableCell style={{padding: "0px 0px 20px 20px"}}>
+              {/* <Paper style={{}} elevation={2}> */}
+              <Table className={classes.table}>
+                <TableRow>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <div className={classes.detailHeading}>
+                    Meal Plan
+                    <div className={classes.details}>Option A Declining</div>
+                  </div>
+                  </TableCell>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
                     <div className={classes.detailHeading}>
-                      Meal Plan
-                      <div className={classes.details}>Option A Declining</div>
+                    Daily Budget
+                    <div className={classes.details}> 30.00</div>
                     </div>
-                    </TableCell>
-                    <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                      <div className={classes.detailHeading}>
-                      Daily Budget
-                      <div className={classes.details}> 30.00</div>
-                      </div>
 
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                      <div className={classes.detailHeading}>
-                    Declining
-                     <div className={classes.details}>
-                      {userInfo.d_plan.balance}
-                     </div>
-                     </div>
-                    </TableCell>
-                    <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                      <div className={classes.detailHeading}>
-                      Swipes
-                      <div className={classes.details}> 0</div>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                </Table>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                  Declining
+                   <div className={classes.details}>
+                    {userInfo.d_plan.balance}
+                   </div>
+                   </div>
+                  </TableCell>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                    Swipes
+                    <div className={classes.details}> 0</div>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </Table>
 
                 {/* <Typography style={{ padding: "24px" }}>
                    Meal Plan
@@ -261,7 +234,6 @@ class BudgetContainer extends Component {
                   </Typography> */}
                 {/* </Paper> */}
               </div>
-
             </section>
           </TabContainer>
         );
@@ -269,18 +241,7 @@ class BudgetContainer extends Component {
         return(
           <div>loading</div>
         );
-      }
-
-          </section>
-        </TabContainer>
-      );
-    }else{
-      return(
-          <div>lodading</div>
-      );
-
     }
-
   }
 }
 
