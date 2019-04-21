@@ -78,6 +78,102 @@ function* addUserSaga(userAction: Object): Generator<any, any, any> {
   }
 }
 
+function* getAllUserMealsSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const loaded = yield backend.getAllUserMeals();
+    //console.log(loaded);
+    yield put({ type: ActionConstants.GET_ALL_USER_MEALS, info: loaded });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* addUserMealSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const added = yield backend.addUserMeal(userAction);
+    //console.log(loaded);
+    yield put({ type: ActionConstants.ADD_USER_MEAL, info: added });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* deleteUserMealSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const deleted = yield backend.deleteUserMeal(userAction.meal_id);
+    //console.log(loaded);
+    yield put({ type: ActionConstants.DELETE_USER_MEAL, info: deleted });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* editDPlanSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const edit = yield backend.editDPlan(userAction);
+    //console.log(loaded);
+    yield put({ type: ActionConstants.ADD_USER_MEAL, info: edit });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* addSpendGoalSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const added = yield backend.addUser(userAction);
+    //console.log(loaded);
+    yield put({ type: ActionConstants.ADD_USER_MEAL, info: added });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* getAllSpendGoalsSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const loaded = yield backend.getAllSpendGoals();
+    //console.log(loaded);
+    yield put({ type: ActionConstants.GET_ALL_SPEND_GOALS, info: loaded });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* addNutriGoalSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const added = yield backend.addUser(userAction);
+    //console.log(loaded);
+    yield put({ type: ActionConstants.ADD_NUTRI_GOAL, info: added });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* getAllNutriGoalsSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const loaded = yield backend.addUser(userAction);
+    //console.log(loaded);
+    yield put({ type: ActionConstants.GET_ALL_NUTRI_GOALS, info: loaded });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
 /*************************** Observers ****************************************/
 
 export function* watchForGetUser(): Generator<any, any, any> {
@@ -100,13 +196,9 @@ export function* watchForAddUser(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.ADD_USER, addUserSaga);
 }
 
-/*
+
 export function* watchForGetAllUserMeals(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.GET_ALL_USER_MEALS, getAllUserMealsSaga);
-}
-
-export function* watchForGetUserMeal(): Generator<any, any, any> {
-  yield takeEvery(ActionConstants.GET_USER_MEAL, getUserMealSaga);
 }
 
 export function* watchForAddUserMeal(): Generator<any, any, any> {
@@ -125,7 +217,7 @@ export function* watchForAddSpendGoal(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.ADD_SPEND_GOAL, addSpendGoalSaga);
 }
 
-export function* watchForGetAllSpendGoasl(): Generator<any, any, any> {
+export function* watchForGetAllSpendGoals(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.GET_ALL_SPEND_GOALS, getAllSpendGoalsSaga);
 }
 
@@ -136,7 +228,7 @@ export function* watchForAddNutriGoal(): Generator<any, any, any> {
 export function* watchForGetAllNutriGoals(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.GET_ALL_NUTRI_GOALS, getAllNutriGoalsSaga);
 }
-*/
+
 export default function* rootSaga(): Generator<any, any, any> {
   yield all([
     watchForGetUser(),
@@ -144,9 +236,8 @@ export default function* rootSaga(): Generator<any, any, any> {
     watchForEditUser(),
     watchForDeleteUser(),
     watchForAddUser(),
-/*
+
     watchForGetAllUserMeals(),
-    watchForGetUserMeal(),
     watchForAddUserMeal(),
     watchForDeleteUserMeal(),
     watchForEditDPlan(),
@@ -154,7 +245,7 @@ export default function* rootSaga(): Generator<any, any, any> {
     watchForGetAllSpendGoals(),
     watchForAddNutriGoal(),
     watchForGetAllNutriGoals(),
-
+/*
     watchForGetMeal(),
     watchForGetAllMeals(),
     watchForEditMeal(),

@@ -9,10 +9,12 @@ const defaultState = {
   userInfo: {},
   mealInfo: {},
   restaurantInfo: {},
-  allUserInfo: {},
-  allSpendGoals: {},
+
+  allUsersInfo: {},
+
   allMeals: {},
-  allRestaurantsInfo: {}
+  allRestaurantsInfo: {},
+  allReviews: {}
 };
 
 function Reducer(state: Object = defaultState, action: Object) {
@@ -25,10 +27,98 @@ function Reducer(state: Object = defaultState, action: Object) {
           userInfo: action.info
         }
 
+      case ActionConstants.ALL_USERS_LOADED:
+        return{
+          ...state,
+          allUsersInfo: action.info
+        }
+
+      case ActionConstants.USER_EDITED:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
+      case ActionConstants.USER_DELETED:
+        return{
+          ...state
+        }
+
+      case ActionConstants.USER_ADDED:
+        return{
+          ...state,
+          allUsersInfo: action.info
+        }
+
+      case ActionConstants.ALL_USER_MEALS_LOADED:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
+      case ActionConstants.USER_MEAL_DELETED:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
+      case ActionConstants.DPLAN_EDITED:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
+      case ActionConstants.SPEND_GOAL_ADDED:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
+      case ActionConstants.ALL_SPEND_GOALS_LOADED:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
+      case ActionConstants.NUTRI_GOAL_LOADED:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
+      case ActionConstants.ALL_NUTRI_GOALS_LOADED:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
       case ActionConstants.MEAL_LOADED:
         return{
           ...state,
-          mealsInfo: action.info
+          mealInfo: action.info
+        }
+
+      case ActionConstants.ALL_MEALS_LOADED:
+        return{
+          ...state,
+          allMealsInfo: action.info
+        }
+
+      case ActionConstants.MEAL_EDITED:
+        return{
+          ...state,
+          mealInfo: action.info
+        }
+
+      case ActionConstants.MEAL_DELETED:
+        return{
+          ...state
+        }
+
+      case ActionConstants.MEAL_ADDED:
+        return{
+          ...state,
+          allMealsInfo: action.info
         }
 
       case ActionConstants.RESTAURANT_LOADED:
@@ -36,6 +126,54 @@ function Reducer(state: Object = defaultState, action: Object) {
           ...state,
           restaurantInfo: action.info
         }
+
+      case ActionConstants.ALL_RESTAURANTS_LOADED:
+        return{
+          ...state,
+          allRestaurantsInfo: action.info
+        }
+
+      case ActionConstants.RESTAURANT_EDITED:
+        return{
+          ...state,
+          restaurantInfo: action.info
+        }
+
+      case ActionConstants.RESTAURANT_DELETED:
+        return{
+          ...state
+        }
+
+      case ActionConstants.RESTAURANT_ADDED:
+        return{
+          ...state,
+          allRestaurantsInfo: action.info
+        }
+
+      case ActionConstants.REVIEW_ADDED:
+        return{
+          ...state,
+          allReviews: action.info
+        }
+
+      case ActionConstants.ALL_REVIEWS_LOADED:
+        return{
+          ...state,
+          allReviews: action.info
+        }
+
+      case ActionConstants.REVIEW_BY_REVIEW_LOADED:
+        return{
+          ...state,
+          reviewInfo: action.info
+        }
+
+      case ActionConstants.REVIEW_BY_RESTAURANT_LOADED:
+        return{
+          ...state,
+          reviewInfo: action.info
+        }
+
       default:
         return state;
     }
