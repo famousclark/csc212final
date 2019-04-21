@@ -73,6 +73,8 @@ const styles = theme => ({
 
 class BudgetContainer extends Component {
 
+  readyToLoad = false;
+
   constructor(props){
     super(props);
     // (this : any).handleChange = this.handleChange.bind(this);
@@ -107,7 +109,7 @@ class BudgetContainer extends Component {
     )
     .then( () => {
       setTimeout ( () => {
-        
+
         console.log( this.props.userInfo);
         console.log(this.state.userInfo);
       }, 1000)
@@ -144,8 +146,8 @@ class BudgetContainer extends Component {
   render(){
     const { classes, theme, dir, open, userInfo} = this.props;
     //const { userInfo } = this.props;
-    
-      
+
+
       if (this.readyToLoad) {
         console.log(userInfo);
         return(
@@ -171,12 +173,12 @@ class BudgetContainer extends Component {
                   $ 6.65
                   </Typography>
                 </Typography>
-    
+
                 <Typography align="center" style={{ padding: "24px" }}>
                     You are doing great, {userInfo.name}. Keep up UR healthy eats
                 </Typography>
-    
-    
+
+
                 {/* <Paper style={{}} elevation={2}> */}
                 <Table className={classes.table}>
                   <TableRow>
@@ -191,7 +193,7 @@ class BudgetContainer extends Component {
                       Daily Budget
                       <div className={classes.details}> 30.00</div>
                       </div>
-    
+
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -211,7 +213,7 @@ class BudgetContainer extends Component {
                     </TableCell>
                   </TableRow>
                 </Table>
-    
+
                 {/* <Typography style={{ padding: "24px" }}>
                    Meal Plan
                    <span style={{float:"right"}}>Option A Declining</span>
@@ -234,7 +236,7 @@ class BudgetContainer extends Component {
                   </Typography> */}
                 {/* </Paper> */}
               </div>
-    
+
             </section>
           </TabContainer>
         );
@@ -244,7 +246,7 @@ class BudgetContainer extends Component {
         );
       }
 
-    
+
   }
 }
 
