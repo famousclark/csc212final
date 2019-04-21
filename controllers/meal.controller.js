@@ -31,7 +31,18 @@ module.exports.getMeal = (req, res, next) => {
     Meal.findOne({ meal_id: req.body.meal_id },
         (err, meal) => {
             if(!meal)
-                return res.status(404).json({ status: false, message: 'Restaurant record not found' });
+                return res.status(404).json({ status: false, message: 'Meal record not found' });
+            else 
+                return res.status(200).send(meal);
+        }
+    );
+}
+
+module.exports.getMealsByRestaurants = (req, res, next) => {
+    Meal.find({ r_code: req.body.r_code },
+        (err, meal) => {
+            if(!meal)
+                return res.status(404).json({ status: false, message: 'Meals record not found' });
             else 
                 return res.status(200).send(meal);
         }
