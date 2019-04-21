@@ -89,14 +89,14 @@ class BudgetContainer extends Component {
     setTimeout( () => {
       this.props.getUser(userEmail);
       resolve(this.props.userInfo);
-    }, 5000)
+    }, 500)
   });
 
   loadAsyncMealData = (userEmail) =>  new Promise( (resolve, reject) => {
     setTimeout( () => {
       this.props.getMeal(userEmail);
       resolve(this.props.userInfo);
-    }, 1000)
+    }, 500)
   });
 
   handleLoadAsync = async () => {
@@ -143,12 +143,69 @@ class BudgetContainer extends Component {
       */
   }
 
+  displayMealPlan(mealPlan){
+    if(mealPlan.equals("MelUlm")){
+      return "Meliora Unlimited";
+    }
+  }
+
   render(){
     const { classes, theme, dir, open, userInfo} = this.props;
     //const { userInfo } = this.props;
 
+  
 
-      if (this.readyToLoad) {
+      if (this.readyToLoad && userInfo.d_plan != null) {
+
+        var displayMealPlan = "";
+        var swipes ="";
+        if (userInfo.d_plan.plan == "MelUlm") {
+          displayMealPlan = (
+            <div>Meliora Unlimited</div>
+          );
+          swipes = (<div>Unlimited</div>)
+        } else if (userInfo.d_plan.plan == "BlueUlm") {
+          displayMealPlan = (
+            <div>Blue Unlimited</div>
+          );
+          swipes = (<div>Unlimited</div>)
+        }else if (userInfo.d_plan.plan == "150Pass") {
+          displayMealPlan = (
+            <div>150 Pass</div>
+          );
+          swipes = (<div>150</div>)
+        }else if (userInfo.d_plan.plan == "OptionA") {
+          displayMealPlan = (
+            <div>Option A</div>
+          );
+          swipes = (<div>0</div>)
+        }else if (userInfo.d_plan.plan == "OptionB") {
+          displayMealPlan = (
+            <div>Option B</div>
+          );
+          swipes = (<div>0</div>)
+        }
+      else if (userInfo.d_plan.plan == "OptionC") {
+        displayMealPlan = (
+          <div>Option C</div>
+        );
+        swipes = (<div>0</div>)
+      }else if (userInfo.d_plan.plan == "OptionD") {
+        displayMealPlan = (
+          <div>Option D</div>
+        );
+        swipes = (<div>0</div>)
+      }
+      else if (userInfo.d_plan.plan == "Com") {
+        displayMealPlan = (
+          <div>Commuter Plan</div>
+        );
+        swipes = (<div>0</div>)
+      }
+      
+      
+
+
         console.log(userInfo);
         return(
           <TabContainer className={classes.root} dir={dir}>
@@ -185,7 +242,7 @@ class BudgetContainer extends Component {
                     <TableCell style={{padding: "0px 0px 20px 20px"}}>
                     <div className={classes.detailHeading}>
                       Meal Plan
-                      <div className={classes.details}>Option A Declining</div>
+                      <div className={classes.details}>{displayMealPlan}</div>
                     </div>
                     </TableCell>
                     <TableCell style={{padding: "0px 0px 20px 20px"}}>
@@ -201,14 +258,14 @@ class BudgetContainer extends Component {
                       <div className={classes.detailHeading}>
                     Declining
                      <div className={classes.details}>
-                      {userInfo.name}
+                      {userInfo.d_plan.balance}
                      </div>
                      </div>
                     </TableCell>
                     <TableCell style={{padding: "0px 0px 20px 20px"}}>
                       <div className={classes.detailHeading}>
                       Swipes
-                      <div className={classes.details}> 0</div>
+                      <div className={classes.details}> {swipes}</div>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -245,7 +302,7 @@ class BudgetContainer extends Component {
           <div>loading</div>
         );
       }
-
+    
 
   }
 }
