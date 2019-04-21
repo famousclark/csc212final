@@ -6,6 +6,8 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const restaurants = require("./routes/api/restaurants");
 const meals = require("./routes/api/meals");
+const reviews = require("./routes/api/reviews");
+
 const cors = require('cors');
 
 

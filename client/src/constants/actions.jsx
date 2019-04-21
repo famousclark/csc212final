@@ -32,21 +32,9 @@ export const NUTRI_GOAL_LOADED: string = 'NUTRI_GOAL_LOADED';
 export const GET_ALL_NUTRI_GOALS: string = 'GET_ALL_NUTRI_GOALS';
 export const ALL_NUTRI_GOALS_LOADED: string = 'ALL_NUTRI_GOALS_LOADED';
 
-export const GET_ALL_MEALS: string = 'GET_ALL_MEALS';
-export const ALL_MEALS_LOADED: string = 'ALL_MEALS_LOADED';
-export const GET_MEAL: string = 'GET_MEAL';
 export const MEAL_LOADED: string = 'MEAL_LOADED';
-export const ADD_MEAL: string = 'ADD_MEAL';
-export const MEAL_ADDED: string = 'MEAL_ADDED';
-export const EDIT_MEAL: string = 'EDIT_MEAL';
-export const MEAL_EDITED: string = 'MEAL_EDITED';
-export const DELETE_MEAL: string = 'DELETE_MEAL';
-export const MEAL_DELETED: string = 'MEAL_DELETED';
-
-export const GET_ALL_RESTAURANTS: string = 'GET_ALL_RESTAURANTS';
-export const ALL_RESTAURANTS_LOADED: string = 'ALL_RESTAURANTS_LOADED';
-export const GET_RESTAURANT: string = 'GET_RESTAURANT';
 export const RESTAURANT_LOADED: string = 'RESTAURANT_LOADED';
+export const USERS_LOADED: string = 'USERS_LOADED';
 export const ADD_RESTAURANT: string = 'ADD_RESTAURANT';
 export const RESTAURANT_ADDED: string = 'RESTAURANT_ADDED';
 export const EDIT_RESTAURANT: string = 'EDIT_RESTAURANT';
