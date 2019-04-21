@@ -143,7 +143,8 @@ class BudgetContainer extends Component {
   render(){
     const { classes, theme, dir, open, userInfo} = this.props;
     //const { userInfo } = this.props;
-    if (this.readyToLoad) {
+    if (this.readyToLoad && userInfo.d_plan != null) {
+      console.log(userInfo.d_plan);
       return(
         <TabContainer className={classes.root} dir={dir}>
           <AppBar
@@ -180,7 +181,7 @@ class BudgetContainer extends Component {
                   <div className={classes.detailHeading}>
                     Meal Plan
                     <div className={classes.details}>Option A Declining
-                    {}</div>
+                    {userInfo.d_plan.balance}</div>
                   </div>
                   </TableCell>
                   <TableCell style={{padding: "0px 0px 20px 20px"}}>
@@ -237,7 +238,7 @@ class BudgetContainer extends Component {
       return(
           <div>lodading</div>
       );
-      
+
     }
 
   }
