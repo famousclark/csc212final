@@ -50,3 +50,18 @@ export const GET_REVIEW_BY_RESTAURANT: string = 'GET_REVIEW_BY_RESTAURANT';
 export const REVIEW_BY_RESTAURANT_LOADED: string = 'REVIEW_BY_RESTAURANT_LOADED';
 export const ADD_REVIEW: string = 'ADD_REVIEW';
 export const REVIEW_ADDED: string = 'REVIEW_ADDED';
+
+export const ADD_MEAL: string = 'ADD_MEAL';
+export const ALL_MEALS_LOADED: string = 'ALL_MEALS_LOADED';
+export const ALL_RESTAURANTS_LOADED: string = 'ALL_RESTAURANTS_LOADED';
+export const DELETE_MEAL: string = 'DELETE_MEAL';
+export const EDIT_MEAL: string = 'EDIT_MEAL';
+export const GET_ALL_MEALS: string = 'GET_ALL_MEALS';
+export const GET_ALL_RESTAURANTS: string = 'GET_ALL_RESTAURANTS';
+export const GET_MEAL: string = 'GET_MEAL';
+export const GET_RESTAURANT: string = 'GET_RESTAURANT';
+
+
+export const MEAL_ADDED: string = 'MEAL_ADDED';
+export const MEAL_DELETED: string = 'MEAL_DELETED';
+export const MEAL_EDITED: string = 'MEAL_EDITED';
