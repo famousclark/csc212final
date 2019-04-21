@@ -22,11 +22,11 @@ module.exports.saveRestaurant = (req,res,next) => {
 }
 
 module.exports.getRestaurant = (req, res, next) => {
-    Restaurant.findOne({ r_code: req.body.r_code },
+    Restaurant.findOne({ r_code: req.params.r_code },
         (err, restaurant) => {
             if(!restaurant)
                 return res.status(404).json({ status: false, message: 'Restaurant record not found' });
-            else 
+            else
                 return res.status(200).send(restaurant);
         }
     );
@@ -52,14 +52,14 @@ module.exports.editRestaurant = (req,res,next) => {
 
 
     Restaurant.findOneAndUpdate(
-        { r_code: req.body.r_code }, 
-        { $set: { 
+        { r_code: req.body.r_code },
+        { $set: {
                   name : req.body.name,
                   type : req.body.type,
                   location : req.body.location,
                   campus : req.body.campus,
                   r_code : req.body.r_code
-               } 
+               }
         }, function (err, restaurant) {
 
 
@@ -70,14 +70,14 @@ module.exports.editRestaurant = (req,res,next) => {
               res.send(err);
             }
           }
-        
+
         );
 
 }
 
 module.exports.deleteRestaurant  = (req,res,next) => {
 
-    Restaurant.remove({ r_code: req.body.r_code }, function(err) {
+    Restaurant.remove({ r_code: req.params.r_code }, function(err) {
         if (!err) {
                 res.status(200).json(true);
         }

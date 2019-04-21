@@ -120,7 +120,7 @@ module.exports.addMeal = (req,res,next) => {
 
 module.exports.deleteMeal = (req,res,next) => {
     User.update({ email: req.params.email },
-        { "$pull": { "meals": { "meal_id": req.body.meal_id } }},
+        { "$pull": { "meals": { "meal_id": req.params.meal_id } }},
         { safe: true, multi:true },
         function(err, user) {
             if (!err) {

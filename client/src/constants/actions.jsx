@@ -1,13 +1,15 @@
 
 // REST
 export const GET_USER: string = 'GET_USER';
-export const GET_ALL_USERS: string = 'GET_USER';
 export const USER_LOADED: string = 'USER_LOADED';
+export const GET_ALL_USERS: string = 'GET_ALL_USER';
 export const ALL_USERS_LOADED: string = 'ALL_USERS_LOADED';
-export const ADD_USER: string = 'ADD_USER';
-export const USER_ADDED: string = 'USER_ADDED';
+export const EDIT_USER: string = 'EDIT_USER';
+export const USER_EDITED: string = 'USER_EDITED';
 export const DELETE_USER: string = 'DELETE_USER';
 export const USER_DELETED: string = 'USER_DELETED';
+export const ADD_USER: string = 'ADD_USER';
+export const USER_ADDED: string = 'USER_ADDED';
 
 export const ADD_USER_MEAL: string = 'ADD_USER_MEAL';
 export const USER_MEAL_ADDED: string = 'USER_MEAL_ADDED';
