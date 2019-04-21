@@ -29,3 +29,7 @@ export const ADD_NUTRI_GOAL: string = 'ADD_NUTRI_GOAL';
 export const NUTRI_GOAL_LOADED: string = 'NUTRI_GOAL_LOADED';
 export const GET_ALL_NUTRI_GOALS: string = 'GET_ALL_NUTRI_GOALS';
 export const ALL_NUTRI_GOALS_LOADED: string = 'ALL_NUTRI_GOALS_LOADED';
+
+export const MEAL_LOADED: string = 'MEAL_LOADED';
+export const RESTAURANT_LOADED: string = 'RESTAURANT_LOADED';
+export const USERS_LOADED: string = 'USERS_LOADED';
