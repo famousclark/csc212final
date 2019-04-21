@@ -39,7 +39,7 @@ module.exports.getAllUsers = (req,res) => {
 }
 
 module.exports.getUserByEmail = (req, res, next) => {
-    User.findOne({ email: req.email },
+    User.findOne({ email: req.body.email },
         (err, user) => {
             if(!user)
                 return res.status(404).json({ status: false, message: 'User record not found' });
