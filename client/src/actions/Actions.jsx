@@ -75,7 +75,7 @@ export const registerUser = (userData: Object): Object => {
 
 export const loginUser= (userData: Object): Object => {
   return {
-    type: EDIT_USER,
+    type: USER_LOG_IN,
     userData: userData
   };
 };

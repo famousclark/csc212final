@@ -51,6 +51,8 @@ function* editUserSaga(userAction: Object): Generator<any, any, any> {
     //yield sleep(5000);
   } catch (e) {
     console.log("error");
+    console.log(e);
+
   }
 }
 
@@ -72,6 +74,30 @@ function* addUserSaga(userAction: Object): Generator<any, any, any> {
     const added = yield backend.addUser(userAction);
     //console.log(loaded);
     yield put({ type: ActionConstants.USER_ADDED, info: added });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* logInUserSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const added = yield backend.loginUser(userAction);
+
+    yield put({ type: ActionConstants.USER_LOGGED_IN, info: added });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* registerUserSaga(userAction: Object): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const added = yield backend.registerUser(userAction);
+    //console.log(loaded);
+    yield put({ type: ActionConstants.USER_REGISTERED, info: added });
     //yield sleep(5000);
   } catch (e) {
     console.log("error");
@@ -208,6 +234,14 @@ export function* watchForAddUser(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.ADD_USER, addUserSaga);
 }
 
+export function* watchForLogInUser(): Generator<any, any, any> {
+  yield takeEvery(ActionConstants.USER_LOG_IN, logInUserSaga);
+}
+
+export function* watchForRegisterUser(): Generator<any, any, any> {
+  yield takeEvery(ActionConstants.USER_REGISTER, registerUserSaga);
+}
+
 
 export function* watchForGetAllUserMeals(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.GET_ALL_USER_MEALS, getAllUserMealsSaga);
@@ -253,6 +287,8 @@ export default function* rootSaga(): Generator<any, any, any> {
     watchForEditUser(),
     watchForDeleteUser(),
     watchForAddUser(),
+    watchForRegisterUser(),
+    watchForLogInUser(),
 
     watchForGetAllUserMeals(),
     watchForAddUserMeal(),
