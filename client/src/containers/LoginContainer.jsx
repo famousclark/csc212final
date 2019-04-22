@@ -159,7 +159,7 @@ const styles = theme => ({
     marginRight: "auto"
   },
   logInbutton: {
-    margin: "20% 22%",
+    margin: "15% 22%",
     textAlign:"center",
   }
 });
@@ -293,7 +293,7 @@ class LoginContainer extends Component {
           id="outlined-name"
           label="Email"
           className={classes.textField}
-          value={this.state.name}
+          value={this.state.email}
           onChange={this.handleChangeEmail('email')}
           margin="normal"
           variant="outlined"
@@ -302,9 +302,9 @@ class LoginContainer extends Component {
           id="password"
           label="Password"
           className={classes.textField}
-          value={this.state.name}
+          value={this.state.password}
           type="password"
-          onChange={this.handleChangeEmail('password')}
+          onChange={this.handleChangePassword('password')}
           margin="normal"
           variant="outlined"
           />
@@ -368,7 +368,7 @@ class LoginContainer extends Component {
           id="email"
           label="Email"
           className={classes.textField}
-          value={this.state.name}
+          value={this.state.email}
           onChange={this.handleChangeEmail('email')}
           margin="normal"
           variant="outlined"
@@ -377,7 +377,7 @@ class LoginContainer extends Component {
           id="password"
           label="Password"
           className={classes.textField}
-          value={this.state.name}
+          value={this.state.password}
           type="password"
           onChange={this.handleChangePassword('password')}
           margin="normal"
@@ -387,7 +387,7 @@ class LoginContainer extends Component {
           id="confirm_password"
           label="Confirm Password"
           className={classes.textField}
-          value={this.state.name}
+          value={this.state.confirmPassword}
           type="password"
           onChange={this.handleChangeConfirmPassword('confirmPassword')}
           margin="normal"
