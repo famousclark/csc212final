@@ -13,12 +13,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
 
 import dfo from '../images/dfo.jpg';
 import douglass from '../images/douglass.jpg';
@@ -52,9 +47,16 @@ function TabContainer({ children, dir }) {
   ==============================================*/}
   const styles = theme => ({
     root: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.paper
-    },
+       display: 'flex',
+       flexWrap: 'wrap',
+       justifyContent: 'space-around',
+       overflow: 'hidden',
+       backgroundColor: theme.palette.background.paper,
+     },
+     gridList: {
+       width: 500,
+       height: 450,
+     },
     inline: {
       display: 'inline',
     },
@@ -68,6 +70,11 @@ function TabContainer({ children, dir }) {
       display: "flex",
       marginLeft: "auto",
       marginRight: "auto"
+    },
+    bigAvatar: {
+      margin: 10,
+      width: 100,
+      height: 100,
     },
     progress: {
       display: "block",
@@ -90,10 +97,14 @@ function TabContainer({ children, dir }) {
       marginRight: "auto"
     },
     card: {
+      maxWidth: 345,
     },
     media: {
       height: 140,
     },
+    colorPrime:{
+      background: "#fff"
+    }
 });
 
 {/* ==============================================
@@ -160,6 +171,8 @@ class EatContainer extends Component {
   render(){
     const { classes, theme, dir, open, allRestaurants} = this.props;
 
+    const screenHeight = window.innerHeight - 56*2;
+
     if (this.readyToLoad && allRestaurants!= null) {
       return(
         <TabContainer className={classes.root} dir={dir}>
@@ -168,30 +181,158 @@ class EatContainer extends Component {
           ==============================================*/}
           <AppBar
             position="static"
-            color="secondary"
+            color="primary"
+            elevation="0"
+            classes={{
+              colorPrimary: classes.colorPrime
+            }}
             className={classes.appBar}>
-            <Toolbar disableGutters={!open}>
-              <Tabs
-                className={classes.tabsContainer}
-                value={this.state.value}
-                onChange={this.handleChange}
-                indicatorColor="primary"
-                textColor="primary"
-                variant="fullWidth"
-                centered>
-                <Tab label="Open now" />
-                <Tab label="Your progress" />
-              </Tabs>
-            </Toolbar>
+            <Typography
+              align="center"
+              variant="h6"
+              style={{ padding: "12px" }}>
+                UR EATS
+            </Typography>
           </AppBar>
           <section className={classes.content}>
+            <div style={{flexGrow: 1, background: "linear-gradient(rgba(119,229,227,0), rgba(0, 88, 242,1))", minHeight:('' + screenHeight+'px')}}>
+              <Grid container spacing={24}>
+
+                <Grid item xs={12} sm={6}>
+                  <Typography align="center" variant="body1" style={{padding: "40px" }}>
+                    <Card className={classes.card}>
+                      <CardActionArea>
+                        <CardMedia
+                          className={classes.media}
+                          image={dfo}
+                          title="Contemplative Reptile"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            Lizard
+                          </Typography>
+                          <Typography component="p">
+                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                            across all continents except Antarctica
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions>
+                        <Button size="small" color="primary">
+                          Share
+                        </Button>
+                        <Button size="small" color="primary">
+                          Learn More
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <Typography align="center" variant="body1" style={{padding: "40px" }}>
+                    <Card className={classes.card}>
+                      <CardActionArea>
+                        <CardMedia
+                          className={classes.media}
+                          image={dfo}
+                          title="Contemplative Reptile"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            Lizard
+                          </Typography>
+                          <Typography component="p">
+                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                            across all continents except Antarctica
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions>
+                        <Button size="small" color="primary">
+                          Share
+                        </Button>
+                        <Button size="small" color="primary">
+                          Learn More
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <Typography align="center" variant="body1" style={{padding: "40px" }}>
+                    <Card className={classes.card}>
+                      <CardActionArea>
+                        <CardMedia
+                          className={classes.media}
+                          image={dfo}
+                          title="Contemplative Reptile"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            Lizard
+                          </Typography>
+                          <Typography component="p">
+                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                            across all continents except Antarctica
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions>
+                        <Button size="small" color="primary">
+                          Share
+                        </Button>
+                        <Button size="small" color="primary">
+                          Learn More
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <Typography align="center" variant="body1" style={{padding: "40px" }}>
+                    <Card className={classes.card}>
+                      <CardActionArea>
+                        <CardMedia
+                          className={classes.media}
+                          image={dfo}
+                          title="Contemplative Reptile"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            Lizard
+                          </Typography>
+                          <Typography component="p">
+                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                            across all continents except Antarctica
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions>
+                        <Button size="small" color="primary">
+                          Share
+                        </Button>
+                        <Button size="small" color="primary">
+                          Learn More
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Typography>
+                </Grid>
+
+              </Grid>
+
+
+            {/*
             <SwipeableViews
               className={classes.tabsContainer}
               axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
               index={this.state.value}
               onChangeIndex={this.handleChangeIndex}>
-              <TabContainer dir={theme.direction}>
-                <div>test</div>
+            */}
+
                 {/*
                 <List className={classes.root}>
                   <ListItem alignItems="flex-center">
@@ -353,13 +494,11 @@ class EatContainer extends Component {
                   </Typography>
                 </Paper>
               */}
-              </TabContainer>
 
-              <TabContainer dir={theme.direction}>
-                <div>stuff</div>
-              </TabContainer>
-
+            {/*
             </SwipeableViews>
+            */}
+            </div>
           </section>
         {/* ==============================================
           Here is where you design
