@@ -157,8 +157,36 @@ class BudgetContainer extends Component {
   render(){
     const { classes, theme, dir, open, userInfo} = this.props;
     //const { userInfo } = this.props;
+    const screenHeight = window.innerHeight - 56*2;
     if (this.readyToLoad && userInfo.d_plan != null) {
-      console.log(userInfo.d_plan);
+      //console.log(screenHeight - 56*2);
+      var MealPlan = '';
+      var swipes ='';
+      if(userInfo.d_plan.plan == "MelUlm"){
+        MealPlan =(<div>Meliora Unlimited</div>)
+        swipes = (<div>Unlimited</div>)
+      } else if(userInfo.d_plan.plan == "BlueUlm"){
+        MealPlan =(<div>Blue Unlimited</div>)
+        swipes = (<div>Unlimited</div>)
+      } else if(userInfo.d_plan.plan == "150Pass"){
+        MealPlan =(<div>150 Pass Plan</div>)
+        swipes = (<div>150</div>)
+      } else if(userInfo.d_plan.plan == "OptionA"){
+        MealPlan =(<div>Option A Declining</div>)
+        swipes = (<div>0</div>)
+      } else if(userInfo.d_plan.plan == "OpionB"){
+        MealPlan =(<div>Option B Declining</div>)
+        swipes = (<div>0</div>)
+      } else if(userInfo.d_plan.plan == "OptionC"){
+        MealPlan =(<div>Option C Declining</div>)
+        swipes = (<div>0</div>)
+      } else if(userInfo.d_plan.plan == "OpionD"){
+        MealPlan =(<div>Option D Declining</div>)
+        swipes = (<div>0</div>)
+      } else if(userInfo.d_plan.plan == "Com"){
+        MealPlan =(<div>Commuter Plan</div>)
+        swipes = (<div>0</div>)
+      }
       return(
         <TabContainer className={classes.root} dir={dir}>
           <AppBar
@@ -174,7 +202,7 @@ class BudgetContainer extends Component {
             </Typography>
           </AppBar>
           <section className={classes.content}>
-            <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))"}}>
+            <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
               {/* <Paper elevation={0}> */}
               <Typography align="center" variant="body1" style={{padding: "40px" }}>
                 Declining Left to Spend Today:
@@ -194,7 +222,7 @@ class BudgetContainer extends Component {
                   <TableCell style={{padding: "0px 0px 20px 20px"}}>
                   <div className={classes.detailHeading}>
                     Meal Plan
-                    <div className={classes.details}>Option A Declining</div>
+                    <div className={classes.details}>{MealPlan}</div>
                   </div>
                   </TableCell>
                   <TableCell style={{padding: "0px 0px 20px 20px"}}>
@@ -217,7 +245,7 @@ class BudgetContainer extends Component {
                   <TableCell style={{padding: "0px 0px 20px 20px"}}>
                     <div className={classes.detailHeading}>
                     Swipes
-                    <div className={classes.details}> 0</div>
+                    <div className={classes.details}> {swipes}</div>
                     </div>
                   </TableCell>
                 </TableRow>
