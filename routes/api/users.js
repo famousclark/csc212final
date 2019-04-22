@@ -60,7 +60,7 @@ router.post("/register", (req, res) => {
         password: req.body.password,
 
         d_plan : req.body.d_plan,
-        diet : req.body.diet,
+        //diet : req.body.diet,
 
         meals : [],
         spend_goal: [],
