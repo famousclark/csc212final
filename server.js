@@ -10,7 +10,6 @@ const reviews = require("./routes/api/reviews");
 
 const cors = require('cors');
 
-
 const app = express();
 
 app.use(cors());
@@ -38,12 +37,18 @@ app.use("/api/restaurants", restaurants);
 app.use("/api/meals", meals);
 app.use("/api/reviews", reviews);
 
+// Requiring socket.io
+var socket = require('socket.io');
+var server = require('http').createServer(app);
+var io = socket(server);
+
+io.on('connection', (socket) => {
+    console.log(socket.id);
+});
+
 
 
 const seed = require("./seed/seeder");
-
-
-
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port when we're ready to deploy
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

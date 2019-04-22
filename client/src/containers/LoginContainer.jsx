@@ -175,7 +175,7 @@ class LoginContainer extends Component {
         value: 1,
         open: false,
         wide: false,
-        isLoggedIn: false,
+        isLoggedIn: true,
         email: "",
         password: "",
         confirmPassword: "",
