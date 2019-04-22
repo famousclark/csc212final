@@ -65,6 +65,9 @@ const styles = theme => ({
   detailHeading:{
     fontSize: "16px",
     paddingTop: "24px",
+  },
+  colorPrime:{
+    background: "#fff"
   }
 
 });
@@ -84,11 +87,19 @@ class BudgetContainer extends Component {
         isLoading: true
       };
   }
+
+  loadAsyncRestaurantData = () =>  new Promise( (resolve, reject) => {
+    setTimeout( () => {
+      this.props.getAllRestaurants();
+      resolve(this.props.restaurantInfo);
+    }, 1000)
+  });
+
   loadAsyncUserData = (userEmail) =>  new Promise( (resolve, reject) => {
     setTimeout( () => {
       this.props.getUser(userEmail);
       resolve(this.props.userInfo);
-    }, 5000)
+    }, 1000)
   });
 
   loadAsyncMealData = (userEmail) =>  new Promise( (resolve, reject) => {
@@ -104,16 +115,19 @@ class BudgetContainer extends Component {
       userInfo => {
         this.readyToLoad = true;
         this.setState({userInfo});
-    }
+      }
     )
-    .then( () => {
-      setTimeout ( () => {
-
-        console.log( this.props.userInfo);
-        console.log(this.state.userInfo);
-      }, 1000)
-    });
-  }
+    /*
+    this._asyncRequest = null;
+    this._asyncRequest = this.loadAsyncRestaurantData()
+    .then(
+      userInfo => {
+        this.readyToLoad = true;
+        this.setState({userInfo});
+      }
+    )
+    */
+  };
 
   componentDidMount() {
     this.handleLoadAsync();
@@ -222,8 +236,11 @@ class BudgetContainer extends Component {
         <TabContainer className={classes.root} dir={dir}>
           <AppBar
             position="static"
-            color="white"
+            color="primary"
             elevation="0"
+            classes={{
+              colorPrimary: classes.colorPrime
+            }}
             className={classes.appBar}>
             <Typography
               align="center"

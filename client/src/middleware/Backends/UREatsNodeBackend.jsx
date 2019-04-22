@@ -73,5 +73,11 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
       .catch(error => console.log(error));
   }
 
+  getAllRestaurants(): Promise {
+    return this._get(GET_ALL_RESTAURANTS_ENDPOINT, {})
+      .then(result => result)
+      .catch(error => console.log(error));
+  }
+
 
 }
