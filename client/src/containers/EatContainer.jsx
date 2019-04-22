@@ -14,23 +14,26 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import * as ActionCreators from '../actions/Actions';
 
 import dfo from '../images/dfo.jpg';
-import douglass from '../images/douglass.jpg';
-import med from '../images/med.jpg';
-import pit from '../images/pit.jpg';
-import forest from '../images/forest.jpg';
+// import douglass from '../images/douglass.jpg';
+// import med from '../images/med.jpg';
+// import pit from '../images/pit.jpg';
+// import forest from '../images/forest.jpg';
 
-import AppBar from '@material-ui/core/AppBar';
+
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+
 import Paper from '@material-ui/core/Paper';
 import Restaurant from '@material-ui/icons/Restaurant';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SwipeableViews from 'react-swipeable-views';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import * as ActionCreators from '../actions/Actions';
+
 
 var readyToLoad = false;
 
@@ -205,10 +208,10 @@ class EatContainer extends Component {
                       </CardActionArea>
                       <CardActions>
                         <Button size="small" color="primary">
-                          Share
+                          Menu
                         </Button>
                         <Button size="small" color="primary">
-                          Learn More
+                          Review
                         </Button>
                       </CardActions>
                     </Card>
@@ -403,6 +406,7 @@ class EatContainer extends Component {
     }
     
     return(
+      //<CssBaseline />
       <TabContainer className={classes.root} dir={dir}>
           <AppBar
             position="static"
