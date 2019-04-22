@@ -143,7 +143,8 @@ class BudgetContainer extends Component {
     //const { userInfo } = this.props;
     const screenHeight = window.innerHeight - 56*2;
     if (!isLoading && userInfo.d_plan != null) {
-      //console.log(screenHeight - 56*2);
+    
+
       var MealPlan = '';
       var swipes ='';
       if(userInfo.d_plan.plan == "MelUlm"){

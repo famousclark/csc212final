@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import * as ActionCreators from '../actions/Actions';
+
+
+import {bindActionCreators} from 'redux';
 import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -170,6 +174,8 @@ class LoginContainer extends Component {
     super(props);
     (this : any).handleChange = this.handleChange.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
+  //  (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
+
     (this : any)
       .state = {
         value: 1,
@@ -184,6 +190,29 @@ class LoginContainer extends Component {
       };
 
   }
+
+  onHandleLogin = (event) => {
+  //  event.preventDefault();
+
+  //  let email = event.target.email.value;
+  //  let password = event.target.password.value;
+
+
+    // const data = {
+    //   email, password
+    // };
+
+  //   this.props.dispatch(ActionCreators.loginUser(data));
+      this.loginUser({email:this.state.email, password:this.state.password})
+  }
+
+
+  loginUser = (data) =>  new Promise( (resolve, reject) => {
+    setTimeout( () => {
+      this.props.loginUser(data);
+      resolve(this.props.userInfo);
+    }, 200)
+  });
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -224,9 +253,25 @@ class LoginContainer extends Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+
+    const { classes, theme, userInfo,result, allUsersInfo} = this.props;
     const { open, value, isLoggedIn } = this.state;
     var base = "";
+
+
+
+    if (userInfo.hasOwnProperty('success')) {
+
+      if (userInfo.success == true) {
+        localStorage.removeItem('token');
+        localStorage.setItem('token', userInfo.token);
+        this.state.isLoggedIn = true;
+      }
+    }
+
+
+
+
 
     //if logged in show the app with budget page, else show log in/register page
     if(isLoggedIn){
@@ -288,7 +333,7 @@ class LoginContainer extends Component {
         </AppBar>
         {value === 0 &&
         <TabContainer>
-          <form className={classes.container} autoComplete="off">
+          <form className={classes.container} autoComplete="off" >
           <TextField
           id="outlined-name"
           label="Email"
@@ -308,7 +353,7 @@ class LoginContainer extends Component {
           margin="normal"
           variant="outlined"
           />
-          <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button}>
+           <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button} onclick={this.onHandleLogin()}>
           Submit
         </Button>
           </form>
@@ -411,5 +456,18 @@ class LoginContainer extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    userInfo: state.app.userInfo,
+    allUsersInfo: state.app.allUsersInfo
 
-export default withStyles(styles, { withTheme: true })(LoginContainer);
+  }
+}
+function mapActionCreatorsToProps(dispatch: Object) {
+  return bindActionCreators(ActionCreators, dispatch);
+}
+
+// const mapStateToProps = (result) => ({result});
+
+
+export default connect(mapStateToProps, mapActionCreatorsToProps)(withStyles(styles, { withTheme: true })(LoginContainer));

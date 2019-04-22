@@ -44,7 +44,8 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
   }
 
   registerUser(userInfo: Object): Promise {
-    const body = JSON.stringify(userInfo);
+    const body = JSON.stringify(userInfo.userData);
+
     return this._post(USER_REGISTER_ENDPOINT, body, {
       headers: { "Content-Type": "application/json" }
     })
@@ -53,7 +54,10 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
   }
 
   loginUser(userInfo: Object): Promise {
-    const body = JSON.stringify(userInfo);
+
+    const body = JSON.stringify(userInfo.userData);
+
+
     return this._post(USER_LOG_IN_ENDPOINT, body, {
       headers: { "Content-Type": "application/json" }
     })
@@ -75,7 +79,7 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
   }
 
   editUser(userData: Object): Promise {
-    const body = this.objToFormData(userData);
+    const body = JSON.stringify(userData);
     return this._put(EDIT_USER_ENDPOINT + userData.email, body, {})
       .then(result => result)
       .catch(error => console.log(error));
