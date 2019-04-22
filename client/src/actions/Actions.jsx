@@ -1,5 +1,11 @@
 // constants
 import {
+  USER_REGISTER,
+  USER_LOG_IN,
+
+  USER_REGISTERED,
+  USER_LOGGED_IN,
+
   GET_USER,
   USER_LOADED,
   GET_ALL_USERS,
@@ -59,6 +65,20 @@ import {
   ADD_REVIEW
 
 } from "../constants/actions";
+
+export const registerUser = (userData: Object): Object => {
+  return {
+    type: USER_LOG_IN,
+    userData: userData
+  };
+};
+
+export const loginUser= (userData: Object): Object => {
+  return {
+    type: EDIT_USER,
+    userData: userData
+  };
+};
 
 export const getUser = (email: String): Object => {
   return {

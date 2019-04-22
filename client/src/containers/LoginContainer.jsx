@@ -175,7 +175,7 @@ class LoginContainer extends Component {
         value: 1,
         open: false,
         wide: false,
-        isLoggedIn: true,
+        isLoggedIn: false,
         email: "",
         password: "",
         confirmPassword: "",
@@ -286,7 +286,7 @@ class LoginContainer extends Component {
             <Tab label="Register" />
           </Tabs>
         </AppBar>
-        {value === 0 && 
+        {value === 0 &&
         <TabContainer>
           <form className={classes.container} autoComplete="off">
           <TextField
@@ -335,7 +335,7 @@ class LoginContainer extends Component {
           variant="outlined"
           /> */}
           <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel 
+          <InputLabel
           htmlFor="d_plan">
            Meal Plan
           </InputLabel>
