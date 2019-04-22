@@ -67,6 +67,9 @@ const styles = theme => ({
   detailHeading:{
     fontSize: "16px",
     paddingTop: "24px",
+  },
+  colorPrime:{
+    background: "#fff"
   }
 
 });
@@ -191,8 +194,11 @@ class BudgetContainer extends Component {
         <TabContainer className={classes.root} dir={dir}>
           <AppBar
             position="static"
-            color="white"
+            color="primary"
             elevation="0"
+            classes={{
+              colorPrimary: classes.colorPrime
+            }}
             className={classes.appBar}>
             <Typography
               align="center"
