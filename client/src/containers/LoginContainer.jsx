@@ -175,7 +175,7 @@ class LoginContainer extends Component {
         value: 1,
         open: false,
         wide: false,
-        isLoggedIn: false,
+        isLoggedIn: true,
         email: "",
         password: "",
         confirmPassword: "",
@@ -233,7 +233,7 @@ class LoginContainer extends Component {
     base = (
       <div className={classes.root} style={{width: "100%"}}>
       <AppBar
-          position="fixed"
+          position="absolute"
           color="default"
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open && !(theme.breakpoints.up('sm'))
