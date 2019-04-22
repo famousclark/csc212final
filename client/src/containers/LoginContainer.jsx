@@ -172,10 +172,10 @@ class LoginContainer extends Component {
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
     (this : any)
       .state = {
-        value: 0,
+        value: 1,
         open: false,
         wide: false,
-        isLoggedIn: false,
+        isLoggedIn: true,
         email: "",
         password: "",
         confirmPassword: "",
@@ -224,14 +224,14 @@ class LoginContainer extends Component {
   };
 
   render() {
-    const { classes, theme, isLoggedIn, logIn, register } = this.props;
-    const { open, value } = this.state;
+    const { classes, theme } = this.props;
+    const { open, value, isLoggedIn } = this.state;
     var base = "";
 
     //if logged in show the app with budget page, else show log in/register page
     if(isLoggedIn){
     base = (
-      <div style={{width:"100%"}}>
+      <div className={classes.root} style={{width: "100%"}}>
       <AppBar
           position="fixed"
           color="default"
@@ -274,11 +274,9 @@ class LoginContainer extends Component {
     );
     } else {
       var screenHeight = window.innerHeight;
-      if(!logIn && !register){
         base = (
         <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px'), width:"100%"}}>
           <div className={classes.logInbutton}>
-
           <Typography style={{fontSize:"25px", color:"white", textAlign:"center", paddingBottom:"10px"}}>
             UR EATS
           </Typography>
@@ -402,9 +400,7 @@ class LoginContainer extends Component {
           </TabContainer>}
            </div>
         </div>
-        )
-      } 
-      
+        );
     }
 
     return (
