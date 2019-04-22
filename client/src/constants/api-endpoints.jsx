@@ -1,4 +1,8 @@
 /*============USER endpoints=============*/
+export const USER_LOG_IN_ENDPOINT: string ='http://localhost:5000/api/users/login/';
+export const USER_REGISTER_ENDPOINT: string ='http://localhost:5000/api/users/register/';
+
+
 export const GET_ALL_USERS_ENDPOINT: string ='http://localhost:5000/api/users/get/all/';
 export const GET_USER_ENDPOINT: string = 'http://localhost:5000/api/users/get/';
 export const EDIT_USER_ENDPOINT: string =  'http://localhost:5000/api/users/edit/';

@@ -2,6 +2,9 @@
 import UREatsAbstractBackend from './UREatsAbstractBackend';
 
 import {
+  USER_REGISTER_ENDPOINT,
+  USER_LOG_IN_ENDPOINT,
+
   GET_ALL_USERS_ENDPOINT,
   GET_USER_ENDPOINT,
   EDIT_USER_ENDPOINT,
@@ -39,6 +42,25 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
     //this.adminBackend = new UREatsAdminBackend();
     this.hasAdminBackend = true;
   }
+
+  registerUser(userInfo: Object): Promise {
+    const body = JSON.stringify(userInfo);
+    return this._post(USER_REGISTER_ENDPOINT, body, {
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(result => result)
+      .catch(error => console.log(error));
+  }
+
+  loginUser(userInfo: Object): Promise {
+    const body = JSON.stringify(userInfo);
+    return this._post(USER_LOG_IN_ENDPOINT, body, {
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(result => result)
+      .catch(error => console.log(error));
+  }
+
 
   getUser(email: String): Promise {
     return this._get(GET_USER_ENDPOINT + email, {})

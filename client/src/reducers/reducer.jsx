@@ -21,6 +21,17 @@ function Reducer(state: Object = defaultState, action: Object) {
 
     switch (action.type) {
 
+      case ActionConstants.USER_REGISTERED:
+        return{
+          ...state,
+        }
+
+      case ActionConstants.USER_LOGGED_IN:
+        return{
+          ...state,
+          userInfo: action.info
+        }
+
       case ActionConstants.USER_LOADED:
         return{
           ...state,

@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Restaurant from '@material-ui/icons/Restaurant';
 import Table from '@material-ui/core/Table';
 import { TableRow, TableCell } from "@material-ui/core";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import * as ActionCreators from '../actions/Actions';
 
@@ -41,12 +42,9 @@ const styles = theme => ({
     marginRight: "auto"
   },
   progress: {
-    display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: "-120px",
-    zIndex: 1,
-    margin: theme.spacing.unit * 2,
+    margin: "45% 45%",
+    color: "white",
+    // margin: theme.spacing.unit * 2,
   },
   content: {
     flexGrow: 1,
@@ -85,7 +83,8 @@ class BudgetContainer extends Component {
     (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
 
       this.state = {
-        userInfo: null
+        userInfo: null,
+        isLoading: true
       };
   }
 
@@ -132,36 +131,18 @@ class BudgetContainer extends Component {
 
   componentDidMount() {
     this.handleLoadAsync();
-    //console.log(this.state);
-    /*
-    fetch("localhost:5000/api/users/get/",
-    { method: 'GET',
-      body: '{email : "1111@gmail.com"}',
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            user: result
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      )
-      */
+    this.state.isLoading = false;
+  }
+
+  mainPage(){
+
   }
 
   render(){
-    const { classes, theme, dir, open, userInfo} = this.props;
+    const { classes, theme, dir, open, userInfo, isLoading} = this.props;
     //const { userInfo } = this.props;
     const screenHeight = window.innerHeight - 56*2;
-    if (this.readyToLoad && userInfo.d_plan != null) {
+    if (!isLoading && userInfo.d_plan != null) {
       //console.log(screenHeight - 56*2);
       var MealPlan = '';
       var swipes ='';
@@ -190,6 +171,67 @@ class BudgetContainer extends Component {
         MealPlan =(<div>Commuter Plan</div>)
         swipes = (<div>0</div>)
       }
+
+      var section = (
+        <section className={classes.content}>
+        <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
+          <Typography align="center" variant="body1" style={{padding: "40px" }}>
+            Declining Left to Spend Today:
+            <Typography align="center" variant="h2" style={{ padding: "24px" }}>
+            $ 6.65
+            </Typography>
+          </Typography>
+
+          <Typography align="center" style={{ padding: "24px" }}>
+              You are doing great, {userInfo.name}. Keep up UR healthy eats
+          </Typography>
+
+          <Table className={classes.table}>
+            <TableRow>
+              <TableCell style={{padding: "0px 0px 20px 20px"}}>
+              <div className={classes.detailHeading}>
+                Meal Plan
+                <div className={classes.details}>{MealPlan}</div>
+              </div>
+              </TableCell>
+              <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                <div className={classes.detailHeading}>
+                Daily Budget
+                <div className={classes.details}> 30.00 </div>
+                </div>
+
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                <div className={classes.detailHeading}>
+              Declining
+               <div className={classes.details}>
+                {userInfo.d_plan.balance}
+               </div>
+               </div>
+              </TableCell>
+              <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                <div className={classes.detailHeading}>
+                Swipes
+                <div className={classes.details}> {swipes}</div>
+                </div>
+              </TableCell>
+            </TableRow>
+          </Table>
+          </div>
+        </section> )
+    }else{
+      var section = (
+        <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
+          <div>
+            <CircularProgress className={classes.progress} />
+           </div>
+        </div>
+      );
+  }
+
+      //console.log("today " + today + " expires " + expiry);
       return(
         <TabContainer className={classes.root} dir={dir}>
           <AppBar
@@ -207,86 +249,9 @@ class BudgetContainer extends Component {
                 UR EATS
             </Typography>
           </AppBar>
-          <section className={classes.content}>
-            <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
-              {/* <Paper elevation={0}> */}
-              <Typography align="center" variant="body1" style={{padding: "40px" }}>
-                Declining Left to Spend Today:
-                <Typography align="center" variant="h2" style={{ padding: "24px" }}>
-                $ 6.65
-                </Typography>
-              </Typography>
-
-              <Typography align="center" style={{ padding: "24px" }}>
-                  You are doing great, {userInfo.name}. Keep up UR healthy eats
-              </Typography>
-
-
-              {/* <Paper style={{}} elevation={2}> */}
-              <Table className={classes.table}>
-                <TableRow>
-                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                  <div className={classes.detailHeading}>
-                    Meal Plan
-                    <div className={classes.details}>{MealPlan}</div>
-                  </div>
-                  </TableCell>
-                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                    <div className={classes.detailHeading}>
-                    Daily Budget
-                    <div className={classes.details}> 30.00</div>
-                    </div>
-
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                    <div className={classes.detailHeading}>
-                  Declining
-                   <div className={classes.details}>
-                    {userInfo.d_plan.balance}
-                   </div>
-                   </div>
-                  </TableCell>
-                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
-                    <div className={classes.detailHeading}>
-                    Swipes
-                    <div className={classes.details}> {swipes}</div>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              </Table>
-
-                {/* <Typography style={{ padding: "24px" }}>
-                   Meal Plan
-                   <span style={{float:"right"}}>Option A Declining</span>
-                  </Typography>
-                  <Typography style={{ padding: "24px" }}>
-                   Daily Budget
-                   <span style={{float:"right"}}>30.00</span>
-                  </Typography>
-                  <Typography style={{ padding: "24px" }}>
-                   URos
-                   <span style={{float:"right"}}>32.12</span>
-                  </Typography>
-                  <Typography style={{ padding: "24px" }}>
-                   Declining
-                   <span style={{float:"right"}}>980.30</span>
-                  </Typography>
-                  <Typography style={{ padding: "24px" }}>
-                   Swipes
-                   <span style={{float:"right"}}>0</span>
-                  </Typography> */}
-                {/* </Paper> */}
-              </div>
-            </section>
+          {section}
           </TabContainer>
         );
-      }else{
-        return(
-          <div>loading</div>
-        );
-    }
   }
 }
 

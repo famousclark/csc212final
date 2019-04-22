@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
+import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
-
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import SwipeableViews from 'react-swipeable-views';
-
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import classNames from 'classnames';
-
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import AppBar from '@material-ui/core/AppBar';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -19,7 +20,6 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -34,10 +34,12 @@ import EatIcon from '@material-ui/icons/Restaurant';
 import CommunityIcon from '@material-ui/icons/People'
 import ProfileIcon from '@material-ui/icons/Person'
 import LogOutIcon from '@material-ui/icons/ExitToApp'
+import TextField from '@material-ui/core/TextField';
 
 import BudgetContainer from './BudgetContainer';
 import EatContainer from './EatContainer';
 import CommunityContainer from './CommunityContainer';
+import { log } from "util";
 
 function TabContainer({ children, dir }) {
   return (
@@ -142,11 +144,23 @@ const styles = theme => ({
   colorPrimary: {
     color: "#fff"
   },
+  button:{
+    width: "100px",
+    margin: "10px",
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: "195px",
+  },
   icon: {
     fontSize: 180,
     display: "block",
     marginLeft: "auto",
     marginRight: "auto"
+  },
+  logInbutton: {
+    margin: "15% 22%",
+    textAlign:"center",
   }
 });
 
@@ -156,24 +170,20 @@ class LoginContainer extends Component {
     super(props);
     (this : any).handleChange = this.handleChange.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
-    (this : any).handleDrawerOpen = this.handleDrawerOpen.bind(this);
-    (this : any).handleDrawerClose = this.handleDrawerClose.bind(this);
     (this : any)
       .state = {
-        value: 0,
+        value: 1,
         open: false,
-        wide: false
+        wide: false,
+        isLoggedIn: false,
+        email: "",
+        password: "",
+        confirmPassword: "",
+        name:"",
+        d_plan:"",
       };
 
   }
-
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleDrawerClose = () => {
-    this.setState({ open: false, wide: false });
-  };
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -183,71 +193,59 @@ class LoginContainer extends Component {
     this.setState({ value: index });
   };
 
+  handleChangeEmail = email => event => {
+    this.setState({
+      [email]: event.target.value,
+    });
+  };
+
+  handleChangePassword = password => event => {
+    this.setState({
+      [password]: event.target.value,
+    });
+  };
+
+  handleChangeConfirmPassword = confirmPassword => event => {
+    this.setState({
+      [confirmPassword]: event.target.value,
+    });
+  };
+
+  handleChangeName = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  handleChangeD_Plan = d_plan => event => {
+    this.setState({
+      [d_plan]: event.target.value,
+    });
+  };
+
   render() {
     const { classes, theme } = this.props;
-    const { open, value } = this.state;
+    const { open, value, isLoggedIn } = this.state;
+    var base = "";
 
-    const drawer = (
-      <div>
-        <div className={classes.topper} />
-        <List>
-          {['Eat', 'Budget', 'Community'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon style={{color: "#fff" }} >
-              {index == 1 ? <BudgetIcon /> : index == 0 ? <EatIcon/> : <CommunityIcon/>}
-              </ListItemIcon>
-              <ListItemText
-                disableTypography={false}
-                primaryTypographyProps={{
-                  classes: {colorPrimary: classes.colorPrimary},
-                  color: "primary"
-                }}
-
-                primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
-        <List>
-          {['My Profile', 'Log Out'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon style={{color: "#fff" }} >{index % 2 === 0 ? <ProfileIcon /> : <LogOutIcon />}</ListItemIcon>
-              <ListItemText
-                disableTypography={false}
-                primaryTypographyProps={{
-                  classes: {colorPrimary: classes.colorPrimary},
-                  color: "primary"
-                }}
-                primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
-        <div style={{background: "#DDD"}} className={classes.fabHolder}>
-          <Fab onClick={this.handleDrawerClose} color="primary" aria-label="Add" className={classes.fabButton}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </Fab>
-        </div>
-      </div>
-    );
-
-    return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
+    //if logged in show the app with budget page, else show log in/register page
+    if(isLoggedIn){
+    base = (
+      <div className={classes.root} style={{width: "100%"}}>
+      <AppBar
           position="fixed"
           color="default"
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open && !(theme.breakpoints.up('sm'))
           })}>
           <Toolbar disableGutters={!open}>
-            <IconButton
+            {/* <IconButton
               color="inherit"
               aria-label="Open drawer"
               onClick={this.handleDrawerOpen}
               className={classNames(classes.menuButton, open && classes.hide)}>
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Tabs
               style={{flexGrow: "1"}}
               value={this.state.value}
@@ -263,57 +261,152 @@ class LoginContainer extends Component {
           </Toolbar>
         </AppBar>
 
-        <nav  className={classes.drawer}>
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
-            <Drawer
-              container={this.props.container}
-              variant="temporary"
-              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={open}
-              classes={{
-                paper: classes.drawerPaper,
-              }}>
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              cvariant="persistent"
-              anchor="left"
-              open={open}
-              classes={{
-                paper: classes.drawerPaper,
-              }}>
-              {drawer}
-            </Drawer>
-          </Hidden>
+       <nav  className={classes.drawer}>
         </nav>
-
-        {/*<Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}>
-          {drawer}
-        </Drawer>*/}
 
         <main
           className={classNames(classes.content, {[classes.contentShift]: open && !(theme.breakpoints.up('sm'))})}>
-          {/*<div className={classes.drawerHeader} />*/}
-          {/*<SwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={this.state.value}
-            onChangeIndex={this.handleChangeIndex}>*/}
             {value === 0 &&<BudgetContainer open={open} dir={theme.direction}/>}
             {value === 1 &&<EatContainer open={open} dir={theme.direction}/>}
             {value === 2 &&<CommunityContainer open={open} dir={theme.direction}/>}
-          {/*</SwipeableViews>*/}
-          <div className={classes.drawerHeader} />
         </main>
+        </div>
+    );
+    } else {
+      var screenHeight = window.innerHeight;
+        base = (
+        <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px'), width:"100%"}}>
+          <div className={classes.logInbutton}>
+          <Typography style={{fontSize:"25px", color:"white", textAlign:"center", paddingBottom:"10px"}}>
+            UR EATS
+          </Typography>
+          <AppBar position="static" color="secondary">
+          <Tabs value={value} onChange={this.handleChange}>
+            <Tab label="Login" />
+            <Tab label="Register" />
+          </Tabs>
+        </AppBar>
+        {value === 0 &&
+        <TabContainer>
+          <form className={classes.container} autoComplete="off">
+          <TextField
+          id="outlined-name"
+          label="Email"
+          className={classes.textField}
+          value={this.state.email}
+          onChange={this.handleChangeEmail('email')}
+          margin="normal"
+          variant="outlined"
+          />
+          <TextField
+          id="password"
+          label="Password"
+          className={classes.textField}
+          value={this.state.password}
+          type="password"
+          onChange={this.handleChangePassword('password')}
+          margin="normal"
+          variant="outlined"
+          />
+          <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button}>
+          Submit
+        </Button>
+          </form>
+
+        </TabContainer>}
+        {value === 1 && <TabContainer>
+          <form className={classes.container} noValidate autoComplete="off">
+          <TextField
+          id="name"
+          label="Name"
+          className={classes.textField}
+          value={this.state.name}
+          onChange={this.handleChangeName('name')}
+          margin="normal"
+          variant="outlined"
+          />
+          {/* <TextField
+          id="d_plan"
+          label="Meal Plan"
+          className={classes.textField}
+          value={this.state.name}
+          onChange={this.handleChangeD_Plan('d_plan')}
+          margin="normal"
+          variant="outlined"
+          /> */}
+          <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel
+          htmlFor="d_plan">
+           Meal Plan
+          </InputLabel>
+          <Select
+            value={this.state.d_plan}
+            onChange={this.handleChangeD_Plan('d_plan')}
+            input={
+              <OutlinedInput
+                labelWidth="75"
+                name="d_plan"
+                id="d_plan"
+              />
+            }
+          >
+            <MenuItem value="">
+              <em>Choose Meal Plan</em>
+            </MenuItem>
+            <MenuItem value={"MelUlm"}>Meliora Unlimited</MenuItem>
+            <MenuItem value={"BlueUlm"}>Blue Unlimited</MenuItem>
+            <MenuItem value={"150Pass"}>150 Pass</MenuItem>
+            <MenuItem value={"OptionA"}>Option A Declining</MenuItem>
+            <MenuItem value={"OptionB"}>Option B Declining</MenuItem>
+            <MenuItem value={"OptionC"}>Option C Declining</MenuItem>
+            <MenuItem value={"OptionD"}>Option D Declining</MenuItem>
+            <MenuItem value={"Com"}>Commuter</MenuItem>
+          </Select>
+        </FormControl>
+
+          <TextField
+          id="email"
+          label="Email"
+          className={classes.textField}
+          value={this.state.email}
+          onChange={this.handleChangeEmail('email')}
+          margin="normal"
+          variant="outlined"
+          />
+          <TextField
+          id="password"
+          label="Password"
+          className={classes.textField}
+          value={this.state.password}
+          type="password"
+          onChange={this.handleChangePassword('password')}
+          margin="normal"
+          variant="outlined"
+          />
+          <TextField
+          id="confirm_password"
+          label="Confirm Password"
+          className={classes.textField}
+          value={this.state.confirmPassword}
+          type="password"
+          onChange={this.handleChangeConfirmPassword('confirmPassword')}
+          margin="normal"
+          variant="outlined"
+          />
+          <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button}>
+          Submit
+        </Button>
+          </form>
+          </TabContainer>}
+           </div>
+        </div>
+        );
+    }
+
+    return (
+      <div className={classes.root}>
+      <CssBaseline />
+       {base}
       </div>
     );
   }

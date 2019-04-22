@@ -62,3 +62,11 @@ export const GET_REVIEW_BY_RESTAURANT: string = 'GET_REVIEW_BY_RESTAURANT';
 export const REVIEW_BY_RESTAURANT_LOADED: string = 'REVIEW_BY_RESTAURANT_LOADED';
 export const ADD_REVIEW: string = 'ADD_REVIEW';
 export const REVIEW_ADDED: string = 'REVIEW_ADDED';
+
+export const USERS_LOADED: string = 'USERS_LOADED';
+
+export const USER_LOGGED_IN: string = 'USER_LOGGED_IN';
+export const USER_REGISTERED: string = 'USER_REGISTERED';
+
+export const USER_LOG_IN: string = 'USER_LOG_IN';
+export const USER_REGISTER: string = 'USER_REGISTER';
