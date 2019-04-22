@@ -174,6 +174,18 @@ function* getAllNutriGoalsSaga(userAction: Object): Generator<any, any, any> {
   }
 }
 
+function* getAllRestaurantsSaga(): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const loaded = yield backend.getAllRestaurants();
+    //console.log(loaded);
+    yield put({ type: ActionConstants.ALL_RESTAURANTS_LOADED, info: loaded });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
 /*************************** Observers ****************************************/
 
 export function* watchForGetUser(): Generator<any, any, any> {
@@ -229,6 +241,11 @@ export function* watchForGetAllNutriGoals(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.GET_ALL_NUTRI_GOALS, getAllNutriGoalsSaga);
 }
 
+export function* watchForGetAllRestaurants(): Generator<any, any, any> {
+  console.log("this fired");
+  yield takeEvery(ActionConstants.GET_ALL_RESTAURANTS, getAllRestaurantsSaga);
+}
+
 export default function* rootSaga(): Generator<any, any, any> {
   yield all([
     watchForGetUser(),
@@ -245,6 +262,8 @@ export default function* rootSaga(): Generator<any, any, any> {
     watchForGetAllSpendGoals(),
     watchForAddNutriGoal(),
     watchForGetAllNutriGoals(),
+
+    watchForGetAllRestaurants()
 /*
     watchForGetMeal(),
     watchForGetAllMeals(),

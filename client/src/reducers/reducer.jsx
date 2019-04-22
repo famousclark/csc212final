@@ -13,7 +13,7 @@ const defaultState = {
   allUsersInfo: {},
 
   allMeals: {},
-  allRestaurantsInfo: {},
+  allRestaurants: {},
   allReviews: {}
 };
 
@@ -130,7 +130,7 @@ function Reducer(state: Object = defaultState, action: Object) {
       case ActionConstants.ALL_RESTAURANTS_LOADED:
         return{
           ...state,
-          allRestaurantsInfo: action.info
+          allRestaurants: action.info
         }
 
       case ActionConstants.RESTAURANT_EDITED:
