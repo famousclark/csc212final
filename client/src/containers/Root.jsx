@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 
 // Redux
 import {Provider} from 'react-redux';
-import {configureStore, sagaMiddleware} from '../store/configure';
+import {configureStore, sagaMiddleware} from '../store/Configure';
 
 // Sagas
-import rootSaga from '../middleware/saga';
+import rootSaga from '../middleware/Saga';
 
 // Containers
 import RouterContainer from './RouterContainer';
