@@ -178,10 +178,10 @@ class LoginContainer extends Component {
 
     (this : any)
       .state = {
-        value: 1,
+        value: 0,
         open: false,
         wide: false,
-        isLoggedIn: true,
+        isLoggedIn: false,
         email: "",
         password: "",
         confirmPassword: "",
@@ -251,6 +251,12 @@ class LoginContainer extends Component {
       [d_plan]: event.target.value,
     });
   };
+
+  handleDummy = event => {
+    this.setState({
+      isLoggedIn : true,
+    });
+  }
 
   render() {
 
@@ -438,7 +444,7 @@ class LoginContainer extends Component {
           margin="normal"
           variant="outlined"
           />
-          <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button}>
+          <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button} onClick={this.handleDummy}>
           Submit
         </Button>
           </form>
