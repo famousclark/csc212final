@@ -178,10 +178,10 @@ class LoginContainer extends Component {
 
     (this : any)
       .state = {
-        value: 1,
+        value: 0,
         open: false,
         wide: false,
-        isLoggedIn: true,
+        isLoggedIn: false,
         email: "",
         password: "",
         confirmPassword: "",
@@ -252,6 +252,12 @@ class LoginContainer extends Component {
     });
   };
 
+  handleDummy = event => {
+    this.setState({
+      isLoggedIn : true,
+    });
+  }
+
   render() {
 
     const { classes, theme, userInfo,result, allUsersInfo} = this.props;
@@ -278,7 +284,7 @@ class LoginContainer extends Component {
     base = (
       <div className={classes.root} style={{width: "100%"}}>
       <AppBar
-          position="fixed"
+          position="absolute"
           color="default"
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open && !(theme.breakpoints.up('sm'))
@@ -438,7 +444,7 @@ class LoginContainer extends Component {
           margin="normal"
           variant="outlined"
           />
-          <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button}>
+          <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button} onClick={this.handleDummy}>
           Submit
         </Button>
           </form>
