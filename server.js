@@ -11,6 +11,17 @@ const reviews = require("./routes/api/reviews");
 const cors = require('cors');
 
 const app = express();
+const server = require('http').createServer(app);
+const socket = require('socket.io');
+const io = socket(server);
+
+io.on('connection', (socket) => {
+  console.log('Client connected on port 5000(socket.io)');
+
+  socket.on('SEND_MESSAGE', function(data){
+    io.emit('RECEIVE_MESSAGE', data);
+  })
+});
 
 app.use(cors());
 // Bodyparser middleware
@@ -37,19 +48,12 @@ app.use("/api/restaurants", restaurants);
 app.use("/api/meals", meals);
 app.use("/api/reviews", reviews);
 
-// Requiring socket.io
-var socket = require('socket.io');
-var server = require('http').createServer(app);
-var io = socket(server);
-
-io.on('connection', (socket) => {
-    console.log(socket.id);
-});
-
-
+// app.post('/getMessage' , (req, res) =>{
+//     io.emit('sendMessage' , req.body);
+// })
 
 const seed = require("./seed/seeder");
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port when we're ready to deploy
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+server.listen(port, () => console.log(`Server up and running on port ${port} !`));
 //mongoose.connect(config.DB,{ useNewUrlParser: true });
