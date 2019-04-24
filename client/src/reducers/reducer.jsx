@@ -10,11 +10,11 @@ const defaultState = {
   mealInfo: {},
   restaurantInfo: {},
 
-  allUsersInfo: {},
+  allUsersInfo: [],
 
-  allMeals: {},
-  allRestaurants: {},
-  allReviews: {}
+  allMeals: [],
+  allRestaurants: [],
+  allReviews: []
 };
 
 function Reducer(state: Object = defaultState, action: Object) {

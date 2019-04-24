@@ -15,18 +15,25 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import MenuIcon from '@material-ui/icons/Menu';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
 import * as ActionCreators from '../actions/Actions';
 
+import wok from '../images/wok.jpg';
+import grill from '../images/grill.jpg';
+import starbucks from '../images/starbucks.jpg';
+import rocky from '../images/rocky.jpg';
+import pizza from '../images/pizza.jpg';
+import freshens from '../images/freshens.jpg';
 import dfo from '../images/dfo.jpg';
-// import douglass from '../images/douglass.jpg';
-// import med from '../images/med.jpg';
-// import pit from '../images/pit.jpg';
+import douglass from '../images/douglass.jpg';
+
 // import forest from '../images/forest.jpg';
-
-
-import Toolbar from '@material-ui/core/Toolbar';
 
 import Paper from '@material-ui/core/Paper';
 import Restaurant from '@material-ui/icons/Restaurant';
@@ -73,6 +80,10 @@ function TabContainer({ children, dir }) {
       display: "flex",
       marginLeft: "auto",
       marginRight: "auto"
+    },
+    toolbar: {
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
     bigAvatar: {
       margin: 10,
@@ -126,10 +137,11 @@ class EatContainer extends Component {
     (this : any).handleChange = this.handleChange.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
     (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
-
+    (this : any).handleImageLoad = this.handleImageLoad.bind(this);
       this.state = {
         value: 0,
-        allRestaurants: null
+        allRestaurants: null,
+        isNutri: false
       };
   }
 
@@ -176,226 +188,107 @@ class EatContainer extends Component {
     this.setState({ value: index });
   };
 
+  handleImageLoad = (image_name) => {
+    var image = "";
+    switch (image_name) {
+      case "Wok on Up":
+        image = wok;
+        break;
+
+      case "The Grill":
+        image = grill;
+        break;
+
+      case "Starbucks":
+        image = starbucks;
+        break;
+
+      case "Rocky's Sub Shop":
+        image = rocky;
+        break;
+
+      case "Pizza Pi":
+        image = pizza;
+        break;
+
+      case "Freshens":
+        image = freshens;
+        break;
+
+      case "Douglass":
+        image = douglass;
+        break;
+
+      case "Danforth Dining":
+        image = dfo;
+        break;
+
+      default:
+        image = wok;
+    }
+    return image
+  }
+
   render(){
     const { classes, theme, dir, open, allRestaurants} = this.props;
 
     const screenHeight = window.innerHeight - 56*2;
 
-
     if (this.readyToLoad && allRestaurants!= null) {
-      var section = (
-          <section className={classes.content}>
-            <div style={{flexGrow: 1, background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
-              <Grid container spacing={24}>
 
-                <Grid item xs={12} sm={6}>
-                  <Typography align="center" variant="body1" style={{padding: "40px" }}>
-                    <Card className={classes.card}>
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.media}
-                          image={dfo}
-                          title="Contemplative Reptile"
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            Douglas
-                          </Typography>
-                          <Typography component="p">
-                            Premium dinning hall at the Universty of Rochester
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        <Button size="small" color="primary">
-                          Menu
-                        </Button>
-                        <Button size="small" color="primary">
-                          Review
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Typography>
-                </Grid>
-              </Grid>
+    console.log(allRestaurants);
 
-            {/*
-            <SwipeableViews
-              className={classes.tabsContainer}
-              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-              index={this.state.value}
-              onChangeIndex={this.handleChangeIndex}>
-            */}
-
-                {/*
-                <List className={classes.root}>
-                  <ListItem alignItems="flex-center">
-                    <Paper levation={5}>
-                      <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                        <ListItemAvatar>
-                          <Avatar alt="Remy Sharp" src={dfo} />
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary="Brunch this weekend?"
-                          secondary={
-                            <React.Fragment>
-                              <Typography component="span" className={classes.inline} color="textPrimary">
-                                Ali Connors
-                              </Typography>
-                              {" — I'll be in your neighborhood doing errands this…"}
-                            </React.Fragment>
-                          }/>
-                      </Typography>
-                    </Paper>
-                  </ListItem>
-                </List>
-
-                <Paper levation={5}>
-                  <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                    <Card className={classes.card}>
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.media}
-                          image={dfo}
-                          title="Contemplative Reptile"
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            Danforth
-                          </Typography>
-                          <Typography component="p">
-                            Loreum ipseum
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        <Button size="small" color="primary">
-                          Share
-                        </Button>
-                        <Button size="small" color="primary">
-                          Learn More
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Typography>
-                </Paper>
-                <Paper style={{ background: "#DDD"}} elevation={2}>
-                  <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                    <Card className={classes.card}>
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.media}
-                          image={douglass}
-                          title="Contemplative Reptile"
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            Douglass
-                          </Typography>
-                          <Typography component="p">
-                            Lunch Hours until 3:30PM
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        <Button size="small" color="primary">
-                          Share
-                        </Button>
-                        <Button size="small" color="primary">
-                          Learn More
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Typography>
-                </Paper>
-                <Paper style={{ background: "#DDD"}} elevation={2}>
-                  <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                    <Card className={classes.card}>
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.media}
-                          image={med}
-                          title="Contemplative Reptile"
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            Medical Center
-                          </Typography>
-                          <Typography component="p">
-                            Open until 6 PM
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        <Button size="small" color="primary">
-                          Share
-                        </Button>
-                        <Button size="small" color="primary">
-                          Learn More
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Typography>
-                </Paper>
-                <Paper style={{ background: "#DDD"}} elevation={2}>
-                  <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                    <Card className={classes.card}>
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.media}
-                          image={pit}
-                          title="Contemplative Reptile"
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            Pit
-                          </Typography>
-                          <Typography component="p">
-                            Open until 11 PM
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        <Button size="small" color="primary">
-                          Share
-                        </Button>
-                        <Button size="small" color="primary">
-                          Learn More
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Typography>
-                </Paper>
-              </TabContainer>
-              <TabContainer dir={theme.direction}>
-                <Paper levation={5}>
-                  <Typography align="center" variant="h6" style={{ padding: "24px" }}>
-                    Your Balance
-                  </Typography>
-                </Paper>
-                <Paper style={{ background: "#DDD"}} elevation={2}>
-                  <Typography style={{ padding: "24px" }} paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-                    elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-                    hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-                    velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-                    Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-                    viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-                    Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-                    at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-                    ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-                  </Typography>
-                </Paper>
+    var listItems = allRestaurants.map( item => (
+      <Grid key={item._id} item xs={12} sm={6}>
+        <Typography align="center" variant="body1" style={{padding: "40px" }}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={this.handleImageLoad(item.name)}
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {item.name}
+                </Typography>
+                <Typography component="p">
+                  Location: {item.location}
+                </Typography>
+                <Typography component="p">
+                  Type: {item.type}
+                </Typography>
+                <Typography component="p">
+                  Campus: {item.campus}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary">
+                Menu
+              </Button>
+              {/*
+              <Button size="small" color="primary">
+                Review
+              </Button>
               */}
+            </CardActions>
+          </Card>
+        </Typography>
+      </Grid>
+    ));
 
-            {/*
-            </SwipeableViews>
-            */}
-            </div>
-          </section>
-      ) 
+      var section = (
+        <section className={classes.content}>
+          <div style={{flexGrow: 1, background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
+            <Grid container spacing={24}>
+              {listItems}
+            </Grid>
+          </div>
+        </section>
+      );
     } else {
+
       var section = (
         <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
           <div>
@@ -404,30 +297,34 @@ class EatContainer extends Component {
         </div>
       );
     }
-    
+
     return(
-      //<CssBaseline />
       <TabContainer className={classes.root} dir={dir}>
           <AppBar
-            position="static"
+            position="fixed"
             color="primary"
             elevation="0"
             classes={{
               colorPrimary: classes.colorPrime
             }}
             className={classes.appBar}>
-            <Typography
-              align="center"
-              variant="h6"
-              style={{ padding: "12px" }}>
-                UR EATS
-            </Typography>
+            <Toolbar className={classes.toolbar}>
+
+              <Typography
+                align="center"
+                variant="h6"
+                style={{ padding: "12px", marginTop: "15px" }}>
+                  UR EATS
+              </Typography>
+              <IconButton color="primary">
+                <CreateIcon />
+                stuff
+              </IconButton>
+            </Toolbar>
           </AppBar>
-      {section}
+          {section}
       </TabContainer>
     );
-    
-    
   }
 }
 

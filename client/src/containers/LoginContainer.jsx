@@ -284,7 +284,7 @@ class LoginContainer extends Component {
     base = (
       <div className={classes.root} style={{width: "100%"}}>
       <AppBar
-          position="absolute"
+          position="fixed"
           color="default"
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open && !(theme.breakpoints.up('sm'))
