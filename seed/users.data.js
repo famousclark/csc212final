@@ -1,5 +1,5 @@
 module.exports.userSeed=[
-    {      
+    {
         name : "John Doe",
         email : "1111@gmail.com",
         password: "hello01",
@@ -41,11 +41,13 @@ module.exports.userSeed=[
             plan:"MelUlm",
             balance:"1000"
         },
-        diet: []
+        diet: [],
+        goal: "maintain",
+        exercise: "light"
        // profile_pic: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
     },
 
-    {      
+    {
         name : "Jane Doe",
         email : "2222@gmail.com",
         password: "hello01",
@@ -87,7 +89,9 @@ module.exports.userSeed=[
             plan:"MelUlm",
             balance:"1000"
         },
-        diet: []
+        diet: [],
+        goal: "lose",
+        exercise: "light"
        // profile_pic: "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png"
     }
 

@@ -177,6 +177,7 @@ class LoginContainer extends Component {
     (this : any).handleChange = this.handleChange.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
     (this : any).onHandleLogin = this.onHandleLogin.bind(this);
+    (this : any).onHandleRegistration = this.onHandleRegistration.bind(this);
     (this : any).handleDummy = this.handleDummy.bind(this);
 
   //  (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
@@ -187,12 +188,13 @@ class LoginContainer extends Component {
         open: false,
         wide: false,
         isLoggedIn: false,
-
         email: "",
         password: "",
         confirmPassword: "",
         name:"",
         d_plan:"",
+        goal:"",
+        exercise:""
       };
 
   }
@@ -200,13 +202,40 @@ class LoginContainer extends Component {
 
   onHandleLogin = () => {
 
-      this.loginUser({email:this.state.email, password:this.state.password});
+      this.loginUser({
+        email:this.state.email,
+        password:this.state.password
+      });
+  }
+
+  onHandleRegistration = () => {
+
+      this.registerUser({
+        email:this.state.email,
+        password:this.state.password,
+        password2:this.state.confirmPassword,
+        goal:this.state.goal,
+        exercise:this.state.exercise,
+        d_plan:{
+          plan: this.state.d_plan,
+          balance: "1000"
+        },
+        name: this.state.name
+
+      });
   }
 
 
   loginUser = (data) =>  new Promise( (resolve, reject) => {
     setTimeout( () => {
       this.props.loginUser(data);
+      resolve(this.props.userInfo);
+    }, 200)
+  });
+
+  registerUser= (data) =>  new Promise( (resolve, reject) => {
+    setTimeout( () => {
+      this.props.registerUser(data);
       resolve(this.props.userInfo);
     }, 200)
   });
@@ -246,6 +275,18 @@ class LoginContainer extends Component {
   handleChangeD_Plan = d_plan => event => {
     this.setState({
       [d_plan]: event.target.value,
+    });
+  };
+
+  handleChangeGoal= goal => event => {
+    this.setState({
+      [goal]: event.target.value,
+    });
+  };
+
+  handleChangeExercise = exercise => event => {
+    this.setState({
+      [exercise]: event.target.value,
     });
   };
 
@@ -419,6 +460,58 @@ class LoginContainer extends Component {
           </Select>
         </FormControl>
 
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel
+        htmlFor="goal">
+         Goal
+        </InputLabel>
+        <Select
+          value={this.state.goal}
+          onChange={this.handleChangeGoal('goal')}
+          input={
+            <OutlinedInput
+              labelWidth="75"
+              name="goal"
+              id="goal"
+            />
+          }
+        >
+          <MenuItem value="">
+            <em>Choose Goal</em>
+          </MenuItem>
+          <MenuItem value={"lose"}>Lose</MenuItem>
+          <MenuItem value={"maintain"}>Maintain</MenuItem>
+          <MenuItem value={"gain"}>Gain</MenuItem>
+        </Select>
+      </FormControl>
+
+
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel
+        htmlFor="exercise">
+         Exercise
+        </InputLabel>
+        <Select
+          value={this.state.exercise}
+          onChange={this.handleChangeExercise('exercise')}
+          input={
+            <OutlinedInput
+              labelWidth="75"
+              name="exercise"
+              id="exercise"
+            />
+          }
+        >
+          <MenuItem value="">
+            <em>Choose Exercise Habits</em>
+          </MenuItem>
+          <MenuItem value={"none"}>None</MenuItem>
+          <MenuItem value={"light"}>Light</MenuItem>
+          <MenuItem value={"active"}>Active</MenuItem>
+          <MenuItem value={"very_active"}>Very Active</MenuItem>
+        </Select>
+      </FormControl>
+
           <TextField
           id="email"
           label="Email"
@@ -452,7 +545,7 @@ class LoginContainer extends Component {
             variant="contained"
             style={{backgroundColor:"white"}}
             className={classes.button}
-            onClick={() => this.handleDummy()}>
+            onClick={() => { this.onHandleRegistration()}}>
             Submit
           </Button>
           </form>

@@ -54,6 +54,8 @@ function seedUser(users){
         spend_goal= user_d.spend_goal;
         user.nutri_goal= user_d.nutri_goal;
         user.diet= user_d.diet;
+        user.goal= user_d.goal;
+        user.exercise= user_d.exercise;
         user.profile_pic= "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png";
 
 
