@@ -262,6 +262,7 @@ class LoginContainer extends Component {
     var base = "";
     var login = "";
 
+    console.log(this.isLoggedIn);
 
     if (userInfo.hasOwnProperty('success')) {
 
@@ -269,8 +270,9 @@ class LoginContainer extends Component {
         localStorage.removeItem('token');
         localStorage.setItem('token', userInfo.token);
         // this.state.isLoggedIn = true;
-        // console.log(this.state.isLoggedIn);
         this.isLoggedIn = true;
+        console.log("here: "+ this.isLoggedIn);
+
       }
     }
 
@@ -321,7 +323,7 @@ class LoginContainer extends Component {
           </main>
           </div>
       );
-    //} else {
+  //  } else {
       var screenHeight = window.innerHeight;
         login = (
         <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px'), width:"100%"}}>
@@ -458,12 +460,12 @@ class LoginContainer extends Component {
            </div>
         </div>
         );
-    //}
+  //  }
 
     return (
       <div className={classes.root}>
       <CssBaseline />
-       {isLoggedIn ? base : login}
+       {this.isLoggedIn ? base : login}
       </div>
     );
   }

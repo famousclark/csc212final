@@ -88,14 +88,14 @@ class BudgetContainer extends Component {
       };
   }
 
-  getUserToken  = (token) => {
+  decodeToken  = (token) => {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
   }
 
   getLoggedInUserEmail = () =>{
-    var email = this.getUserToken(localStorage.getItem('token')).email;
+    var email = this.decodeToken(localStorage.getItem('token')).email;
     return email;
   }
 
@@ -154,8 +154,6 @@ class BudgetContainer extends Component {
     //const { userInfo } = this.props;
     const screenHeight = window.innerHeight - 56*2;
     if (!isLoading && userInfo.d_plan != null) {
-
-
 
       var MealPlan = '';
       var swipes ='';
