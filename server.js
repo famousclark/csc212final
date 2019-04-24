@@ -48,10 +48,6 @@ app.use("/api/restaurants", restaurants);
 app.use("/api/meals", meals);
 app.use("/api/reviews", reviews);
 
-// app.post('/getMessage' , (req, res) =>{
-//     io.emit('sendMessage' , req.body);
-// })
-
 const seed = require("./seed/seeder");
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port when we're ready to deploy
