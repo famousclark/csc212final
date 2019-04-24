@@ -138,9 +138,11 @@ class EatContainer extends Component {
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
     (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
     (this : any).handleImageLoad = this.handleImageLoad.bind(this);
+    (this : any).handleMenu = this.handleMenu.bind(this);
       this.state = {
         value: 0,
         allRestaurants: null,
+        allMeals: null,
         isNutri: false
       };
   }
@@ -152,10 +154,10 @@ class EatContainer extends Component {
     }, 1000)
   });
 
-  loadAsyncMealData = (userEmail) =>  new Promise( (resolve, reject) => {
+  loadAsyncMealsData = (r_code) =>  new Promise( (resolve, reject) => {
     setTimeout( () => {
-      this.props.getMeal();
-      resolve(this.props.userInfo);
+      this.props.getAllMealsByRestaurant(r_code);
+      resolve(this.props.allMeals);
     }, 1000)
   });
 
@@ -165,6 +167,23 @@ class EatContainer extends Component {
       allRestaurants => {
         this.readyToLoad = true;
         this.setState({allRestaurants});
+    }
+    )
+    .then( () => {
+      setTimeout ( () => {
+
+        console.log( this.props.restaurantInfo);
+        console.log(this.state.restaurantInfo);
+      }, 1000)
+    });
+  }
+
+  handleLoadMealsAsync = async (r_code) => {
+    this._asyncRequest = this.loadAsyncMealsData(r_code)
+    .then(
+      allMeals => {
+        this.readyToLoad = true;
+        this.setState({allMeals});
     }
     )
     .then( () => {
@@ -229,6 +248,10 @@ class EatContainer extends Component {
     return image
   }
 
+  handleMenu = (r_code) => {
+    this.handleLoadMealsAsync(r_code);
+  }
+
   render(){
     const { classes, theme, dir, open, allRestaurants} = this.props;
 
@@ -242,7 +265,7 @@ class EatContainer extends Component {
       <Grid key={item._id} item xs={12} sm={6}>
         <Typography align="center" variant="body1" style={{padding: "40px" }}>
           <Card className={classes.card}>
-            <CardActionArea>
+            <CardActionArea >
               <CardMedia
                 className={classes.media}
                 image={this.handleImageLoad(item.name)}
@@ -264,7 +287,10 @@ class EatContainer extends Component {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => this.handleMenu(item.r_code)}>
                 Menu
               </Button>
               {/*

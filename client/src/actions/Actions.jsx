@@ -59,6 +59,8 @@ import {
   RESTAURANT_EDITED,
   DELETE_RESTAURANT,
   RESTAURANT_DELETED,
+  GET_ALL_MEALS_BY_RESTAURANT,
+  ALL_MEALS_BY_RESTAURANT_LOADED,
 
   GET_ALL_REVIEWS,
   GET_REVIEW_BY_REVIEW,
@@ -234,6 +236,13 @@ export const editRestaurant = (restaurantData: Object): Object => {
 export const deleteRestaurant = (r_code: String): Object => {
   return {
     type: DELETE_RESTAURANT,
+    r_code: r_code
+  };
+};
+
+export const getAllMealsByRestaurant = (r_code: String): Object => {
+  return {
+    type: GET_ALL_MEALS_BY_RESTAURANT,
     r_code: r_code
   };
 };

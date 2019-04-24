@@ -39,7 +39,7 @@ module.exports.getMeal = (req, res, next) => {
 }
 
 module.exports.getMealsByRestaurants = (req, res, next) => {
-    Meal.find({ r_code: req.body.r_code },
+    Meal.find({ r_code: req.params.r_code },
         (err, meal) => {
             if(!meal)
                 return res.status(404).json({ status: false, message: 'Meals record not found' });
