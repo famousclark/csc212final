@@ -28,6 +28,7 @@ export const GET_MEAL_ENDPOINT: string = 'http://localhost:5000/api/meals/get/';
 export const ADD_MEAL_ENDPOINT: string = 'http://localhost:5000/api/meals/add/';
 export const EDIT_MEAL_ENDPOINT: string = 'http://localhost:5000/api/meals/edit/';
 export const DELETE_MEAL_ENDPOINT: string = 'http://localhost:5000/api/meals/delete/';
+export const GET_MEALS_BY_RESTAURANT_ENDPOINT: string =  "http://localhost:5000/api/meals/get/byRestaurant/"
 /*============MEAL endpoints=============*/
 
 /*============RESTAURANTS endpoints=============*/

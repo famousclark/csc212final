@@ -170,10 +170,15 @@ const styles = theme => ({
 
 class LoginContainer extends Component {
 
+  isLoggedIn = false;
+
   constructor(props: Object){
     super(props);
     (this : any).handleChange = this.handleChange.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
+    (this : any).onHandleLogin = this.onHandleLogin.bind(this);
+    (this : any).handleDummy = this.handleDummy.bind(this);
+
   //  (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
 
     (this : any)
@@ -181,7 +186,8 @@ class LoginContainer extends Component {
         value: 0,
         open: false,
         wide: false,
-        isLoggedIn: true,
+        isLoggedIn: false,
+
         email: "",
         password: "",
         confirmPassword: "",
@@ -191,19 +197,10 @@ class LoginContainer extends Component {
 
   }
 
-  onHandleLogin = (event) => {
-  //  event.preventDefault();
 
-  //  let email = event.target.email.value;
-  //  let password = event.target.password.value;
+  onHandleLogin = () => {
 
-
-    // const data = {
-    //   email, password
-    // };
-
-  //   this.props.dispatch(ActionCreators.loginUser(data));
-      this.loginUser({email:this.state.email, password:this.state.password})
+      this.loginUser({email:this.state.email, password:this.state.password});
   }
 
 
@@ -263,7 +260,7 @@ class LoginContainer extends Component {
     const { classes, theme, userInfo,result, allUsersInfo} = this.props;
     const { open, value, isLoggedIn } = this.state;
     var base = "";
-
+    var login = "";
 
 
     if (userInfo.hasOwnProperty('success')) {
@@ -271,7 +268,9 @@ class LoginContainer extends Component {
       if (userInfo.success == true) {
         localStorage.removeItem('token');
         localStorage.setItem('token', userInfo.token);
-        this.state.isLoggedIn = true;
+        // this.state.isLoggedIn = true;
+        // console.log(this.state.isLoggedIn);
+        this.isLoggedIn = true;
       }
     }
 
@@ -280,52 +279,51 @@ class LoginContainer extends Component {
 
 
     //if logged in show the app with budget page, else show log in/register page
-    if(isLoggedIn){
-    base = (
-      <div className={classes.root} style={{width: "100%"}}>
-      <AppBar
-          position="absolute"
-          color="default"
-          className={classNames(classes.appBar, {
-            [classes.appBarShift]: open && !(theme.breakpoints.up('sm'))
-          })}>
-          <Toolbar disableGutters={!open}>
-            {/* <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, open && classes.hide)}>
-              <MenuIcon />
-            </IconButton> */}
-            <Tabs
-              style={{flexGrow: "1"}}
-              value={this.state.value}
-              onChange={this.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              variant="fullWidth"
-              centered>
-              <Tab label="Budget" />
-              <Tab label="Eat" />
-              <Tab label="Community" />
-            </Tabs>
-          </Toolbar>
-        </AppBar>
+    //if(this.isLoggedIn){
+      base = (
+        <div className={classes.root} style={{width: "100%"}}>
+        <AppBar
+            position="fixed"
+            color="default"
+            className={classNames(classes.appBar, {
+              [classes.appBarShift]: open && !(theme.breakpoints.up('sm'))
+            })}>
+            <Toolbar disableGutters={!open}>
+              {/* <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerOpen}
+                className={classNames(classes.menuButton, open && classes.hide)}>
+                <MenuIcon />
+              </IconButton> */}
+              <Tabs
+                style={{flexGrow: "1"}}
+                value={this.state.value}
+                onChange={this.handleChange}
+                indicatorColor="primary"
+                textColor="primary"
+                variant="fullWidth"
+                centered>
+                <Tab label="Budget" />
+                <Tab label="Eat" />
+                <Tab label="Community" />
+              </Tabs>
+            </Toolbar>
+          </AppBar>
 
-       <nav  className={classes.drawer}>
-        </nav>
+         <nav  className={classes.drawer}></nav>
 
-        <main
-          className={classNames(classes.content, {[classes.contentShift]: open && !(theme.breakpoints.up('sm'))})}>
-            {value === 0 &&<BudgetContainer open={open} dir={theme.direction}/>}
-            {value === 1 &&<EatContainer open={open} dir={theme.direction}/>}
-            {value === 2 &&<CommunityContainer open={open} dir={theme.direction}/>}
-        </main>
-        </div>
-    );
-    } else {
+          <main
+            className={classNames(classes.content, {[classes.contentShift]: open && !(theme.breakpoints.up('sm'))})}>
+              {value === 0 &&<BudgetContainer open={open} dir={theme.direction}/>}
+              {value === 1 &&<EatContainer open={open} dir={theme.direction}/>}
+              {value === 2 &&<CommunityContainer open={open} dir={theme.direction}/>}
+          </main>
+          </div>
+      );
+    //} else {
       var screenHeight = window.innerHeight;
-        base = (
+        login = (
         <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px'), width:"100%"}}>
           <div className={classes.logInbutton}>
           <Typography style={{fontSize:"25px", color:"white", textAlign:"center", paddingBottom:"10px"}}>
@@ -359,9 +357,13 @@ class LoginContainer extends Component {
           margin="normal"
           variant="outlined"
           />
-           <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button} onclick={this.onHandleLogin()}>
-          Submit
-        </Button>
+           <Button
+             variant="contained"
+             style={{backgroundColor:"white"}}
+             className={classes.button}
+             onClick={() => { this.onHandleLogin()}}>
+            Submit
+          </Button>
           </form>
 
         </TabContainer>}
@@ -444,20 +446,24 @@ class LoginContainer extends Component {
           margin="normal"
           variant="outlined"
           />
-          <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button} onClick={this.handleDummy}>
-          Submit
-        </Button>
+          <Button
+            variant="contained"
+            style={{backgroundColor:"white"}}
+            className={classes.button}
+            onClick={() => this.handleDummy()}>
+            Submit
+          </Button>
           </form>
           </TabContainer>}
            </div>
         </div>
         );
-    }
+    //}
 
     return (
       <div className={classes.root}>
       <CssBaseline />
-       {base}
+       {isLoggedIn ? base : login}
       </div>
     );
   }

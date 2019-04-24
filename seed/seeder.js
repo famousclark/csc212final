@@ -19,7 +19,7 @@ function seedRestaurant(restaurants){
         restaurant.location = res.location;
         restaurant.campus = res.campus;
         restaurant.r_code = res.r_code;
-    
+
         restaurant.save((err, restaurant) => {
             if(!err) {
                 console.log(restaurant);
@@ -36,8 +36,8 @@ Restaurant.findOne({ r_code: resSeed.restaurantSeed[0].r_code },
     (err, restaurant) => {
         if(!restaurant)
             seedRestaurant(resSeed.restaurantSeed);
-        else 
-            console.log("Already seeded for restaurants") ;     
+        else
+            console.log("Already seeded for restaurants") ;
     }
 );
 
@@ -72,10 +72,19 @@ function seedUser(users){
 }
 User.findOne({ email: userSeed.userSeed[0].email },
     (err, user) => {
-        if(!user)
-             seedUser(userSeed.userSeed);
-        else 
-            console.log("Already seeded for users") ;     
+        if(!user){
+            seedUser(userSeed.userSeed);
+        }
+
+        else {
+          User.remove({}, function(err) {
+            console.log('HEREEEEEEEEE')
+            seedUser(userSeed.userSeed);
+          });
+
+
+        }
+
     }
 );
 
@@ -95,7 +104,7 @@ function seedMeals(meals){
         meal.nutrition= meal_d.nutrition;
         meal.image= meal_d.image;
         meal.price= meal_d.price;
-    
+
         meal.save((err, meal) => {
             if(!err) {
                 console.log(meal);
@@ -112,7 +121,7 @@ Meal.findOne({ meal_id: mealSeed.mealSeed[0].meal_id },
     (err, meal) => {
         if(!meal)
             seedMeals(mealSeed.mealSeed);
-        else 
-            console.log("Already seeded for meals") ;     
+        else
+            console.log("Already seeded for meals") ;
     }
 );

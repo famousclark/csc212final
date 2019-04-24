@@ -10,11 +10,11 @@ const defaultState = {
   mealInfo: {},
   restaurantInfo: {},
 
-  allUsersInfo: {},
+  allUsersInfo: [],
 
-  allMeals: {},
-  allRestaurants: {},
-  allReviews: {}
+  allMeals: [],
+  allRestaurants: [],
+  allReviews: []
 };
 
 function Reducer(state: Object = defaultState, action: Object) {
@@ -112,7 +112,7 @@ function Reducer(state: Object = defaultState, action: Object) {
       case ActionConstants.ALL_MEALS_LOADED:
         return{
           ...state,
-          allMealsInfo: action.info
+          allMeals: action.info
         }
 
       case ActionConstants.MEAL_EDITED:
@@ -129,7 +129,13 @@ function Reducer(state: Object = defaultState, action: Object) {
       case ActionConstants.MEAL_ADDED:
         return{
           ...state,
-          allMealsInfo: action.info
+          allMeals: action.info
+        }
+
+      case ActionConstants.ALL_MEALS_BY_RESTAURANT_LOADED:
+        return{
+          ...state,
+          allMeals: action.info
         }
 
       case ActionConstants.RESTAURANT_LOADED:
