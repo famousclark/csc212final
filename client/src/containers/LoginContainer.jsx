@@ -170,10 +170,14 @@ const styles = theme => ({
 
 class LoginContainer extends Component {
 
+  isLoggedIn = false;
+
   constructor(props: Object){
     super(props);
     (this : any).handleChange = this.handleChange.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
+    (this : any).onHandleLogin = this.onHandleLogin.bind(this);
+
   //  (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
 
     (this : any)
@@ -181,7 +185,7 @@ class LoginContainer extends Component {
         value: 0,
         open: false,
         wide: false,
-        isLoggedIn: true,
+
         email: "",
         password: "",
         confirmPassword: "",
@@ -191,19 +195,10 @@ class LoginContainer extends Component {
 
   }
 
-  onHandleLogin = (event) => {
-  //  event.preventDefault();
 
-  //  let email = event.target.email.value;
-  //  let password = event.target.password.value;
+  onHandleLogin = () => {
 
-
-    // const data = {
-    //   email, password
-    // };
-
-  //   this.props.dispatch(ActionCreators.loginUser(data));
-      this.loginUser({email:this.state.email, password:this.state.password})
+      this.loginUser({email:this.state.email, password:this.state.password});
   }
 
 
@@ -265,13 +260,14 @@ class LoginContainer extends Component {
     var base = "";
 
 
-
     if (userInfo.hasOwnProperty('success')) {
 
       if (userInfo.success == true) {
         localStorage.removeItem('token');
         localStorage.setItem('token', userInfo.token);
-        this.state.isLoggedIn = true;
+        // this.state.isLoggedIn = true;
+        // console.log(this.state.isLoggedIn);
+        this.isLoggedIn = true;
       }
     }
 
@@ -280,7 +276,7 @@ class LoginContainer extends Component {
 
 
     //if logged in show the app with budget page, else show log in/register page
-    if(isLoggedIn){
+    if(this.isLoggedIn){
     base = (
       <div className={classes.root} style={{width: "100%"}}>
       <AppBar
@@ -359,7 +355,7 @@ class LoginContainer extends Component {
           margin="normal"
           variant="outlined"
           />
-           <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button} onclick={this.onHandleLogin()}>
+           <Button variant="contained" style={{backgroundColor:"white"}} className={classes.button} onClick={() => { this.onHandleLogin()}}>
           Submit
         </Button>
           </form>

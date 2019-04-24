@@ -88,6 +88,17 @@ class BudgetContainer extends Component {
       };
   }
 
+  getUserToken  = (token) => {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+  }
+
+  getLoggedInUserEmail = () =>{
+    var email = this.getUserToken(localStorage.getItem('token')).email;
+    return email;
+  }
+
   loadAsyncRestaurantData = () =>  new Promise( (resolve, reject) => {
     setTimeout( () => {
       this.props.getAllRestaurants();
@@ -110,7 +121,7 @@ class BudgetContainer extends Component {
   });
 
   handleLoadAsync = async () => {
-    this._asyncRequest = this.loadAsyncUserData("1111@gmail.com")
+    this._asyncRequest = this.loadAsyncUserData( this.getLoggedInUserEmail())
     .then(
       userInfo => {
         this.readyToLoad = true;
@@ -143,7 +154,8 @@ class BudgetContainer extends Component {
     //const { userInfo } = this.props;
     const screenHeight = window.innerHeight - 56*2;
     if (!isLoading && userInfo.d_plan != null) {
-    
+
+
 
       var MealPlan = '';
       var swipes ='';
