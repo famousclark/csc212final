@@ -137,6 +137,14 @@ function TabContainer({ children, dir }) {
       margin: "45% 45%",
       color: "white",
       // margin: theme.spacing.unit * 2,
+    },
+    selectButton: {
+      textAlign:"center",
+      display: "block",
+      marginLeft: "auto",
+      marginRight: "auto",
+      width: "40%",
+      height: "50px"
     }
 });
 
@@ -162,6 +170,44 @@ class EatContainer extends Component {
         isNutri: false
       };
   }
+
+
+  decodeToken  = (token) => {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+  }
+
+  getLoggedInUserEmail = () =>{
+    var email = this.decodeToken(localStorage.getItem('token')).email;
+    return email;
+  }
+
+  changeAsyncMacro = (carb, protein, fat) =>  new Promise( (resolve, reject) => {
+    var email = this.getLoggedInUserEmail();
+    var c_total = this.props.userInfo.macros.total;
+    var c_carb = this.props.userInfo.macros.carb;
+    var c_protein = this.props.userInfo.macros.protein;
+    var c_fat = this.props.userInfo.macros.fat;
+
+    var new_total = c_total - (carb *4)-(protein * 4) -(fat *9 );
+    var new_carb = c_carb - (carb *4);
+    var new_protein = c_protein - (protein * 4);
+    var new_fat = c_fat - (fat *9 );
+
+    var payload = {
+      email : email,
+      macros:{
+        total: new_total,
+        fat : new_fat ,
+        protein :new_protein,
+        carb: new_carb
+      }
+    }
+    setTimeout( () => {
+      this.props.editUser(payload);
+    }, 1000)
+  });
 
   loadAsyncRestaurantData = () =>  new Promise( (resolve, reject) => {
     setTimeout( () => {
@@ -388,7 +434,21 @@ class EatContainer extends Component {
                     </div>
                   </TableCell>
                 </TableRow>
+
+
+
               </Table>
+
+              <Typography align="center"  style={{ padding: "24px" }}>
+                <Button
+                  variant="contained"
+                  style={{backgroundColor:"rgba(108, 0, 245, 0.54)", color: "white"}}
+                  className={classes.selectButton}
+                  onClick={() => this.changeAsyncMacro(meal.nutrition.carbs.total,meal.nutrition.fat.total ,meal.nutrition.proteins)}>
+                  Select
+                </Button>
+
+              </Typography>
             </div>
             ))}
           </div>

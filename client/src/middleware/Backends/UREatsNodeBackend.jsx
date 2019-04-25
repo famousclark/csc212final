@@ -85,8 +85,12 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
   }
 
   editUser(userData: Object): Promise {
-    const body = JSON.stringify(userData);
-    return this._put(EDIT_USER_ENDPOINT + userData.email, body, {})
+    const body = JSON.stringify(userData.userData);
+    console.log("HERE")
+    console.log(body)
+    return this._post(EDIT_USER_ENDPOINT, body, {
+      headers: { "Content-Type": "application/json" }
+    })
       .then(result => result)
       .catch(error => console.log(error));
   }

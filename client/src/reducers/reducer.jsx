@@ -47,7 +47,6 @@ function Reducer(state: Object = defaultState, action: Object) {
       case ActionConstants.USER_EDITED:
         return{
           ...state,
-          userInfo: action.info
         }
 
       case ActionConstants.USER_DELETED:

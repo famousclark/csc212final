@@ -54,21 +54,48 @@ router.post("/register", (req, res) => {
     if (user) {
       return res.status(400).json({ email: "Email already exists" });
     } else {
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
+      const newUser = new User();
+      newUser.name = req.body.name;
+      newUser.email  =  req.body.email;
+      newUser.password  =  req.body.password;
 
-        d_plan : req.body.d_plan,
-        goal: req.body.goal,
-        exercise:  req.body.exercise,
-        //diet : req.body.diet,
+      newUser.d_plan  =  req.body.d_plan;
+      newUser.goal =  req.body.goal;
+      newUser.exercise =   req.body.exercise;
 
-        meals : [],
-        spend_goal: [],
-        nutri_goal: [],
-        profile_pic:  "some url"
-      });
+      if(req.body.goal == "gain"){
+
+        newUser.macros={
+          total : 2000,
+          carb : 2000 * 0.45,
+          protein : 2000 * 0.35,
+          fat : 2000 * 0.20
+        }
+
+      }
+      else if(req.body.goal == "maintain"){
+        newUser.macros={
+          total : 2000,
+          carb : 2000 * 0.50,
+          protein : 2000 * 0.25,
+          fat : 2000 * 0.25
+        }
+      }
+      else if(req.body.goal == "lose"){
+
+        newUser.macros={
+          total : 2000,
+          carb : 2000 * 0.30,
+          protein : 2000 * 0.45,
+          fat : 2000 * 0.25
+        }
+
+      }
+
+      newUser.meals = [];
+      newUser.spend_goal = [];
+      newUser.nutri_goal = [];
+      newUser.profile_pic = "some url";
 
       // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {

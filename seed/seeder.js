@@ -58,6 +58,35 @@ function seedUser(users){
         user.exercise= user_d.exercise;
         user.profile_pic= "https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png";
 
+        if(user_d.goal == "gain"){
+
+          user.macros={
+            total : 2000,
+            carb : 2000 * 0.45,
+            protein : 2000 * 0.35,
+            fat : 2000 * 0.20
+          }
+
+        }
+        else if(user_d.goal == "maintain"){
+          user.macros={
+            total : 2000,
+            carb : 2000 * 0.50,
+            protein : 2000 * 0.25,
+            fat : 2000 * 0.25
+          }
+        }
+        else if(user_d.goal== "lose"){
+
+          user.macros={
+            total : 2000,
+            carb : 2000 * 0.30,
+            protein : 2000 * 0.45,
+            fat : 2000 * 0.25
+          }
+
+        }
+
 
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(user.password, salt, (err, hash) => {
@@ -80,7 +109,6 @@ User.findOne({ email: userSeed.userSeed[0].email },
 
         else {
           User.remove({}, function(err) {
-            console.log('HEREEEEEEEEE')
             seedUser(userSeed.userSeed);
           });
 

@@ -53,29 +53,32 @@ module.exports.getUserByEmail = (req, res, next) => {
 
 
 module.exports.editUser = (req,res,next) => {
+  console.log("User here!!!!");
 
     User.findOneAndUpdate(
         { email: req.body.email },
         { $set: {
-                  name : req.body.name,
-                  email : req.body.email,
-                  password : req.body.password,
-                  meals : req.body.meals,
-                  d_plan : req.body.d_plan,
-                  spend_goal : req.body.spend_goal,
-                  nutri_goal : req.body.nutri_goal,
-                  diet : req.body.diet,
-                  profile_pic : req.body.profile_pic
+
+                  macros : req.body.macros
+                  // email : req.body.email,
+                  // password : req.body.password,
+                  // meals : req.body.meals,
+                  // d_plan : req.body.d_plan,
+                  // spend_goal : req.body.spend_goal,
+                  // nutri_goal : req.body.nutri_goal,
+                  // diet : req.body.diet,
+                  // profile_pic : req.body.profile_pic
 
                }
         }, function (err, user) {
 
 
             if (!err) {
-                res.send(user);
+                res.status(200).json(user);
         }
             else {
-              res.send(err);
+              res.status(500).json(err);
+
             }
           }
 

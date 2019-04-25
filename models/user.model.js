@@ -77,6 +77,13 @@ var userSchema = new mongoose.Schema({
             'kosher'
         ]
     }],
+		
+		macros: {
+			total: Number,
+			protein:Number,
+			carb:Number,
+			fat:Number
+		},
     profile_pic: String
 
 
