@@ -9,11 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Restaurant from '@material-ui/icons/Restaurant';
 
+import '../styles/Community.css';
+
 import io from "socket.io-client";
 import axios from 'axios';
 
 class CommunityContainer extends Component {
-
   
   constructor(props){
     super(props);
@@ -50,18 +51,17 @@ class CommunityContainer extends Component {
   render(){
     return (
         <div className="container">
-          <div className="card-title">Community</div>
-            <div className="messages">
+          <div className="appBar">Community</div>
+            <div className="inputBox">
+              <input type="text" placeholder="Hey, post something..." value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
+              <button className="btn" onClick={this.sendMessage}>Send</button>
+            </div>
+            <div>
               {this.state.messages.map(message => {
                 return (
-                    <div>{message.author}: {message.message}</div>
+                    <div className="message">{message.author}: {message.message}</div>
                 )
               })}
-            </div>
-            <div className="card-footer">
-              <input type="text" placeholder="Message" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
-              <br/>
-              <button onClick={this.sendMessage}>Send</button>
             </div>
         </div>
     );

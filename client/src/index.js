@@ -10,7 +10,7 @@ import {Provider} from 'react-redux';
 import {configureStore, sagaMiddleware} from './store/Configure';
 
 // Sagas
-import rootSaga from './middleware/Saga';
+import rootSaga from './middleware/saga';
 
 const store = configureStore();
 
