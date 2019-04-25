@@ -347,9 +347,9 @@ class LoginContainer extends Component {
                 textColor="primary"
                 variant="fullWidth"
                 centered>
-                <Tab label="Budget" />
-                <Tab label="Eat" />
-                <Tab label="Community" />
+                <Tab label="Budget" onClick={() => this.props.resetMeals()}/>
+                <Tab label="Eat" onClick={() => this.props.resetMeals()}/>
+                <Tab label="Community" onClick={() => this.props.resetMeals()}/>
               </Tabs>
             </Toolbar>
           </AppBar>

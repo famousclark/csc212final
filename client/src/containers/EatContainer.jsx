@@ -381,9 +381,9 @@ class EatContainer extends Component {
                   </TableCell>
                   <TableCell style={{padding: "0px 0px 20px 20px"}}>
                     <div className={classes.detailHeading}>
-                      Cholesterol
+                      Protein
                       <div className={classes.details}>
-                        {meal.nutrition.cholesterol}
+                        {meal.nutrition.proteins}
                       </div>
                     </div>
                   </TableCell>
@@ -400,7 +400,7 @@ class EatContainer extends Component {
         <Grid key={item._id} item xs={12} sm={6}>
           <Typography align="center" variant="body1" style={{padding: "40px" }}>
             <Card className={classes.card}>
-              <CardActionArea >
+              <CardActionArea onClick={() => this.handleMenu(item.r_code)}>
                 <CardMedia
                   className={classes.media}
                   image={this.handleImageLoad(item.name)}
