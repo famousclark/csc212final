@@ -28,6 +28,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
+import FlashOnIcon from '@material-ui/icons/FlashOn';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import CakeIcon from '@material-ui/icons/Cake';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -183,6 +186,7 @@ class LoginContainer extends Component {
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
     (this : any).onHandleLogin = this.onHandleLogin.bind(this);
     (this : any).onHandleRegistration = this.onHandleRegistration.bind(this);
+    (this : any).handleMacroSwitcher = this.handleMacroSwitcher.bind(this);
     (this : any).handleDummy = this.handleDummy.bind(this);
 
     //  (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
@@ -200,20 +204,6 @@ class LoginContainer extends Component {
       goal: "",
       exercise: ""
     };
-
-  }
-
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleDrawerClose = () => {
-    this.setState({ open: false, wide: false });
-  };
-
-  onHandleLogin = () => {
-
-    this.loginUser({email: this.state.email, password: this.state.password});
   }
 
   onHandleRegistration = () => {
@@ -231,6 +221,19 @@ class LoginContainer extends Component {
       name: this.state.name
 
     });
+  }
+
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleDrawerClose = () => {
+    this.setState({ open: false, wide: false });
+  };
+
+  onHandleLogin = () => {
+
+    this.loginUser({email: this.state.email, password: this.state.password});
   }
 
   loginUser = (data) => new Promise((resolve, reject) => {
@@ -287,58 +290,31 @@ class LoginContainer extends Component {
     this.setState({isLoggedIn: true});
   }
 
+  handleMacroSwitcher = (index) => {
+    switch (index) {
+      case 0:
+        return <BudgetIcon />
+        break;
+      case 1:
+        return <FlashOnIcon />
+        break;
+      case 2:
+        return <WhatshotIcon />
+        break;
+      default:
+        return <CakeIcon />
+    }
+  }
+
   render() {
 
     const {classes, theme, userInfo, result, allUsersInfo} = this.props;
     const {open, value, isLoggedIn} = this.state;
     var base = "";
     var login = "";
+    var drawer = "";
 
     console.log(this.isLoggedIn);
-
-     const drawer = (
-       <div>
-         <div className={classes.topper} />
-         <List>
-           {['Eat', 'Budget', 'Community'].map((text, index) => (
-             <ListItem button key={text}>
-               <ListItemIcon style={{color: "#fff" }} >
-               {index == 1 ? <BudgetIcon /> : index == 0 ? <EatIcon/> : <CommunityIcon/>}
-               </ListItemIcon>
-               <ListItemText
-                 disableTypography={false}
-                 primaryTypographyProps={{
-                   classes: {colorPrimary: classes.colorPrimary},
-                   color: "primary"
-                 }}
-
-                 primary={text} />
-             </ListItem>
-           ))}
-         </List>
-         <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
-         <List>
-           {['My Profile', 'Log Out'].map((text, index) => (
-             <ListItem button key={text}>
-               <ListItemIcon style={{color: "#fff" }} >{index % 2 === 0 ? <ProfileIcon /> : <LogOutIcon />}</ListItemIcon>
-               <ListItemText
-                 disableTypography={false}
-                 primaryTypographyProps={{
-                   classes: {colorPrimary: classes.colorPrimary},
-                   color: "primary"
-                 }}
-                 primary={text} />
-             </ListItem>
-           ))}
-         </List>
-         <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
-         <div style={{background: "#DDD"}} className={classes.fabHolder}>
-           <Fab onClick={this.handleDrawerClose} color="primary" aria-label="Add" className={classes.fabButton}>
-             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-           </Fab>
-         </div>
-       </div>
-     );
 
     if (userInfo.hasOwnProperty('success')) {
 
@@ -350,6 +326,51 @@ class LoginContainer extends Component {
         console.log("here: " + this.isLoggedIn);
 
       }
+    }
+    if (this.isLoggedIn && userInfo.d_plan != null) {
+      drawer = (
+        <div>
+          <div className={classes.topper} />
+          <List>
+            {['total', 'carb', 'protein', 'fat'].map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon style={{color: "#fff" }} >
+                {this.handleMacroSwitcher(index)}
+                </ListItemIcon>
+                <ListItemText
+                  disableTypography={false}
+                  primaryTypographyProps={{
+                    classes: {colorPrimary: classes.colorPrimary},
+                    color: "primary"
+                  }}
+
+                  primary={text + "s " + ": " + userInfo.macros[text]} />
+              </ListItem>
+            ))}
+          </List>
+          <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
+          {/*<List>
+            {['My Profile', 'Log Out'].map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon style={{color: "#fff" }} >{index % 2 === 0 ? <ProfileIcon /> : <LogOutIcon />}</ListItemIcon>
+                <ListItemText
+                  disableTypography={false}
+                  primaryTypographyProps={{
+                    classes: {colorPrimary: classes.colorPrimary},
+                    color: "primary"
+                  }}
+                  primary={text} />
+              </ListItem>
+            ))}
+          </List>*/}
+          <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
+          <div style={{background: "#DDD"}} className={classes.fabHolder}>
+            <Fab onClick={this.handleDrawerClose} color="primary" aria-label="Add" className={classes.fabButton}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </Fab>
+          </div>
+        </div>
+      );
     }
 
     //if logged in show the app with budget page, else show log in/register page
@@ -575,7 +596,10 @@ class LoginContainer extends Component {
   }
 }
 function mapStateToProps(state) {
-  return {userInfo: state.app.userInfo, allUsersInfo: state.app.allUsersInfo}
+  return {
+    userInfo: state.app.userInfo,
+    allUsersInfo: state.app.allUsersInfo
+  }
 }
 function mapActionCreatorsToProps(dispatch : Object) {
   return bindActionCreators(ActionCreators, dispatch);
