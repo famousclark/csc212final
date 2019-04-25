@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import * as ActionCreators from '../actions/Actions';
-
 
 import {bindActionCreators} from 'redux';
 import ReactDOM from 'react-dom';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import SwipeableViews from 'react-swipeable-views';
@@ -43,46 +42,50 @@ import TextField from '@material-ui/core/TextField';
 import BudgetContainer from './BudgetContainer';
 import EatContainer from './EatContainer';
 import CommunityContainer from './CommunityContainer';
-import { log } from "util";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import {log} from "util";
 
-function TabContainer({ children, dir }) {
-  return (
-    <Typography component="div" dir={dir}>
-      {children}
-    </Typography>
-  );
+function TabContainer({children, dir}) {
+  return (<Typography component="div" dir={dir}>
+    {children}
+  </Typography>);
 }
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    display: 'flex',
+    display: 'flex'
   },
   appBar: {
     top: 'auto',
     bottom: 0,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create([
+      'margin', 'width'
+    ], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+      duration: theme.transitions.duration.leavingScreen
+    })
   },
   appBarShift: {
-     marginLeft: drawerWidth,
+    marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
+      width: `calc(100% - ${drawerWidth}px)`
     },
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create([
+      'margin', 'width'
+    ], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+      duration: theme.transitions.duration.enteringScreen
+    })
   },
   menuButton: {
     marginLeft: 12,
-    marginRight: 20,
+    marginRight: 20
   },
   hide: {
-    display: 'none',
+    display: 'none'
   },
   topper: {
     top: 'auto',
@@ -95,11 +98,11 @@ const styles = theme => ({
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaper: {
     background: "rgba(0,0,0,.5)",
-    width: drawerWidth,
+    width: drawerWidth
   },
   drawerHeader: {
     top: 'auto',
@@ -108,22 +111,22 @@ const styles = theme => ({
     alignItems: 'center',
     padding: '0 8px',
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   content: {
     flexGrow: 1,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: -drawerWidth,
+    marginLeft: -drawerWidth
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
+      duration: theme.transitions.duration.enteringScreen
     }),
-    marginLeft: 0,
+    marginLeft: 0
   },
   fabHolder: {
     position: 'absolute',
@@ -136,7 +139,7 @@ const styles = theme => ({
     alignItems: 'center',
     padding: '0 8px',
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   fabButton: {
     position: 'absolute',
@@ -148,13 +151,13 @@ const styles = theme => ({
   colorPrimary: {
     color: "#fff"
   },
-  button:{
+  button: {
     width: "100px",
-    margin: "10px",
+    margin: "10px"
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: "195px",
+    minWidth: "195px"
   },
   icon: {
     fontSize: 180,
@@ -164,7 +167,7 @@ const styles = theme => ({
   },
   logInbutton: {
     margin: "15% 22%",
-    textAlign:"center",
+    textAlign: "center"
   }
 });
 
@@ -172,138 +175,170 @@ class LoginContainer extends Component {
 
   isLoggedIn = false;
 
-  constructor(props: Object){
+  constructor(props : Object) {
     super(props);
     (this : any).handleChange = this.handleChange.bind(this);
+    (this : any).handleDrawerOpen = this.handleDrawerOpen.bind(this);
+    (this : any).handleDrawerClose = this.handleDrawerClose.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
     (this : any).onHandleLogin = this.onHandleLogin.bind(this);
     (this : any).onHandleRegistration = this.onHandleRegistration.bind(this);
     (this : any).handleDummy = this.handleDummy.bind(this);
 
-  //  (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
+    //  (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
 
-    (this : any)
-      .state = {
-        value: 0,
-        open: false,
-        wide: false,
-        isLoggedIn: false,
-        email: "",
-        password: "",
-        confirmPassword: "",
-        name:"",
-        d_plan:"",
-        goal:"",
-        exercise:""
-      };
+    (this : any).state = {
+      value: 0,
+      open: false,
+      wide: false,
+      isLoggedIn: false,
+      email: "",
+      password: "",
+      confirmPassword: "",
+      name: "",
+      d_plan: "",
+      goal: "",
+      exercise: ""
+    };
 
   }
 
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleDrawerClose = () => {
+    this.setState({ open: false, wide: false });
+  };
 
   onHandleLogin = () => {
 
-      this.loginUser({
-        email:this.state.email,
-        password:this.state.password
-      });
+    this.loginUser({email: this.state.email, password: this.state.password});
   }
 
   onHandleRegistration = () => {
 
-      this.registerUser({
-        email:this.state.email,
-        password:this.state.password,
-        password2:this.state.confirmPassword,
-        goal:this.state.goal,
-        exercise:this.state.exercise,
-        d_plan:{
-          plan: this.state.d_plan,
-          balance: "1000"
-        },
-        name: this.state.name
+    this.registerUser({
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.confirmPassword,
+      goal: this.state.goal,
+      exercise: this.state.exercise,
+      d_plan: {
+        plan: this.state.d_plan,
+        balance: "1000"
+      },
+      name: this.state.name
 
-      });
+    });
   }
 
-
-  loginUser = (data) =>  new Promise( (resolve, reject) => {
-    setTimeout( () => {
+  loginUser = (data) => new Promise((resolve, reject) => {
+    setTimeout(() => {
       this.props.loginUser(data);
       resolve(this.props.userInfo);
     }, 200)
   });
 
-  registerUser= (data) =>  new Promise( (resolve, reject) => {
-    setTimeout( () => {
+  registerUser = (data) => new Promise((resolve, reject) => {
+    setTimeout(() => {
       this.props.registerUser(data);
       resolve(this.props.userInfo);
     }, 200)
   });
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({value});
   };
 
   handleChangeIndex = index => {
-    this.setState({ value: index });
+    this.setState({value: index});
   };
 
   handleChangeEmail = email => event => {
-    this.setState({
-      [email]: event.target.value,
-    });
+    this.setState({[email]: event.target.value});
   };
 
   handleChangePassword = password => event => {
-    this.setState({
-      [password]: event.target.value,
-    });
+    this.setState({[password]: event.target.value});
   };
 
   handleChangeConfirmPassword = confirmPassword => event => {
-    this.setState({
-      [confirmPassword]: event.target.value,
-    });
+    this.setState({[confirmPassword]: event.target.value});
   };
 
   handleChangeName = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
+    this.setState({[name]: event.target.value});
   };
 
   handleChangeD_Plan = d_plan => event => {
-    this.setState({
-      [d_plan]: event.target.value,
-    });
+    this.setState({[d_plan]: event.target.value});
   };
 
-  handleChangeGoal= goal => event => {
-    this.setState({
-      [goal]: event.target.value,
-    });
+  handleChangeGoal = goal => event => {
+    this.setState({[goal]: event.target.value});
   };
 
   handleChangeExercise = exercise => event => {
-    this.setState({
-      [exercise]: event.target.value,
-    });
+    this.setState({[exercise]: event.target.value});
   };
 
   handleDummy = event => {
-    this.setState({
-      isLoggedIn : true,
-    });
+    this.setState({isLoggedIn: true});
   }
 
   render() {
 
-    const { classes, theme, userInfo,result, allUsersInfo} = this.props;
-    const { open, value, isLoggedIn } = this.state;
+    const {classes, theme, userInfo, result, allUsersInfo} = this.props;
+    const {open, value, isLoggedIn} = this.state;
     var base = "";
     var login = "";
 
     console.log(this.isLoggedIn);
+
+     const drawer = (
+       <div>
+         <div className={classes.topper} />
+         <List>
+           {['Eat', 'Budget', 'Community'].map((text, index) => (
+             <ListItem button key={text}>
+               <ListItemIcon style={{color: "#fff" }} >
+               {index == 1 ? <BudgetIcon /> : index == 0 ? <EatIcon/> : <CommunityIcon/>}
+               </ListItemIcon>
+               <ListItemText
+                 disableTypography={false}
+                 primaryTypographyProps={{
+                   classes: {colorPrimary: classes.colorPrimary},
+                   color: "primary"
+                 }}
+
+                 primary={text} />
+             </ListItem>
+           ))}
+         </List>
+         <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
+         <List>
+           {['My Profile', 'Log Out'].map((text, index) => (
+             <ListItem button key={text}>
+               <ListItemIcon style={{color: "#fff" }} >{index % 2 === 0 ? <ProfileIcon /> : <LogOutIcon />}</ListItemIcon>
+               <ListItemText
+                 disableTypography={false}
+                 primaryTypographyProps={{
+                   classes: {colorPrimary: classes.colorPrimary},
+                   color: "primary"
+                 }}
+                 primary={text} />
+             </ListItem>
+           ))}
+         </List>
+         <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
+         <div style={{background: "#DDD"}} className={classes.fabHolder}>
+           <Fab onClick={this.handleDrawerClose} color="primary" aria-label="Add" className={classes.fabButton}>
+             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+           </Fab>
+         </div>
+       </div>
+     );
 
     if (userInfo.hasOwnProperty('success')) {
 
@@ -312,116 +347,138 @@ class LoginContainer extends Component {
         localStorage.setItem('token', userInfo.token);
         // this.state.isLoggedIn = true;
         this.isLoggedIn = true;
-        console.log("here: "+ this.isLoggedIn);
+        console.log("here: " + this.isLoggedIn);
 
       }
     }
 
-
-
-
-
     //if logged in show the app with budget page, else show log in/register page
     //if(this.isLoggedIn){
-      base = (
-        <div className={classes.root} style={{width: "100%"}}>
-        <AppBar
-            position="fixed"
-            color="default"
-            className={classNames(classes.appBar, {
-              [classes.appBarShift]: open && !(theme.breakpoints.up('sm'))
-            })}>
-            <Toolbar disableGutters={!open}>
-              {/* <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, open && classes.hide)}>
-                <MenuIcon />
-              </IconButton> */}
-              <Tabs
-                style={{flexGrow: "1"}}
-                value={this.state.value}
-                onChange={this.handleChange}
-                indicatorColor="primary"
-                textColor="primary"
-                variant="fullWidth"
-                centered>
-                <Tab label="Budget" onClick={() => this.props.resetMeals()}/>
-                <Tab label="Eat" onClick={() => this.props.resetMeals()}/>
-                <Tab label="Community" onClick={() => this.props.resetMeals()}/>
-              </Tabs>
-            </Toolbar>
-          </AppBar>
+    base = (<div className={classes.root} style={{
+        width: "100%"
+      }}>
+      <AppBar position="fixed" color="default" className={classNames(classes.appBar, {
+          [classes.appBarShift]: open && !(theme.breakpoints.up('sm'))
+        })}>
+        <Toolbar disableGutters={!open}>
+          <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              className={classNames(classes.menuButton, open && classes.hide)}>
+              <MenuIcon />
+          </IconButton>
 
-         <nav  className={classes.drawer}></nav>
+          <Tabs style={{
+              flexGrow: "1"
+            }} value={this.state.value} onChange={this.handleChange} indicatorColor="primary" textColor="primary" variant="fullWidth" centered="centered">
+            <Tab label="Budget" onClick={() => this.props.resetMeals()}/>
+            <Tab label="Eat" onClick={() => this.props.resetMeals()}/>
+            <Tab label="Community" onClick={() => this.props.resetMeals()}/>
+          </Tabs>
+        </Toolbar>
+      </AppBar>
 
-          <main
-            className={classNames(classes.content, {[classes.contentShift]: open && !(theme.breakpoints.up('sm'))})}>
-              {value === 0 &&<BudgetContainer open={open} dir={theme.direction}/>}
-              {value === 1 &&<EatContainer open={open} dir={theme.direction}/>}
-              {value === 2 &&<CommunityContainer open={open} dir={theme.direction}/>}
-          </main>
-          </div>
-      );
-  //  } else {
-      var screenHeight = window.innerHeight;
-        login = (
-        <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px'), width:"100%"}}>
-          <div className={classes.logInbutton}>
-          <Typography style={{fontSize:"25px", color:"white", textAlign:"center", paddingBottom:"10px"}}>
-            UR EATS
-          </Typography>
-          <AppBar position="static" color="secondary">
+      <nav className={classes.drawer}>
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Hidden smUp implementation="css">
+          <Drawer
+            container={this.props.container}
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}>
+            {drawer}
+          </Drawer>
+        </Hidden>
+
+        <Hidden xsDown implementation="css">
+          <Drawer
+            cvariant="persistent"
+            anchor="left"
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}>
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
+
+
+      <main className={classNames(classes.content, {
+          [classes.contentShift]: open && !(theme.breakpoints.up('sm'))
+        })}>
+        {
+          value === 0 &&< BudgetContainer open = {
+            open
+          }
+          dir = {
+            theme.direction
+          } />
+        }
+        {
+          value === 1 &&< EatContainer open = {
+            open
+          }
+          dir = {
+            theme.direction
+          } />
+        }
+        {
+          value === 2 &&< CommunityContainer open = {
+            open
+          }
+          dir = {
+            theme.direction
+          } />
+        }
+      </main>
+    </div>);
+    //  } else {
+    var screenHeight = window.innerHeight;
+    login = (<div style={{
+        background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))",
+        minHeight: ('' + screenHeight + 'px'),
+        width: "100%"
+      }}>
+      <div className={classes.logInbutton}>
+        <Typography style={{
+            fontSize: "25px",
+            color: "white",
+            textAlign: "center",
+            paddingBottom: "10px"
+          }}>
+          UR EATS
+        </Typography>
+        <AppBar position="static" color="secondary">
           <Tabs value={value} onChange={this.handleChange}>
-            <Tab label="Login" />
-            <Tab label="Register" />
+            <Tab label="Login"/>
+            <Tab label="Register"/>
           </Tabs>
         </AppBar>
-        {value === 0 &&
-        <TabContainer>
-          <form className={classes.container} autoComplete="off" >
-          <TextField
-          id="outlined-name"
-          label="Email"
-          className={classes.textField}
-          value={this.state.email}
-          onChange={this.handleChangeEmail('email')}
-          margin="normal"
-          variant="outlined"
-          />
-          <TextField
-          id="password"
-          label="Password"
-          className={classes.textField}
-          value={this.state.password}
-          type="password"
-          onChange={this.handleChangePassword('password')}
-          margin="normal"
-          variant="outlined"
-          />
-           <Button
-             variant="contained"
-             style={{backgroundColor:"white"}}
-             className={classes.button}
-             onClick={() => { this.onHandleLogin()}}>
-            Submit
-          </Button>
-          </form>
+        {
+          value === 0 && <TabContainer>
+              <form className={classes.container} autoComplete="off">
+                <TextField id="outlined-name" label="Email" className={classes.textField} value={this.state.email} onChange={this.handleChangeEmail('email')} margin="normal" variant="outlined"/>
+                <TextField id="password" label="Password" className={classes.textField} value={this.state.password} type="password" onChange={this.handleChangePassword('password')} margin="normal" variant="outlined"/>
+                <Button variant="contained" style={{
+                    backgroundColor: "white"
+                  }} className={classes.button} onClick={() => {
+                    this.onHandleLogin()
+                  }}>
+                  Submit
+                </Button>
+              </form>
 
-        </TabContainer>}
-        {value === 1 && <TabContainer>
-          <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-          id="name"
-          label="Name"
-          className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChangeName('name')}
-          margin="normal"
-          variant="outlined"
-          />
-          {/* <TextField
+            </TabContainer>
+        }
+        {
+          value === 1 && <TabContainer>
+              <form className={classes.container} noValidate="noValidate" autoComplete="off">
+                <TextField id="name" label="Name" className={classes.textField} value={this.state.name} onChange={this.handleChangeName('name')} margin="normal" variant="outlined"/> {/* <TextField
           id="d_plan"
           label="Meal Plan"
           className={classes.textField}
@@ -429,152 +486,101 @@ class LoginContainer extends Component {
           onChange={this.handleChangeD_Plan('d_plan')}
           margin="normal"
           variant="outlined"
-          /> */}
-          <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel
-          htmlFor="d_plan">
-           Meal Plan
-          </InputLabel>
-          <Select
-            value={this.state.d_plan}
-            onChange={this.handleChangeD_Plan('d_plan')}
-            input={
-              <OutlinedInput
-                labelWidth="75"
-                name="d_plan"
-                id="d_plan"
-              />
-            }
-          >
-            <MenuItem value="">
-              <em>Choose Meal Plan</em>
-            </MenuItem>
-            <MenuItem value={"MelUlm"}>Meliora Unlimited</MenuItem>
-            <MenuItem value={"BlueUlm"}>Blue Unlimited</MenuItem>
-            <MenuItem value={"150Pass"}>150 Pass</MenuItem>
-            <MenuItem value={"OptionA"}>Option A Declining</MenuItem>
-            <MenuItem value={"OptionB"}>Option B Declining</MenuItem>
-            <MenuItem value={"OptionC"}>Option C Declining</MenuItem>
-            <MenuItem value={"OptionD"}>Option D Declining</MenuItem>
-            <MenuItem value={"Com"}>Commuter</MenuItem>
-          </Select>
-        </FormControl>
+          /> */
+                }
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel htmlFor="d_plan">
+                    Meal Plan
+                  </InputLabel>
+                  <Select value={this.state.d_plan} onChange={this.handleChangeD_Plan('d_plan')} input={<OutlinedInput
+                    labelWidth = "75"
+                    name = "d_plan"
+                    id = "d_plan"
+                    />}>
+                    <MenuItem value="">
+                      <em>Choose Meal Plan</em>
+                    </MenuItem>
+                    <MenuItem value={"MelUlm"}>Meliora Unlimited</MenuItem>
+                    <MenuItem value={"BlueUlm"}>Blue Unlimited</MenuItem>
+                    <MenuItem value={"150Pass"}>150 Pass</MenuItem>
+                    <MenuItem value={"OptionA"}>Option A Declining</MenuItem>
+                    <MenuItem value={"OptionB"}>Option B Declining</MenuItem>
+                    <MenuItem value={"OptionC"}>Option C Declining</MenuItem>
+                    <MenuItem value={"OptionD"}>Option D Declining</MenuItem>
+                    <MenuItem value={"Com"}>Commuter</MenuItem>
+                  </Select>
+                </FormControl>
 
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel
-        htmlFor="goal">
-         Goal
-        </InputLabel>
-        <Select
-          value={this.state.goal}
-          onChange={this.handleChangeGoal('goal')}
-          input={
-            <OutlinedInput
-              labelWidth="75"
-              name="goal"
-              id="goal"
-            />
-          }
-        >
-          <MenuItem value="">
-            <em>Choose Goal</em>
-          </MenuItem>
-          <MenuItem value={"lose"}>Lose</MenuItem>
-          <MenuItem value={"maintain"}>Maintain</MenuItem>
-          <MenuItem value={"gain"}>Gain</MenuItem>
-        </Select>
-      </FormControl>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel htmlFor="goal">
+                    Goal
+                  </InputLabel>
+                  <Select value={this.state.goal} onChange={this.handleChangeGoal('goal')} input={<OutlinedInput
+                    labelWidth = "75"
+                    name = "goal"
+                    id = "goal"
+                    />}>
+                    <MenuItem value="">
+                      <em>Choose Goal</em>
+                    </MenuItem>
+                    <MenuItem value={"lose"}>Lose</MenuItem>
+                    <MenuItem value={"maintain"}>Maintain</MenuItem>
+                    <MenuItem value={"gain"}>Gain</MenuItem>
+                  </Select>
+                </FormControl>
 
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel htmlFor="exercise">
+                    Exercise
+                  </InputLabel>
+                  <Select value={this.state.exercise} onChange={this.handleChangeExercise('exercise')} input={<OutlinedInput
+                    labelWidth = "75"
+                    name = "exercise"
+                    id = "exercise"
+                    />}>
+                    <MenuItem value="">
+                      <em>Choose Exercise Habits</em>
+                    </MenuItem>
+                    <MenuItem value={"none"}>None</MenuItem>
+                    <MenuItem value={"light"}>Light</MenuItem>
+                    <MenuItem value={"active"}>Active</MenuItem>
+                    <MenuItem value={"very_active"}>Very Active</MenuItem>
+                  </Select>
+                </FormControl>
 
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel
-        htmlFor="exercise">
-         Exercise
-        </InputLabel>
-        <Select
-          value={this.state.exercise}
-          onChange={this.handleChangeExercise('exercise')}
-          input={
-            <OutlinedInput
-              labelWidth="75"
-              name="exercise"
-              id="exercise"
-            />
-          }
-        >
-          <MenuItem value="">
-            <em>Choose Exercise Habits</em>
-          </MenuItem>
-          <MenuItem value={"none"}>None</MenuItem>
-          <MenuItem value={"light"}>Light</MenuItem>
-          <MenuItem value={"active"}>Active</MenuItem>
-          <MenuItem value={"very_active"}>Very Active</MenuItem>
-        </Select>
-      </FormControl>
-
-          <TextField
-          id="email"
-          label="Email"
-          className={classes.textField}
-          value={this.state.email}
-          onChange={this.handleChangeEmail('email')}
-          margin="normal"
-          variant="outlined"
-          />
-          <TextField
-          id="password"
-          label="Password"
-          className={classes.textField}
-          value={this.state.password}
-          type="password"
-          onChange={this.handleChangePassword('password')}
-          margin="normal"
-          variant="outlined"
-          />
-          <TextField
-          id="confirm_password"
-          label="Confirm Password"
-          className={classes.textField}
-          value={this.state.confirmPassword}
-          type="password"
-          onChange={this.handleChangeConfirmPassword('confirmPassword')}
-          margin="normal"
-          variant="outlined"
-          />
-          <Button
-            variant="contained"
-            style={{backgroundColor:"white"}}
-            className={classes.button}
-            onClick={() => { this.onHandleRegistration()}}>
-            Submit
-          </Button>
-          </form>
-          </TabContainer>}
-           </div>
-        </div>
-        );
-  //  }
-
-    return (
-      <div className={classes.root}>
-      <CssBaseline />
-       {this.isLoggedIn ? base : login}
+                <TextField id="email" label="Email" className={classes.textField} value={this.state.email} onChange={this.handleChangeEmail('email')} margin="normal" variant="outlined"/>
+                <TextField id="password" label="Password" className={classes.textField} value={this.state.password} type="password" onChange={this.handleChangePassword('password')} margin="normal" variant="outlined"/>
+                <TextField id="confirm_password" label="Confirm Password" className={classes.textField} value={this.state.confirmPassword} type="password" onChange={this.handleChangeConfirmPassword('confirmPassword')} margin="normal" variant="outlined"/>
+                <Button variant="contained" style={{
+                    backgroundColor: "white"
+                  }} className={classes.button} onClick={() => {
+                    this.onHandleRegistration()
+                  }}>
+                  Submit
+                </Button>
+              </form>
+            </TabContainer>
+        }
       </div>
-    );
+    </div>);
+    //  }
+
+    return (<div className={classes.root}>
+      <CssBaseline/> {
+        this.isLoggedIn
+          ? base
+          : login
+      }
+    </div>);
   }
 }
 function mapStateToProps(state) {
-  return {
-    userInfo: state.app.userInfo,
-    allUsersInfo: state.app.allUsersInfo
-
-  }
+  return {userInfo: state.app.userInfo, allUsersInfo: state.app.allUsersInfo}
 }
-function mapActionCreatorsToProps(dispatch: Object) {
+function mapActionCreatorsToProps(dispatch : Object) {
   return bindActionCreators(ActionCreators, dispatch);
 }
 
 // const mapStateToProps = (result) => ({result});
 
-
-export default connect(mapStateToProps, mapActionCreatorsToProps)(withStyles(styles, { withTheme: true })(LoginContainer));
+export default connect(mapStateToProps, mapActionCreatorsToProps)(withStyles(styles, {withTheme: true})(LoginContainer));

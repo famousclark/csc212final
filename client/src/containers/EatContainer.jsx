@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -24,7 +24,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Assignment from '@material-ui/icons/Assignment';
 import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
-import { TableRow, TableCell } from "@material-ui/core";
+import {TableRow, TableCell} from "@material-ui/core";
 
 import * as ActionCreators from '../actions/Actions';
 
@@ -45,116 +45,112 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SwipeableViews from 'react-swipeable-views';
 
-
 var readyToLoad = false;
 var readyToLoadMeals = false;
 var readyToLoadReviews = false;
 
-function TabContainer({ children, dir }) {
-  return (
-    <Typography component="div" dir={dir}>
-      {children}
-    </Typography>
-  );
-}
-
-{/* ==============================================
+function TabContainer({children, dir}) {
+  return (<Typography component="div" dir={dir}>
+    {children}
+  </Typography>);
+} {/* ==============================================
   Here is where css should go, attributes use camel case (marginLeft => good, margin-left => bad)
-  ==============================================*/}
-  const styles = theme => ({
-    root: {
-       display: 'flex',
-       flexWrap: 'wrap',
-       justifyContent: 'space-around',
-       overflow: 'hidden',
-       backgroundColor: theme.palette.background.paper,
-     },
-     gridList: {
-       width: 500,
-       height: 450,
-     },
-    inline: {
-      display: 'inline',
-    },
-    appBar: {
-      top: 'auto',
-
-    },
-    details: {
-      fontSize : "20px",
-      color: "white",
-    },
-    detailHeading:{
-      fontSize: "16px",
-      paddingTop: "24px",
-    },
-    icon: {
-      fontSize: 120,
-      paddingTop: "50px",
-      display: "flex",
-      marginLeft: "auto",
-      marginRight: "auto"
-    },
-    toolbar: {
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    },
-    bigAvatar: {
-      margin: 10,
-      width: 100,
-      height: 100,
-    },
-    progress: {
-      display: "block",
-      marginLeft: "auto",
-      marginRight: "auto",
-      marginTop: "-120px",
-      zIndex: 1,
-      margin: theme.spacing.unit * 2,
-    },
-    content: {
-      flexGrow: 1,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      })
-    },
-    tabsContainer: {
-      display: "flex",
-      marginLeft: "auto",
-      marginRight: "auto"
-    },
-    card: {
-      maxWidth: 345,
-    },
-    media: {
-      height: 140,
-    },
-    colorPrime:{
-      background: "#fff"
-    },
-    progress: {
-      margin: "45% 45%",
-      color: "white",
-      // margin: theme.spacing.unit * 2,
-    },
-    selectButton: {
-      textAlign:"center",
-      display: "block",
-      marginLeft: "auto",
-      marginRight: "auto",
-      width: "40%",
-      height: "50px"
-    }
+  ==============================================*/
+}
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper
+  },
+  gridList: {
+    width: 500,
+    height: 450
+  },
+  inline: {
+    display: 'inline'
+  },
+  appBar: {
+    top: 'auto'
+  },
+  details: {
+    fontSize: "20px",
+    color: "white"
+  },
+  detailHeading: {
+    fontSize: "16px",
+    paddingTop: "24px"
+  },
+  icon: {
+    fontSize: 120,
+    paddingTop: "50px",
+    display: "flex",
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
+  toolbar: {
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  bigAvatar: {
+    margin: 10,
+    width: 100,
+    height: 100
+  },
+  progress: {
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "-120px",
+    zIndex: 1,
+    margin: theme.spacing.unit * 2
+  },
+  content: {
+    flexGrow: 1,
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  tabsContainer: {
+    display: "flex",
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
+  card: {
+    maxWidth: 345
+  },
+  media: {
+    height: 140
+  },
+  colorPrime: {
+    background: "#fff"
+  },
+  progress: {
+    margin: "45% 45%",
+    color: "white",
+    // margin: theme.spacing.unit * 2,
+  },
+  selectButton: {
+    textAlign: "center",
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "40%",
+    height: "50px"
+  }
 });
 
 {/* ==============================================
   Here is where css should go, attributes use camel case (marginLeft => good, margin-left => bad)
-  ==============================================*/}
+  ==============================================*/
+}
 
 class EatContainer extends Component {
 
-  constructor(props: Object){
+  constructor(props : Object) {
     super(props);
     (this : any).handleChange = this.handleChange.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
@@ -163,27 +159,26 @@ class EatContainer extends Component {
     (this : any).handleLoadReviewsAsync = this.handleLoadReviewsAsync.bind(this);
     (this : any).handleImageLoad = this.handleImageLoad.bind(this);
     (this : any).handleMenu = this.handleMenu.bind(this);
-      this.state = {
-        value: 0,
-        allRestaurants: null,
-        allMeals: null,
-        isNutri: false
-      };
+    this.state = {
+      value: 0,
+      allRestaurants: null,
+      allMeals: null,
+      isNutri: false
+    };
   }
 
-
-  decodeToken  = (token) => {
+  decodeToken = (token) => {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
   }
 
-  getLoggedInUserEmail = () =>{
+  getLoggedInUserEmail = () => {
     var email = this.decodeToken(localStorage.getItem('token')).email;
     return email;
   }
 
-  changeAsyncMacro = (carb, protein, fat, price) =>  new Promise( (resolve, reject) => {
+  changeAsyncMacro = (carb, protein, fat, price) => new Promise((resolve, reject) => {
     var email = this.getLoggedInUserEmail();
     var c_total = this.props.userInfo.macros.total;
     var c_carb = this.props.userInfo.macros.carb;
@@ -191,141 +186,122 @@ class EatContainer extends Component {
     var c_fat = this.props.userInfo.macros.fat;
 
     var meal_price = parseFloat(price);
-    var balance = parseFloat (this.props.userInfo.d_plan.balance)
+    var balance = parseFloat(this.props.userInfo.d_plan.balance)
     var new_balance = (balance - meal_price).toString()
 
-
-    var new_total = c_total - (carb *4)-(protein * 4) -(fat *9 );
-    var new_carb = c_carb - (carb *4);
+    var new_total = c_total - (carb * 4) - (protein * 4) - (fat * 9);
+    var new_carb = c_carb - (carb * 4);
     var new_protein = c_protein - (protein * 4);
-    var new_fat = c_fat - (fat *9 );
-
+    var new_fat = c_fat - (fat * 9);
 
     var payload = {
-      email : email,
-      macros:{
+      email: email,
+      macros: {
         total: new_total,
-        fat : new_fat ,
-        protein :new_protein,
+        fat: new_fat,
+        protein: new_protein,
         carb: new_carb
       },
-      d_plan:{
-        plan : this.props.userInfo.d_plan.plan,
+      d_plan: {
+        plan: this.props.userInfo.d_plan.plan,
         balance: new_balance
       }
     }
-    setTimeout( () => {
+    setTimeout(() => {
       this.props.editUser(payload);
     }, 1000)
   });
 
-  loadAsyncRestaurantData = () =>  new Promise( (resolve, reject) => {
-    setTimeout( () => {
+  loadAsyncRestaurantData = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
       this.props.getAllRestaurants();
       resolve(this.props.restaurantInfo);
     }, 1000)
   });
 
-  loadAsyncMealsData = (r_code) =>  new Promise( (resolve, reject) => {
-    setTimeout( () => {
+  loadAsyncMealsData = (r_code) => new Promise((resolve, reject) => {
+    setTimeout(() => {
       this.props.getAllMealsByRestaurant(r_code);
       resolve(this.props.allMeals);
     }, 1000)
   });
 
-  loadAsyncResetMealsData = () =>  new Promise( (resolve, reject) => {
-    setTimeout( () => {
+  loadAsyncResetMealsData = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
       this.props.resetMeals();
       resolve(this.props.allMeals);
     }, 1000)
   });
 
-  loadAsyncReviewsData = () =>  new Promise( (resolve, reject) => {
-    setTimeout( () => {
+  loadAsyncReviewsData = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
       this.props.getAllReviews();
       resolve(this.props.allReviews);
     }, 1000)
   });
 
   handleLoadAsync = async () => {
-    this._asyncRequest = this.loadAsyncRestaurantData()
-    .then(
-      allRestaurants => {
-        this.readyToLoad = true;
-        this.setState({allRestaurants});
-    }
-    )
-    .then( () => {
-      setTimeout ( () => {
+    this._asyncRequest = this.loadAsyncRestaurantData().then(allRestaurants => {
+      this.readyToLoad = true;
+      this.setState({allRestaurants});
+    }).then(() => {
+      setTimeout(() => {
 
-        console.log( this.props.restaurantInfo);
+        console.log(this.props.restaurantInfo);
         console.log(this.state.restaurantInfo);
       }, 1000)
     });
   }
 
   handleLoadMealsAsync = async (r_code) => {
-    this._asyncRequest = this.loadAsyncMealsData(r_code)
-    .then(
-      allMeals => {
-        this.readyToLoadMeals = true;
-        this.setState({allMeals});
-    }
-    )
-    .then( () => {
-      setTimeout ( () => {
+    this._asyncRequest = this.loadAsyncMealsData(r_code).then(allMeals => {
+      this.readyToLoadMeals = true;
+      this.setState({allMeals});
+    }).then(() => {
+      setTimeout(() => {
 
-        console.log( this.props.restaurantInfo);
+        console.log(this.props.restaurantInfo);
         console.log(this.state.restaurantInfo);
       }, 1000)
     });
   }
 
   handleLoadReviewsAsync = async () => {
-    this._asyncRequest = this.loadAsyncReviewsData()
-    .then(
-      allReviews => {
-        this.readyToLoadReviews = true;
-        this.setState({allReviews});
-    }
-    )
-    .then( () => {
-      setTimeout ( () => {
+    this._asyncRequest = this.loadAsyncReviewsData().then(allReviews => {
+      this.readyToLoadReviews = true;
+      this.setState({allReviews});
+    }).then(() => {
+      setTimeout(() => {
 
-        console.log( this.props.restaurantInfo);
+        console.log(this.props.restaurantInfo);
         console.log(this.state.restaurantInfo);
       }, 1000)
     });
   }
 
   handleResetMealsAsync = async () => {
-    this._asyncRequest = this.loadAsyncResetMealsData()
-    .then(
-      allMeals => {
-        this.readyToLoadMeals = true;
-        this.setState({allMeals});
-    }
-    )
-    .then( () => {
-      setTimeout ( () => {
+    this._asyncRequest = this.loadAsyncResetMealsData().then(allMeals => {
+      this.readyToLoadMeals = true;
+      this.setState({allMeals});
+    }).then(() => {
+      setTimeout(() => {
 
-        console.log( this.props.restaurantInfo);
+        console.log(this.props.restaurantInfo);
         console.log(this.state.restaurantInfo);
       }, 1000)
     });
   }
-
 
   componentDidMount() {
     this.handleLoadAsync();
   }
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({value});
   };
 
   handleChangeIndex = index => {
-    this.setState({ value: index });
+    this.setState({value: index});
   };
 
   handleRest = () => {
@@ -381,35 +357,52 @@ class EatContainer extends Component {
     this.handleLoadReviewsAsync();
   }
 
-  render(){
-    const { classes, theme, dir, open, allRestaurants, allMeals} = this.props;
+  render() {
+    const {
+      classes,
+      theme,
+      dir,
+      open,
+      allRestaurants,
+      allMeals
+    } = this.props;
 
-    const screenHeight = window.innerHeight - 56*2;
-    var meals="";
+    const screenHeight = window.innerHeight - 56 * 2;
+    var meals = "";
 
-    if (this.readyToLoad && allRestaurants!= null) {
+    if (this.readyToLoad && allRestaurants != null) {
 
       console.log(allRestaurants);
       console.log(allMeals);
 
-      if(this.readyToLoadMeals && (allMeals.length > 0)){
+      if (this.readyToLoadMeals && (allMeals.length > 0)) {
         console.log(allMeals);
-        meals = (
-          <div>
-          {allMeals.map( meal => (
-            <div key={meal._id} >
-              <Typography align="center" variant="body1" style={{padding: "40px", paddingTop: "5rem"}}>
+        meals = (<div>
+          {
+            allMeals.map(meal => (<div key={meal._id}>
+              <Typography align="center" variant="body1" style={{
+                  padding: "40px",
+                  paddingTop: "5rem"
+                }}>
                 {meal.name}
-                <Typography align="center" variant="h2" style={{ padding: "24px" }}>
-                {meal.price}
+                <Typography align="center" variant="h2" style={{
+                    padding: "24px"
+                  }}>
+                  {meal.price}
                 </Typography>
               </Typography>
-              <Typography align="center" style={{ padding: "24px" }}>
+              <Typography align="center" style={{
+                  padding: "24px"
+                }}>
                 {meal.allergens}
               </Typography>
-              <Table style={{marginBottom: "3rem"}} className={classes.table}>
+              <Table style={{
+                  marginBottom: "3rem"
+                }} className={classes.table}>
                 <TableRow>
-                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <TableCell style={{
+                      padding: "0px 0px 20px 20px"
+                    }}>
                     <div className={classes.detailHeading}>
                       Total Fat
                       <div className={classes.details}>
@@ -417,7 +410,9 @@ class EatContainer extends Component {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <TableCell style={{
+                      padding: "0px 0px 20px 20px"
+                    }}>
                     <div className={classes.detailHeading}>
                       Total Carbs
                       <div className={classes.details}>
@@ -427,15 +422,19 @@ class EatContainer extends Component {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <TableCell style={{
+                      padding: "0px 0px 20px 20px"
+                    }}>
                     <div className={classes.detailHeading}>
                       Calories
-                     <div className={classes.details}>
-                      {meal.nutrition.calories}
-                     </div>
-                   </div>
+                      <div className={classes.details}>
+                        {meal.nutrition.calories}
+                      </div>
+                    </div>
                   </TableCell>
-                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                  <TableCell style={{
+                      padding: "0px 0px 20px 20px"
+                    }}>
                     <div className={classes.detailHeading}>
                       Protein
                       <div className={classes.details}>
@@ -445,139 +444,123 @@ class EatContainer extends Component {
                   </TableCell>
                 </TableRow>
 
-
-
               </Table>
 
-              <Typography align="center"  style={{ padding: "24px" }}>
-                <Button
-                  variant="contained"
-                  style={{backgroundColor:"rgba(108, 0, 245, 0.54)", color: "white"}}
-                  className={classes.selectButton}
-                  onClick={() => this.changeAsyncMacro(meal.nutrition.carbs.total,meal.nutrition.fat.total ,meal.nutrition.proteins, meal.price)}>
+              <Typography align="center" style={{
+                  padding: "24px"
+                }}>
+                <Button variant="contained" style={{
+                    backgroundColor: "rgba(108, 0, 245, 0.54)",
+                    color: "white"
+                  }} className={classes.selectButton} onClick={() => this.changeAsyncMacro(meal.nutrition.carbs.total, meal.nutrition.fat.total, meal.nutrition.proteins, meal.price)}>
                   Select
                 </Button>
 
               </Typography>
-            </div>
-            ))}
-          </div>
-        );
+            </div>))
+          }
+        </div>);
 
       }
 
-      var listItems = allRestaurants.map( item => (
-        <Grid key={item._id} item xs={12} sm={6}>
-          <Typography align="center" variant="body1" style={{padding: "40px" }}>
-            <Card className={classes.card}>
-              <CardActionArea onClick={() => this.handleMenu(item.r_code)}>
-                <CardMedia
-                  className={classes.media}
-                  image={this.handleImageLoad(item.name)}
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {item.name}
-                  </Typography>
-                  <Typography component="p">
-                    Location: {item.location}
-                  </Typography>
-                  <Typography component="p">
-                    Type: {item.type}
-                  </Typography>
-                  <Typography component="p">
-                    Campus: {item.campus}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  onClick={() => this.handleMenu(item.r_code)}>
-                  Menu
-                </Button>
-                {/*
+      var listItems = allRestaurants.map(item => (<Grid key={item._id} item="item" xs={12} sm={6}>
+        <Typography align="center" variant="body1" style={{
+            padding: "40px"
+          }}>
+          <Card className={classes.card}>
+            <CardActionArea onClick={() => this.handleMenu(item.r_code)}>
+              <CardMedia className={classes.media} image={this.handleImageLoad(item.name)} title="Contemplative Reptile"/>
+              <CardContent>
+                <Typography gutterBottom="gutterBottom" variant="h5" component="h2">
+                  {item.name}
+                </Typography>
+                <Typography component="p">
+                  Location: {item.location}
+                </Typography>
+                <Typography component="p">
+                  Type: {item.type}
+                </Typography>
+                <Typography component="p">
+                  Campus: {item.campus}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" onClick={() => this.handleMenu(item.r_code)}>
+                Menu
+              </Button>
+              {/*
                 <Button size="small" color="primary">
                   Review
                 </Button>
-                */}
-              </CardActions>
-            </Card>
-          </Typography>
-        </Grid>
-      ));
+                */
+              }
+            </CardActions>
+          </Card>
+        </Typography>
+      </Grid>));
 
-      var section = (
-        <section className={classes.content}>
-          <div style={{flexGrow: 1, background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
-            {(allMeals.length > 0) ? meals :
-              <Grid container spacing={24}>
-                {listItems}
-              </Grid>
-            }
-          </div>
-        </section>
-      );
+      var section = (<section className={classes.content}>
+        <div style={{
+            flexGrow: 1,
+            background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))",
+            minHeight: ('' + screenHeight + 'px')
+          }}>
+          {
+            (allMeals.length > 0)
+              ? meals
+              : <Grid container="container" spacing={24}>
+                  {listItems}
+                </Grid>
+          }
+        </div>
+      </section>);
     } else {
 
-      var section = (
-        <div style={{background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
-          <div>
-            <CircularProgress className={classes.progress} />
-           </div>
+      var section = (<div style={{
+          background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))",
+          minHeight: ('' + screenHeight + 'px')
+        }}>
+        <div>
+          <CircularProgress className={classes.progress}/>
         </div>
-      );
+      </div>);
     }
 
-    return(
-      <TabContainer className={classes.root} dir={dir}>
-          <AppBar
-            position="fixed"
-            color="primary"
-            elevation="0"
-            classes={{
-              colorPrimary: classes.colorPrime
-            }}
-            className={classes.appBar}>
-            <Toolbar className={classes.toolbar}>
+    return (<TabContainer className={classes.root} dir={dir}>
+      <AppBar position="fixed" color="primary" elevation="0" classes={{
+          colorPrimary: classes.colorPrime
+        }} className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
 
-              <Typography
-                align="center"
-                variant="h6"
-                style={{ padding: "12px", marginTop: "15px" }}>
-                  UR EATS
-              </Typography>
-              {(allMeals.length > 0) ?
-                <IconButton color="primary" onClick={() => this.handleRest()}>
-                  <ArrowBack />
+          <Typography align="center" variant="h6" style={{
+              padding: "12px",
+              marginTop: "15px"
+            }}>
+            UR EATS
+          </Typography>
+          {
+            (allMeals.length > 0)
+              ? <IconButton color="primary" onClick={() => this.handleRest()}>
+                  <ArrowBack/>
                 </IconButton>
-              :
-                <IconButton color="primary" onClick={() => this.handleShowReviews()}>
-                  <Assignment />
+              : <IconButton color="primary" onClick={() => this.handleShowReviews()}>
+                  <Assignment/>
                 </IconButton>
-              }
-            </Toolbar>
-          </AppBar>
-          {section}
-      </TabContainer>
-    );
+          }
+        </Toolbar>
+      </AppBar>
+      {section}
+    </TabContainer>);
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    userInfo: state.app.userInfo,
-    mealInfo: state.app.mealInfo,
-    allRestaurants: state.app.allRestaurants,
-    allMeals: state.app.allMeals,
-    allReviews: state.app.allReviews
-  }
+  return {userInfo: state.app.userInfo, mealInfo: state.app.mealInfo, allRestaurants: state.app.allRestaurants, allMeals: state.app.allMeals, allReviews: state.app.allReviews}
 }
 
-function mapActionCreatorsToProps(dispatch: Object) {
+function mapActionCreatorsToProps(dispatch : Object) {
   return bindActionCreators(ActionCreators, dispatch);
 }
 
-export default connect(mapStateToProps, mapActionCreatorsToProps)(withStyles(styles, {withTheme: true })(EatContainer));
+export default connect(mapStateToProps, mapActionCreatorsToProps)(withStyles(styles, {withTheme: true})(EatContainer));
