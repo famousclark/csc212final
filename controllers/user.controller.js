@@ -59,11 +59,11 @@ module.exports.editUser = (req,res,next) => {
         { email: req.body.email },
         { $set: {
 
-                  macros : req.body.macros
+                  macros : req.body.macros,
                   // email : req.body.email,
                   // password : req.body.password,
                   // meals : req.body.meals,
-                  // d_plan : req.body.d_plan,
+                 d_plan : req.body.d_plan
                   // spend_goal : req.body.spend_goal,
                   // nutri_goal : req.body.nutri_goal,
                   // diet : req.body.diet,

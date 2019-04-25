@@ -183,17 +183,23 @@ class EatContainer extends Component {
     return email;
   }
 
-  changeAsyncMacro = (carb, protein, fat) =>  new Promise( (resolve, reject) => {
+  changeAsyncMacro = (carb, protein, fat, price) =>  new Promise( (resolve, reject) => {
     var email = this.getLoggedInUserEmail();
     var c_total = this.props.userInfo.macros.total;
     var c_carb = this.props.userInfo.macros.carb;
     var c_protein = this.props.userInfo.macros.protein;
     var c_fat = this.props.userInfo.macros.fat;
 
+    var meal_price = parseFloat(price);
+    var balance = parseFloat (this.props.userInfo.d_plan.balance)
+    var new_balance = (balance - meal_price).toString()
+
+
     var new_total = c_total - (carb *4)-(protein * 4) -(fat *9 );
     var new_carb = c_carb - (carb *4);
     var new_protein = c_protein - (protein * 4);
     var new_fat = c_fat - (fat *9 );
+
 
     var payload = {
       email : email,
@@ -202,6 +208,10 @@ class EatContainer extends Component {
         fat : new_fat ,
         protein :new_protein,
         carb: new_carb
+      },
+      d_plan:{
+        plan : this.props.userInfo.d_plan.plan,
+        balance: new_balance
       }
     }
     setTimeout( () => {
@@ -444,7 +454,7 @@ class EatContainer extends Component {
                   variant="contained"
                   style={{backgroundColor:"rgba(108, 0, 245, 0.54)", color: "white"}}
                   className={classes.selectButton}
-                  onClick={() => this.changeAsyncMacro(meal.nutrition.carbs.total,meal.nutrition.fat.total ,meal.nutrition.proteins)}>
+                  onClick={() => this.changeAsyncMacro(meal.nutrition.carbs.total,meal.nutrition.fat.total ,meal.nutrition.proteins, meal.price)}>
                   Select
                 </Button>
 
