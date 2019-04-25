@@ -47,6 +47,14 @@ var userSchema = new mongoose.Schema({
         },
         expires: Date
     }],
+		goal: {
+			type: String,
+			enum:['lose', 'maintain', 'gain']
+		},
+		exercise: {
+			type: String,
+			enum:['none', 'light', 'active', 'very_active']
+		},
     nutri_goal:[{
         calories: Number,
         carbs: Number,
@@ -59,12 +67,12 @@ var userSchema = new mongoose.Schema({
         expires: Date
     }],
     diet:[{ // especial dietary restrictions
-        type: String,        
+        type: String,
         enum:[
             'peanut', //peanut allergy
             'gluten', // gluten allergy
-            'veg', 
-            'vegan', 
+            'veg',
+            'vegan',
             'halal',
             'kosher'
         ]

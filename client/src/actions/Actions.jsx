@@ -71,7 +71,7 @@ import {
 
 export const registerUser = (userData: Object): Object => {
   return {
-    type: USER_LOG_IN,
+    type: USER_REGISTER,
     userData: userData
   };
 };
