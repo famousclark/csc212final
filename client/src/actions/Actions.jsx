@@ -24,6 +24,7 @@ import {
   USER_MEAL_DELETED,
   GET_ALL_USER_MEALS,
   ALL_USER_MEALS_LOADED,
+  RESET_MEALS,
 
   EDIT_DPLAN,
   DPLAN_EDITED,
@@ -48,6 +49,8 @@ import {
   MEAL_EDITED,
   DELETE_MEAL,
   MEAL_DELETED,
+  GET_ALL_MEALS_BY_RESTAURANT,
+  ALL_MEALS_BY_RESTAURANT_LOADED,
 
   GET_ALL_RESTAURANTS,
   ALL_RESTAURANTS_LOADED,
@@ -59,8 +62,6 @@ import {
   RESTAURANT_EDITED,
   DELETE_RESTAURANT,
   RESTAURANT_DELETED,
-  GET_ALL_MEALS_BY_RESTAURANT,
-  ALL_MEALS_BY_RESTAURANT_LOADED,
 
   GET_ALL_REVIEWS,
   GET_REVIEW_BY_REVIEW,
@@ -173,6 +174,13 @@ export const getAllNutriGoals = (email: String): Object => {
     email: email
   };
 };
+
+export const resetMeals = (): Object => {
+  return {
+    type: RESET_MEALS
+  }
+}
+
 /*===============USER MEAL Actions===============*/
 
 /*===============MEAL Actions===============*/
