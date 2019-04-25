@@ -42,6 +42,8 @@ export const EDIT_MEAL: string = 'EDIT_MEAL';
 export const MEAL_EDITED: string = 'MEAL_EDITED';
 export const DELETE_MEAL: string = 'DELETE_MEAL';
 export const MEAL_DELETED: string = 'MEAL_DELETED';
+export const RESET_MEALS: string = 'RESET_MEALS';
+export const MEALS_RESET: string = 'MEALS_RESET';
 
 export const GET_ALL_RESTAURANTS: string = 'GET_ALL_RESTAURANTS';
 export const ALL_RESTAURANTS_LOADED: string = 'ALL_RESTAURANTS_LOADED';

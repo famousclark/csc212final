@@ -138,6 +138,12 @@ function Reducer(state: Object = defaultState, action: Object) {
           allMeals: action.info
         }
 
+      case ActionConstants.MEALS_RESET:
+        return{
+          ...state,
+          allMeals: action.info
+        }
+
       case ActionConstants.RESTAURANT_LOADED:
         return{
           ...state,

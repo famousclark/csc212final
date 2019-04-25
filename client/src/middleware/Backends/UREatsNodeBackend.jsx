@@ -34,7 +34,12 @@ import {
   ADD_RESTAURANT_ENDPOINT,
   EDIT_RESTAURANT_ENDPOINT,
   DELETE_RESTAURANT_ENDPOINT,
-  GET_MEALS_BY_RESTAURANT_ENDPOINT
+  GET_MEALS_BY_RESTAURANT_ENDPOINT,
+
+  GET_ALL_REVIEWS_ENDPOINT,
+  GET_REVIEW_BY_REVIEW_ENDPOINT,
+  GET_REVIEW_BY_RESTAURANT_ENDPOINT,
+  ADD_REVIEW_ENDPOINT
 } from "../../constants/api-endpoints";
 
 export default class UREatsNodeBackend extends UREatsAbstractBackend{
@@ -112,5 +117,10 @@ export default class UREatsNodeBackend extends UREatsAbstractBackend{
       .catch(error => console.log(error));
   }
 
+  getAllReviews(r_code): Promise {
+    return this._get(GET_ALL_REVIEWS_ENDPOINT, {})
+      .then(result => result)
+      .catch(error => console.log(error));
+  }
 
 }

@@ -212,13 +212,34 @@ function* getAllRestaurantsSaga(): Generator<any, any, any> {
   }
 }
 
-function*  getAllMealsByRestaurantSaga(userAction): Generator<any, any, any> {
+function* getAllMealsByRestaurantSaga(userAction): Generator<any, any, any> {
   console.log("this fired");
   try {
     const loaded = yield backend.getAllMealsByRestaurant(userAction.r_code);
     //console.log(loaded);
     yield put({ type: ActionConstants.ALL_MEALS_BY_RESTAURANT_LOADED, info: loaded });
     //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* getAllReviewsSaga(): Generator<any, any, any> {
+  console.log("this fired");
+  try {
+    const loaded = yield backend.getAllReviews();
+    //console.log(loaded);
+    yield put({ type: ActionConstants.ALL_REVIEWS_LOADED, info: loaded });
+    //yield sleep(5000);
+  } catch (e) {
+    console.log("error");
+  }
+}
+
+function* resetMealsSaga(): Generator<any, any, any> {
+  try {
+    const loaded = [];
+    yield put({ type: ActionConstants.MEALS_RESET, info: loaded });
   } catch (e) {
     console.log("error");
   }
@@ -297,6 +318,16 @@ export function* watchForGetAllMealsByRestaurants(): Generator<any, any, any> {
   yield takeEvery(ActionConstants.GET_ALL_MEALS_BY_RESTAURANT, getAllMealsByRestaurantSaga);
 }
 
+export function* watchForGetAllReviews(): Generator<any, any, any> {
+  yield takeEvery(ActionConstants.GET_ALL_REVIEWS, getAllReviewsSaga);
+}
+
+export function* watchForResetMeals(): Generator<any, any, any> {
+  //console.log("this fired");
+  yield takeEvery(ActionConstants.RESET_MEALS, resetMealsSaga);
+}
+
+
 export default function* rootSaga(): Generator<any, any, any> {
   yield all([
     watchForGetUser(),
@@ -317,7 +348,9 @@ export default function* rootSaga(): Generator<any, any, any> {
     watchForGetAllNutriGoals(),
 
     watchForGetAllRestaurants(),
-    watchForGetAllMealsByRestaurants()
+    watchForGetAllMealsByRestaurants(),
+    watchForGetAllReviews(),
+    watchForResetMeals()
 
 /*
     watchForGetMeal(),

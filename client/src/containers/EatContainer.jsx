@@ -20,8 +20,12 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import MenuIcon from '@material-ui/icons/Menu';
-import CreateIcon from '@material-ui/icons/Create';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import Assignment from '@material-ui/icons/Assignment';
 import IconButton from '@material-ui/core/IconButton';
+import Table from '@material-ui/core/Table';
+import { TableRow, TableCell } from "@material-ui/core";
+
 import * as ActionCreators from '../actions/Actions';
 
 import wok from '../images/wok.jpg';
@@ -43,6 +47,8 @@ import SwipeableViews from 'react-swipeable-views';
 
 
 var readyToLoad = false;
+var readyToLoadMeals = false;
+var readyToLoadReviews = false;
 
 function TabContainer({ children, dir }) {
   return (
@@ -73,6 +79,14 @@ function TabContainer({ children, dir }) {
     appBar: {
       top: 'auto',
 
+    },
+    details: {
+      fontSize : "20px",
+      color: "white",
+    },
+    detailHeading:{
+      fontSize: "16px",
+      paddingTop: "24px",
     },
     icon: {
       fontSize: 120,
@@ -137,6 +151,8 @@ class EatContainer extends Component {
     (this : any).handleChange = this.handleChange.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
     (this : any).handleLoadAsync = this.handleLoadAsync.bind(this);
+    (this : any).handleLoadMealsAsync = this.handleLoadMealsAsync.bind(this);
+    (this : any).handleLoadReviewsAsync = this.handleLoadReviewsAsync.bind(this);
     (this : any).handleImageLoad = this.handleImageLoad.bind(this);
     (this : any).handleMenu = this.handleMenu.bind(this);
       this.state = {
@@ -161,6 +177,20 @@ class EatContainer extends Component {
     }, 1000)
   });
 
+  loadAsyncResetMealsData = () =>  new Promise( (resolve, reject) => {
+    setTimeout( () => {
+      this.props.resetMeals();
+      resolve(this.props.allMeals);
+    }, 1000)
+  });
+
+  loadAsyncReviewsData = () =>  new Promise( (resolve, reject) => {
+    setTimeout( () => {
+      this.props.getAllReviews();
+      resolve(this.props.allReviews);
+    }, 1000)
+  });
+
   handleLoadAsync = async () => {
     this._asyncRequest = this.loadAsyncRestaurantData()
     .then(
@@ -182,7 +212,7 @@ class EatContainer extends Component {
     this._asyncRequest = this.loadAsyncMealsData(r_code)
     .then(
       allMeals => {
-        this.readyToLoad = true;
+        this.readyToLoadMeals = true;
         this.setState({allMeals});
     }
     )
@@ -195,6 +225,41 @@ class EatContainer extends Component {
     });
   }
 
+  handleLoadReviewsAsync = async () => {
+    this._asyncRequest = this.loadAsyncReviewsData()
+    .then(
+      allReviews => {
+        this.readyToLoadReviews = true;
+        this.setState({allReviews});
+    }
+    )
+    .then( () => {
+      setTimeout ( () => {
+
+        console.log( this.props.restaurantInfo);
+        console.log(this.state.restaurantInfo);
+      }, 1000)
+    });
+  }
+
+  handleResetMealsAsync = async () => {
+    this._asyncRequest = this.loadAsyncResetMealsData()
+    .then(
+      allMeals => {
+        this.readyToLoadMeals = true;
+        this.setState({allMeals});
+    }
+    )
+    .then( () => {
+      setTimeout ( () => {
+
+        console.log( this.props.restaurantInfo);
+        console.log(this.state.restaurantInfo);
+      }, 1000)
+    });
+  }
+
+
   componentDidMount() {
     this.handleLoadAsync();
   }
@@ -206,6 +271,10 @@ class EatContainer extends Component {
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
+
+  handleRest = () => {
+    this.handleResetMealsAsync();
+  }
 
   handleImageLoad = (image_name) => {
     var image = "";
@@ -252,64 +321,132 @@ class EatContainer extends Component {
     this.handleLoadMealsAsync(r_code);
   }
 
+  handleShowReviews = () => {
+    this.handleLoadReviewsAsync();
+  }
+
   render(){
-    const { classes, theme, dir, open, allRestaurants} = this.props;
+    const { classes, theme, dir, open, allRestaurants, allMeals} = this.props;
 
     const screenHeight = window.innerHeight - 56*2;
+    var meals="";
 
     if (this.readyToLoad && allRestaurants!= null) {
 
-    console.log(allRestaurants);
+      console.log(allRestaurants);
+      console.log(allMeals);
 
-    var listItems = allRestaurants.map( item => (
-      <Grid key={item._id} item xs={12} sm={6}>
-        <Typography align="center" variant="body1" style={{padding: "40px" }}>
-          <Card className={classes.card}>
-            <CardActionArea >
-              <CardMedia
-                className={classes.media}
-                image={this.handleImageLoad(item.name)}
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {item.name}
+      if(this.readyToLoadMeals && (allMeals.length > 0)){
+        console.log(allMeals);
+        meals = (
+          <div>
+          {allMeals.map( meal => (
+            <div key={meal._id} >
+              <Typography align="center" variant="body1" style={{padding: "40px", paddingTop: "5rem"}}>
+                {meal.name}
+                <Typography align="center" variant="h2" style={{ padding: "24px" }}>
+                {meal.price}
                 </Typography>
-                <Typography component="p">
-                  Location: {item.location}
-                </Typography>
-                <Typography component="p">
-                  Type: {item.type}
-                </Typography>
-                <Typography component="p">
-                  Campus: {item.campus}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button
-                size="small"
-                color="primary"
-                onClick={() => this.handleMenu(item.r_code)}>
-                Menu
-              </Button>
-              {/*
-              <Button size="small" color="primary">
-                Review
-              </Button>
-              */}
-            </CardActions>
-          </Card>
-        </Typography>
-      </Grid>
-    ));
+              </Typography>
+              <Typography align="center" style={{ padding: "24px" }}>
+                {meal.allergens}
+              </Typography>
+              <Table style={{marginBottom: "3rem"}} className={classes.table}>
+                <TableRow>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                      Total Fat
+                      <div className={classes.details}>
+                        {meal.nutrition.fat.total}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                      Total Carbs
+                      <div className={classes.details}>
+                        {meal.nutrition.carbs.total}
+                      </div>
+                    </div>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                      Calories
+                     <div className={classes.details}>
+                      {meal.nutrition.calories}
+                     </div>
+                   </div>
+                  </TableCell>
+                  <TableCell style={{padding: "0px 0px 20px 20px"}}>
+                    <div className={classes.detailHeading}>
+                      Cholesterol
+                      <div className={classes.details}>
+                        {meal.nutrition.cholesterol}
+                      </div>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </Table>
+            </div>
+            ))}
+          </div>
+        );
+
+      }
+
+      var listItems = allRestaurants.map( item => (
+        <Grid key={item._id} item xs={12} sm={6}>
+          <Typography align="center" variant="body1" style={{padding: "40px" }}>
+            <Card className={classes.card}>
+              <CardActionArea >
+                <CardMedia
+                  className={classes.media}
+                  image={this.handleImageLoad(item.name)}
+                  title="Contemplative Reptile"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {item.name}
+                  </Typography>
+                  <Typography component="p">
+                    Location: {item.location}
+                  </Typography>
+                  <Typography component="p">
+                    Type: {item.type}
+                  </Typography>
+                  <Typography component="p">
+                    Campus: {item.campus}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => this.handleMenu(item.r_code)}>
+                  Menu
+                </Button>
+                {/*
+                <Button size="small" color="primary">
+                  Review
+                </Button>
+                */}
+              </CardActions>
+            </Card>
+          </Typography>
+        </Grid>
+      ));
 
       var section = (
         <section className={classes.content}>
           <div style={{flexGrow: 1, background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))", minHeight:('' + screenHeight+'px')}}>
-            <Grid container spacing={24}>
-              {listItems}
-            </Grid>
+            {(allMeals.length > 0) ? meals :
+              <Grid container spacing={24}>
+                {listItems}
+              </Grid>
+            }
           </div>
         </section>
       );
@@ -342,10 +479,15 @@ class EatContainer extends Component {
                 style={{ padding: "12px", marginTop: "15px" }}>
                   UR EATS
               </Typography>
-              <IconButton color="primary">
-                <CreateIcon />
-                stuff
-              </IconButton>
+              {(allMeals.length > 0) ?
+                <IconButton color="primary" onClick={() => this.handleRest()}>
+                  <ArrowBack />
+                </IconButton>
+              :
+                <IconButton color="primary" onClick={() => this.handleShowReviews()}>
+                  <Assignment />
+                </IconButton>
+              }
             </Toolbar>
           </AppBar>
           {section}
@@ -358,7 +500,9 @@ function mapStateToProps(state) {
   return {
     userInfo: state.app.userInfo,
     mealInfo: state.app.mealInfo,
-    allRestaurants: state.app.allRestaurants
+    allRestaurants: state.app.allRestaurants,
+    allMeals: state.app.allMeals,
+    allReviews: state.app.allReviews
   }
 }
 
