@@ -193,11 +193,12 @@ class EatContainer extends Component {
     var c_carb = this.props.userInfo.macros.carb;
     var c_protein = this.props.userInfo.macros.protein;
     var c_fat = this.props.userInfo.macros.fat;
-
+    console.log(price);
     var meal_price = parseFloat(price);
-    var balance = parseFloat(this.props.userInfo.d_plan.balance)
-    var new_balance = (balance - meal_price).toString()
-
+    console.log(meal_price);
+    var balance = parseFloat(this.props.userInfo.d_plan.balance);
+    var new_balance = (balance - meal_price).toString();
+    console.log(new_balance);
     var new_total = c_total - (carb * 4) - (protein * 4) - (fat * 9);
     var new_carb = c_carb - (carb * 4);
     var new_protein = c_protein - (protein * 4);
@@ -377,7 +378,8 @@ class EatContainer extends Component {
       dir,
       open,
       allRestaurants,
-      allMeals
+      allMeals,
+      userInfo
     } = this.props;
     var { err } = this.state
 
@@ -389,7 +391,7 @@ class EatContainer extends Component {
     } else {
       errMsg = "";
     }
-    
+
     if (this.readyToLoad && allRestaurants != null) {
 
       console.log(allRestaurants);
@@ -403,7 +405,7 @@ class EatContainer extends Component {
           {allMeals.map( meal => (
             <div key={meal._id}>
             <ExpansionPanel>
-            {/* 
+            {/*
             price: "6.99"
             allergens: ["peanut"]
             description: ""
@@ -418,23 +420,23 @@ class EatContainer extends Component {
            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography className={classes.heading}>
               {meal.name} <span style={{fontStyle: "italic"}}>({meal.nutrition.calories} cal)</span>
-              </Typography> 
+              </Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
               <Typography
-              style={{width:"100%"}}> 
+              style={{width:"100%"}}>
                   Allergens: {meal.allergens.map(allergen => (<span>{allergen} </span>))} <br/>
                   Dietary Resitrictions: {meal.diet_restrinctions.map( rest => (<span>{rest} </span>))} <br/>
                   Proteins: {meal.nutrition.proteins} gms, <br/>
                   Carbs: {meal.nutrition.carbs.total} gms, <br/>
                   Sugars: {meal.nutrition.carbs.total} gms, <br/>
                   Sodium: {meal.nutrition.sodium} gms <br/>
-                  <Button 
+                  <Button
                   variant="outlined"
                   size="small"
                   color="secondary"
                   className={classes.selectButton}
-                  onClick={() => this.handleAsynchMacro(meal.nutrition.carbs.total,meal.nutrition.fat.total ,meal.nutrition.proteins)}>
+                  onClick={() => this.handleAsynchMacro(meal.nutrition.carbs.total,meal.nutrition.fat.total ,meal.nutrition.proteins, meal.price)}>
                   I ate this!
                 </Button>
                 <span classname={classes.errMsg} style={{color:"red"}}>{errMsg}</span>
@@ -444,7 +446,7 @@ class EatContainer extends Component {
             </div>
 
             // end map
-            ))} 
+            ))}
           </div>
         );
 
@@ -474,7 +476,7 @@ class EatContainer extends Component {
                 {/* <Typography variant="caption">
                   Campus: {item.campus}
                 </Typography> */}
-              
+
                     </TableCell>
                   </TableRow>
                 </Table>

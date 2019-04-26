@@ -53,7 +53,7 @@ module.exports.getUserByEmail = (req, res, next) => {
 
 
 module.exports.editUser = (req,res,next) => {
-  console.log("User here!!!!");
+  console.log(req.body);
 
     User.findOneAndUpdate(
         { email: req.body.email },
