@@ -6,7 +6,10 @@ import {bindActionCreators} from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -397,8 +400,20 @@ class EatContainer extends Component {
         meals = (
           <div>
           {allMeals.map( meal => (
-            <div key={meal._id} >
-              <Typography align="center" variant="body1" style={{padding: "40px", paddingTop: "5rem"}}>
+            <div key={meal._id}>
+            <ExpansionPanel>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>{meal.name} </Typography>
+                <Typography className={classes.heading}>Allergens: {meal.alergens} </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                <Typography> 
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                  sit amet blandit leo lobortis eget.
+                </Typography>
+          </ExpansionPanelDetails>
+          </ExpansionPanel>
+              {/* <Typography align="center" variant="body1" style={{padding: "40px", paddingTop: "5rem"}}>
                 {meal.name}
                 <Typography align="center" variant="h2" style={{ padding: "24px" }}>
                 {meal.price}
@@ -458,9 +473,11 @@ class EatContainer extends Component {
                   Select
                 </Button>
 
-              </Typography>
+              </Typography> */}
             </div>
-            ))}
+
+            // end map
+            ))} 
           </div>
         );
 
