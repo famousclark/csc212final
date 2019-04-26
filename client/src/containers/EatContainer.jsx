@@ -488,7 +488,7 @@ class EatContainer extends Component {
       var section = (<section className={classes.content}>
         <div style={{
             flexGrow: 1,
-            background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))",
+            background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))",
             minHeight: ('' + window.innerHeight + 'px')
           }}>
           {
@@ -503,7 +503,7 @@ class EatContainer extends Component {
     } else {
 
       var section = (<div style={{
-          background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))",
+        background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))",
           minHeight: ('' + window.innerHeight + 'px')
         }}>
         <div>
