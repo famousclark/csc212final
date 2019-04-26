@@ -104,7 +104,7 @@ const styles = theme => ({
     flexShrink: 0
   },
   drawerPaper: {
-    background: "rgba(0,0,0,.5)",
+    background: "rgba(135, 206, 207,.5)",
     width: drawerWidth
   },
   drawerHeader: {
@@ -222,8 +222,8 @@ class LoginContainer extends Component {
         plan: this.state.d_plan,
         balance: "1000"
       },
-      name: this.state.name
-
+      name: this.state.name,
+      errMsg:"",
     });
   }
 
@@ -313,7 +313,7 @@ class LoginContainer extends Component {
   render() {
 
     const {classes, theme, userInfo, result, allUsersInfo} = this.props;
-    const {open, value, isLoggedIn} = this.state;
+    const {open, value, isLoggedIn, errMsg} = this.state;
     var base = "";
     var login = "";
     var drawer = "";
@@ -335,6 +335,9 @@ class LoginContainer extends Component {
       drawer = (
         <div>
           <div className={classes.topper} />
+          <Typography variant="h5" style={{color: "#fff", textAlign:"center" }}>
+             Your Macros
+          </Typography>
           <List>
             {['total', 'carb', 'protein', 'fat'].map((text, index) => (
               <ListItem button key={text}>
@@ -353,6 +356,18 @@ class LoginContainer extends Component {
             ))}
           </List>
           <Divider style={{backgroundColor: "rgba(255, 255, 255, .12)"}}/>
+        <ListItem button>
+          <ListItemText primaryTypographyProps={{
+                    classes: {colorPrimary: classes.colorPrimary},
+                    color: "primary"
+                  }}>Recalculate Macros</ListItemText> 
+        </ListItem>
+        <ListItem button>
+          <ListItemText primaryTypographyProps={{
+                    classes: {colorPrimary: classes.colorPrimary},
+                    color: "primary"
+                  }}>Logout</ListItemText>/
+        </ListItem>
           {/*<List>
             {['My Profile', 'Log Out'].map((text, index) => (
               <ListItem button key={text}>
@@ -583,6 +598,7 @@ class LoginContainer extends Component {
                   }}>
                   Submit
                 </Button>
+                <span>{errMsg}</span>
               </form>
             </TabContainer>
         }

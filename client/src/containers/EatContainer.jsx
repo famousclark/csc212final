@@ -221,7 +221,7 @@ class EatContainer extends Component {
     }, 1000)
     setTimeout(() => {
       this.setState({err:false})
-    }, 2500)
+    }, 2000)
   });
 
   loadAsyncRestaurantData = () => new Promise((resolve, reject) => {
@@ -269,6 +269,7 @@ class EatContainer extends Component {
     this._asyncRequest = this.loadAsyncMealsData(r_code).then(allMeals => {
       this.readyToLoadMeals = true;
       this.setState({allMeals});
+      window.scrollTo(0, 0);
     }).then(() => {
       setTimeout(() => {
 
@@ -398,7 +399,7 @@ class EatContainer extends Component {
         console.log(allMeals);
         meals = (
           <div>
-          <div style={{paddingTop:"100px"}}></div>
+          <div style={{padding: 30}}></div>
           {allMeals.map( meal => (
             <div key={meal._id}>
             <ExpansionPanel>
