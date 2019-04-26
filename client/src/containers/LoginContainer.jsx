@@ -362,11 +362,11 @@ class LoginContainer extends Component {
                     color: "primary"
                   }}>Recalculate Macros</ListItemText> 
         </ListItem>
-        <ListItem button>
+        <ListItem button> 
           <ListItemText primaryTypographyProps={{
                     classes: {colorPrimary: classes.colorPrimary},
                     color: "primary"
-                  }}>Logout</ListItemText>/
+                  }}>Logout</ListItemText>
         </ListItem>
           {/*<List>
             {['My Profile', 'Log Out'].map((text, index) => (
