@@ -382,94 +382,36 @@ class EatContainer extends Component {
         console.log(allMeals);
         meals = (
           <div>
+          <div style={{paddingTop:"100px"}}></div>
           {allMeals.map( meal => (
             <div key={meal._id}>
             <ExpansionPanel>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography className={classes.heading}>{meal.name} </Typography>
-                <Typography className={classes.heading}>Allergens: {meal.alergens} </Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                <Typography> 
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                  sit amet blandit leo lobortis eget.
+            {/* 
+            price: "6.99"
+            allergens: ["peanut"]
+            description: ""
+            diet_restrinctions: []
+            calories: 450
+            calories_fat: 30
+            carbs: {total: 20, fiber: 0, sugars: 28}
+            cholesterol: 60
+            fat: {total: 10, saturated: 2, trans: 2}
+            proteins: 10
+            sodium: 270 */}
+           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>{meal.name} ({meal.nutrition.calories} cal)</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+              <Typography> 
+                  Allergens: {meal.allergens.map(allergen => (<span>{allergen} </span>))} <br/>
+                  Dietary Resitrictions: {meal.diet_restrinctions.map( rest => (<span>{rest} </span>))} <br/>
+                  Proteins: {meal.nutrition.proteins} gms, <br/>
+                  Carbs: {meal.nutrition.carbs.total} gms, <br/>
+                  Sugars: {meal.nutrition.carbs.total} gms, <br/>
+                  Sodium: {meal.nutrition.sodium} gms <br/>
                 </Typography>
-          </ExpansionPanelDetails>
+              </ExpansionPanelDetails>
           </ExpansionPanel>
-              {/* <Typography align="center" variant="body1" style={{padding: "40px", paddingTop: "5rem"}}>
-                {meal.name}
-                <Typography align="center" variant="h2" style={{
-                    padding: "24px"
-                  }}>
-                  {meal.price}
-                </Typography>
-              </Typography>
-              <Typography align="center" style={{
-                  padding: "24px"
-                }}>
-                {meal.allergens}
-              </Typography>
-              <Table style={{
-                  marginBottom: "3rem"
-                }} className={classes.table}>
-                <TableRow>
-                  <TableCell style={{
-                      padding: "0px 0px 20px 20px"
-                    }}>
-                    <div className={classes.detailHeading}>
-                      Total Fat
-                      <div className={classes.details}>
-                        {meal.nutrition.fat.total}
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell style={{
-                      padding: "0px 0px 20px 20px"
-                    }}>
-                    <div className={classes.detailHeading}>
-                      Total Carbs
-                      <div className={classes.details}>
-                        {meal.nutrition.carbs.total}
-                      </div>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{
-                      padding: "0px 0px 20px 20px"
-                    }}>
-                    <div className={classes.detailHeading}>
-                      Calories
-                      <div className={classes.details}>
-                        {meal.nutrition.calories}
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell style={{
-                      padding: "0px 0px 20px 20px"
-                    }}>
-                    <div className={classes.detailHeading}>
-                      Protein
-                      <div className={classes.details}>
-                        {meal.nutrition.proteins}
-                      </div>
-                    </div>
-                  </TableCell>
-                </TableRow>
-
-              </Table>
-
-              <Typography align="center" style={{
-                  padding: "24px"
-                }}>
-                <Button variant="contained" style={{
-                    backgroundColor: "rgba(108, 0, 245, 0.54)",
-                    color: "white"
-                  }} className={classes.selectButton} onClick={() => this.changeAsyncMacro(meal.nutrition.carbs.total, meal.nutrition.fat.total, meal.nutrition.proteins, meal.price)}>
-                  Select
-                </Button>
-
-              </Typography> */}
             </div>
 
             // end map
