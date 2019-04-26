@@ -136,13 +136,12 @@ const styles = theme => ({
     color: "white",
     // margin: theme.spacing.unit * 2,
   },
+  errMsg:{
+    transition: "display linear 1s",
+  },
   selectButton: {
-    textAlign: "center",
     display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "40%",
-    height: "50px"
+    marginTop: "5px",
   }
 });
 
@@ -166,7 +165,8 @@ class EatContainer extends Component {
       value: 0,
       allRestaurants: null,
       allMeals: null,
-      isNutri: false
+      isNutri: false,
+      err: false
     };
   }
 
@@ -179,6 +179,11 @@ class EatContainer extends Component {
   getLoggedInUserEmail = () => {
     var email = this.decodeToken(localStorage.getItem('token')).email;
     return email;
+  }
+
+  handleAsynchMacro = (carb, protein, fat, price) => {
+    this.setState({err:true})
+    return this.changeAsyncMacro(carb, protein, fat, price);
   }
 
   changeAsyncMacro = (carb, protein, fat, price) => new Promise((resolve, reject) => {
@@ -213,6 +218,9 @@ class EatContainer extends Component {
     setTimeout(() => {
       this.props.editUser(payload);
     }, 1000)
+    setTimeout(() => {
+      this.setState({err:false})
+    }, 2500)
   });
 
   loadAsyncRestaurantData = () => new Promise((resolve, reject) => {
@@ -369,10 +377,17 @@ class EatContainer extends Component {
       allRestaurants,
       allMeals
     } = this.props;
+    var { err } = this.state
 
     const screenHeight = window.innerHeight - 56 * 2;
     var meals = "";
-
+    var errMsg = "";
+    if(err){
+      errMsg = "we have updated your macros and balance!";
+    } else {
+      errMsg = "";
+    }
+    
     if (this.readyToLoad && allRestaurants != null) {
 
       console.log(allRestaurants);
@@ -399,16 +414,28 @@ class EatContainer extends Component {
             proteins: 10
             sodium: 270 */}
            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>{meal.name} ({meal.nutrition.calories} cal)</Typography>
+              <Typography className={classes.heading}>
+              {meal.name} <span style={{fontStyle: "italic"}}>({meal.nutrition.calories} cal)</span>
+              </Typography> 
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-              <Typography> 
+              <Typography
+              style={{width:"100%"}}> 
                   Allergens: {meal.allergens.map(allergen => (<span>{allergen} </span>))} <br/>
                   Dietary Resitrictions: {meal.diet_restrinctions.map( rest => (<span>{rest} </span>))} <br/>
                   Proteins: {meal.nutrition.proteins} gms, <br/>
                   Carbs: {meal.nutrition.carbs.total} gms, <br/>
                   Sugars: {meal.nutrition.carbs.total} gms, <br/>
                   Sodium: {meal.nutrition.sodium} gms <br/>
+                  <Button 
+                  variant="outlined"
+                  size="small"
+                  color="secondary"
+                  className={classes.selectButton}
+                  onClick={() => this.handleAsynchMacro(meal.nutrition.carbs.total,meal.nutrition.fat.total ,meal.nutrition.proteins)}>
+                  I ate this!
+                </Button>
+                <span classname={classes.errMsg} style={{color:"red"}}>{errMsg}</span>
                 </Typography>
               </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -462,7 +489,7 @@ class EatContainer extends Component {
         <div style={{
             flexGrow: 1,
             background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))",
-            minHeight: ('' + screenHeight + 'px')
+            minHeight: ('' + window.innerHeight + 'px')
           }}>
           {
             (allMeals.length > 0)
@@ -477,7 +504,7 @@ class EatContainer extends Component {
 
       var section = (<div style={{
           background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))",
-          minHeight: ('' + screenHeight + 'px')
+          minHeight: ('' + window.innerHeight + 'px')
         }}>
         <div>
           <CircularProgress className={classes.progress}/>
