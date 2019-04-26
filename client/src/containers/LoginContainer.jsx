@@ -171,6 +171,9 @@ const styles = theme => ({
   logInbutton: {
     margin: "15% 22%",
     textAlign: "center"
+  },
+  errMsg:{
+    transition: "display linear 1s",
   }
 });
 
@@ -202,7 +205,8 @@ class LoginContainer extends Component {
       name: "",
       d_plan: "",
       goal: "",
-      exercise: ""
+      exercise: "",
+      err: false,
     };
   }
 
@@ -461,7 +465,7 @@ class LoginContainer extends Component {
     //  } else {
     var screenHeight = window.innerHeight;
     login = (<div style={{
-        background: "linear-gradient(rgba(119,229,227,0), rgba(242, 0, 88,1))",
+        background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))",
         minHeight: ('' + screenHeight + 'px'),
         width: "100%"
       }}>
