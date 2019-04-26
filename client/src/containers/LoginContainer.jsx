@@ -465,7 +465,7 @@ class LoginContainer extends Component {
     //  } else {
     var screenHeight = window.innerHeight;
     login = (<div style={{
-        background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))",
+        background: "linear-gradient(rgba(135, 206, 207,1), rgba(233, 177, 237, 0.8))",
         minHeight: ('' + screenHeight + 'px'),
         width: "100%"
       }}>

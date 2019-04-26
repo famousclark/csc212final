@@ -39,7 +39,8 @@ import pizza from '../images/pizza.jpg';
 import freshens from '../images/freshens.jpg';
 import dfo from '../images/dfo.jpg';
 import douglass from '../images/douglass.jpg';
-
+import Avatar from '@material-ui/core/Avatar';
+import PlaceIcon from '@material-ui/icons/Place'
 // import forest from '../images/forest.jpg';
 
 import Paper from '@material-ui/core/Paper';
@@ -448,39 +449,47 @@ class EatContainer extends Component {
 
       }
 
-      var listItems = allRestaurants.map(item => (<Grid key={item._id} item="item" xs={12} sm={6}>
-        <Typography align="center" variant="body1" style={{
-            padding: "40px"
-          }}>
+      var listItems = allRestaurants.map(item => (<Grid key={item._id} item="item" xs={12} sm={6} style={{padding: 8}}>
+        <Typography align="center" variant="body1" style={{paddingLeft: "20px", paddingRight: "20px"}}>
           <Card className={classes.card}>
             <CardActionArea onClick={() => this.handleMenu(item.r_code)}>
-              <CardMedia className={classes.media} image={this.handleImageLoad(item.name)} title="Contemplative Reptile"/>
+              {/* <CardMedia className={classes.media} image={this.handleImageLoad(item.name)} title="Contemplative Reptile"/> */}
               <CardContent>
-                <Typography gutterBottom="gutterBottom" variant="h5" component="h2">
+                <Table>
+                  <TableRow>
+                    <TableCell style={{padding: 0}}>
+                    <Avatar alt="Remy Sharp" src={this.handleImageLoad(item.name)} style={{width: 100, height: 100,}} />
+                    </TableCell>
+                    <TableCell style={{padding: 0, textAlign:"center"}}>
+                    <Typography variant="h6" component="h2">
                   {item.name}
                 </Typography>
-                <Typography component="p">
-                  Location: {item.location}
+                <Typography variant="caption">
+                <PlaceIcon style={{height:16}}/>{item.location}
                 </Typography>
-                <Typography component="p">
+                {/* <Typography component="p">
                   Type: {item.type}
-                </Typography>
-                <Typography component="p">
+                </Typography> */}
+                {/* <Typography variant="caption">
                   Campus: {item.campus}
-                </Typography>
+                </Typography> */}
+              
+                    </TableCell>
+                  </TableRow>
+                </Table>
               </CardContent>
             </CardActionArea>
-            <CardActions>
+            {/* <CardActions>
               <Button size="small" color="primary" onClick={() => this.handleMenu(item.r_code)}>
                 Menu
-              </Button>
+              </Button> */}
               {/*
                 <Button size="small" color="primary">
                   Review
                 </Button>
                 */
               }
-            </CardActions>
+            {/* </CardActions> */}
           </Card>
         </Typography>
       </Grid>));
@@ -488,13 +497,14 @@ class EatContainer extends Component {
       var section = (<section className={classes.content}>
         <div style={{
             flexGrow: 1,
-            background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))",
+            background: "linear-gradient(rgba(135, 206, 207,1), rgba(233, 177, 237, 0.8))",
             minHeight: ('' + window.innerHeight + 'px')
           }}>
           {
             (allMeals.length > 0)
               ? meals
               : <Grid container="container" spacing={24}>
+              <div style={{padding:30}}></div>
                   {listItems}
                 </Grid>
           }
@@ -503,7 +513,7 @@ class EatContainer extends Component {
     } else {
 
       var section = (<div style={{
-        background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))",
+        background: "linear-gradient(rgba(135, 206, 207,1), rgba(233, 177, 237, 0.8))",
           minHeight: ('' + window.innerHeight + 'px')
         }}>
         <div>
@@ -535,7 +545,9 @@ class EatContainer extends Component {
           }
         </Toolbar>
       </AppBar>
+      <div style={{padding:20}}></div>
       {section}
+      <div style={{padding:20}}></div>
     </TabContainer>);
   }
 }

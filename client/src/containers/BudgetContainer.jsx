@@ -185,7 +185,7 @@ class BudgetContainer extends Component {
 
       var section = (
         <section className={classes.content}>
-        <div style={{background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))", minHeight:('' + screenHeight+'px')}}>
+        <div style={{background: "linear-gradient(rgba(135, 206, 207,1), rgba(233, 177, 237, 0.8))", minHeight:('' + screenHeight+'px')}}>
           <Typography align="center" variant="body1" style={{padding: "40px" }}>
             Declining Left to Spend Today:
             <Typography align="center" variant="h2" style={{ padding: "24px" }}>
@@ -234,7 +234,7 @@ class BudgetContainer extends Component {
         </section> )
     }else{
       var section = (
-        <div style={{background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))", minHeight:('' + screenHeight+'px')}}>
+        <div style={{background: "linear-gradient(rgba(135, 206, 207,1), rgba(233, 177, 237, 0.8))", minHeight:('' + screenHeight+'px')}}>
           <div>
             <CircularProgress className={classes.progress} />
            </div>
@@ -261,6 +261,7 @@ class BudgetContainer extends Component {
             </Typography>
           </AppBar>
           {section}
+          <div style={{padding:20}}></div>
           </TabContainer>
         );
   }

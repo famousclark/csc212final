@@ -51,8 +51,8 @@ class CommunityContainer extends Component {
 
   render(){
     return (
-        <div className="container" style={{background: "linear-gradient(rgba(75, 217, 193,1), rgba(233, 177, 237, 0.8))"}}>
-          <AppBar position="fixed" color="white" elevation="0">
+        <div className="container" style={{background: "linear-gradient(rgba(135, 206, 207,1), rgba(233, 177, 237, 0.8))"}}>
+          <AppBar position="fixed" color="white" style={{height:"70px"}} elevation="0">
           <Toolbar>
           <Typography align="center" variant="h6" style={{
               padding: "12px",
