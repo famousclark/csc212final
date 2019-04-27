@@ -224,6 +224,10 @@ class LoginContainer extends Component {
       },
       name: this.state.name,
       errMsg:"",
+    }).then(() => {
+      if (this.props.errMsg === "") {
+        this.setState({value: 0 })
+      }
     });
   }
 
@@ -360,9 +364,9 @@ class LoginContainer extends Component {
           <ListItemText primaryTypographyProps={{
                     classes: {colorPrimary: classes.colorPrimary},
                     color: "primary"
-                  }}>Recalculate Macros</ListItemText> 
+                  }}>Recalculate Macros</ListItemText>
         </ListItem>
-        <ListItem button> 
+        <ListItem button>
           <ListItemText primaryTypographyProps={{
                     classes: {colorPrimary: classes.colorPrimary},
                     color: "primary"
