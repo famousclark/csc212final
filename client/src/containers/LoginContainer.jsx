@@ -224,6 +224,10 @@ class LoginContainer extends Component {
       },
       name: this.state.name,
       errMsg:"",
+    }).then(() => {
+      if (this.props.errMsg === "") {
+        this.setState({value: 0 })
+      }
     });
   }
 
