@@ -152,6 +152,9 @@ Meal.findOne({ meal_id: mealSeed.mealSeed[0].meal_id },
         if(!meal)
             seedMeals(mealSeed.mealSeed);
         else
-            console.log("Already seeded for meals") ;
+          Meal.remove({}, function(err) {
+            seedMeals(mealSeed.mealSeed);
+          });
+            //console.log("Already seeded for meals") ;
     }
 );
