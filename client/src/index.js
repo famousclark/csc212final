@@ -5,8 +5,19 @@ import ReactDOM from 'react-dom';
 // Containers
 import Root from './containers/Root';
 
+// Redux
+import {Provider} from 'react-redux';
+import {configureStore, sagaMiddleware} from './store/Configure';
+
+// Sagas
+import rootSaga from './middleware/Saga';
+
+const store = configureStore();
+
+sagaMiddleware.run(rootSaga);
+
 ReactDOM.render(
-  <Root/>,
+  <Root store={store}/>,
   document.getElementById('root')
 );
 

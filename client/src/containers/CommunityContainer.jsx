@@ -8,75 +8,74 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Restaurant from '@material-ui/icons/Restaurant';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import '../styles/Community.css';
 
-function TabContainer({ children, dir }) {
-  return (
-    <Typography component="div" dir={dir}>
-      {children}
-    </Typography>
-  );
-}
-
-{/* ==============================================
-  Here is where css should go, attributes use camel case (marginLeft => good, margin-left => bad)
-  ==============================================*/}
-const styles = theme => ({
-  icon: {
-    fontSize: 170,
-    display: "block",
-    marginLeft: "auto",
-    
-    marginRight: "auto"
-  }
-});
-
-{/* ==============================================
-  Here is where css should go, attributes use camel case (marginLeft => good, margin-left => bad)
-  ==============================================*/}
+import io from "socket.io-client";
+import axios from 'axios';
 
 class CommunityContainer extends Component {
-
-  constructor(props: Object){
+  
+  constructor(props){
     super(props);
-    (this : any).handleChange = this.handleChange.bind(this);
-    (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
-    (this : any)
-      .state = {
-        value: 0
-      };
+
+    this.state = {
+      username: 'Anonymous',
+      message: '',
+      messages: []
+  };
+
+    this.socket = io('localhost:5000');
+
+    this.socket.on('RECEIVE_MESSAGE', function(data){
+      addMessage(data);
+    });
+
+    const addMessage = data => {
+      console.log(data);
+      this.setState({messages: [...this.state.messages, data]});
+      console.log(this.state.messages);
+    };
+
+    this.sendMessage = ev => {
+      ev.preventDefault();
+      this.socket.emit('SEND_MESSAGE', {
+          author: this.state.username,
+          message: this.state.message
+      })
+      this.setState({message: ''});
+
+    }
   }
-
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
 
   render(){
-    const { classes, theme, dir} = this.props;
-    return(
-      <TabContainer dir={dir}>
-      {/* ==============================================
-        Here is where you design
-        ==============================================*/}
-        <Paper levation={5}>
-          <Typography align="center" style={{ padding: "24px" }}>
-            Your Balance
+    return (
+        <div className="container" style={{background: "linear-gradient(rgba(135, 206, 207,1), rgba(233, 177, 237, 0.8))"}}>
+          <AppBar position="fixed" color="white" style={{height:"70px"}} elevation="0">
+          <Toolbar>
+          <Typography align="center" variant="h6" style={{
+              padding: "12px",
+              marginTop: "15px"
+            }}>
+            COMMUNITY
           </Typography>
-        </Paper>
-        <Paper levation={4}>
-          <Typography align="center" style={{ padding: "24px" }}>
-            $ 6.65/25
-          </Typography>
-        </Paper>
-      {/* ==============================================
-        Here is where you design
-        ==============================================*/}
-      </TabContainer>
+        </Toolbar>
+        </AppBar>
+            <div className="inputBox" style={{marginTop:"100px"}}>
+              <input type="text" placeholder="Hey, post something..." value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
+              <button className="btn" onClick={this.sendMessage}>Send</button>
+            </div>
+            <div>
+              {this.state.messages.map(message => {
+                return (
+                    <div className="message">{message.author}: {message.message}</div>
+                )
+              })}
+            </div>
+        </div>
     );
-  }
+}
 }
 
-export default withStyles(styles, { withTheme: true })(CommunityContainer);
+export default CommunityContainer;

@@ -6,16 +6,26 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const restaurants = require("./routes/api/restaurants");
 const meals = require("./routes/api/meals");
+const reviews = require("./routes/api/reviews");
 
-
+const cors = require('cors');
 
 const app = express();
-// Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
+const server = require('http').createServer(app);
+const socket = require('socket.io');
+const io = socket(server);
+
+io.on('connection', (socket) => {
+  console.log('Client connected on port 5000(socket.io)');
+
+  socket.on('SEND_MESSAGE', function(data){
+    io.emit('RECEIVE_MESSAGE', data);
   })
-);
+});
+
+app.use(cors());
+// Bodyparser middleware
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 // DB Config
 const db = require("./config/database").mongoURL;
@@ -36,13 +46,10 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/restaurants", restaurants);
 app.use("/api/meals", meals);
+app.use("/api/reviews", reviews);
 
-
-const seed= require("./seed/seeder");
-
-
-
+const seed = require("./seed/seeder");
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port when we're ready to deploy
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+server.listen(port, () => console.log(`Server up and running on port ${port} !`));
 //mongoose.connect(config.DB,{ useNewUrlParser: true });

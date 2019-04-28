@@ -28,11 +28,22 @@ module.exports.saveMeal = (req,res,next) => {
 }
 
 module.exports.getMeal = (req, res, next) => {
-    Meal.findOne({ meal_id: req.body.meal_id },
+    Meal.findOne({ meal_id: req.params.meal_id },
         (err, meal) => {
             if(!meal)
-                return res.status(404).json({ status: false, message: 'Restaurant record not found' });
-            else 
+                return res.status(404).json({ status: false, message: 'Meal record not found' });
+            else
+                return res.status(200).send(meal);
+        }
+    );
+}
+
+module.exports.getMealsByRestaurants = (req, res, next) => {
+    Meal.find({ r_code: req.params.r_code },
+        (err, meal) => {
+            if(!meal)
+                return res.status(404).json({ status: false, message: 'Meals record not found' });
+            else
                 return res.status(200).send(meal);
         }
     );
@@ -58,8 +69,8 @@ module.exports.editMeal = (req,res,next) => {
 
 
     Meal.findOneAndUpdate(
-        { meal_id: req.body.meal_id }, 
-        { $set: { 
+        { meal_id: req.body.meal_id },
+        { $set: {
             name: req.body.name,
             description: req.body.description,
             r_code: req.body.r_code,
@@ -70,8 +81,8 @@ module.exports.editMeal = (req,res,next) => {
             nutrition: req.body.nutrition,
             image: req.body.image,
             price: req.body.price
-        
-               } 
+
+               }
         }, function (err, meal) {
 
 
@@ -82,14 +93,14 @@ module.exports.editMeal = (req,res,next) => {
               res.send(err);
             }
           }
-        
+
         );
 
 }
 
 module.exports.deleteMeal  = (req,res,next) => {
 
-    Restaurant.remove({ meal_id: req.body.meal_id }, function(err) {
+    Restaurant.remove({ meal_id: req.params.meal_id }, function(err) {
         if (!err) {
                 res.status(200).json(true);
         }
