@@ -327,10 +327,10 @@ class LoginContainer extends Component {
         localStorage.setItem('token', userInfo.token);
         // this.state.isLoggedIn = true;
         this.isLoggedIn = true;
-        console.log("here: " + this.isLoggedIn);
 
       }
     }
+
     if (this.isLoggedIn && userInfo.d_plan != null) {
       drawer = (
         <div>
@@ -360,12 +360,13 @@ class LoginContainer extends Component {
           <ListItemText primaryTypographyProps={{
                     classes: {colorPrimary: classes.colorPrimary},
                     color: "primary"
-                  }}>Recalculate Macros</ListItemText> 
+                  }}>Recalculate Macros</ListItemText>
         </ListItem>
-        <ListItem button> 
+        <ListItem button>
           <ListItemText primaryTypographyProps={{
                     classes: {colorPrimary: classes.colorPrimary},
                     color: "primary"
+
                   }}>Logout</ListItemText>
         </ListItem>
           {/*<List>
