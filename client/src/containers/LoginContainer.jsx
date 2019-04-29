@@ -180,6 +180,7 @@ const styles = theme => ({
 class LoginContainer extends Component {
 
   isLoggedIn = false;
+  isLoggedOut =true;
 
   constructor(props : Object) {
     super(props);
@@ -188,6 +189,8 @@ class LoginContainer extends Component {
     (this : any).handleDrawerClose = this.handleDrawerClose.bind(this);
     (this : any).handleChangeIndex = this.handleChangeIndex.bind(this);
     (this : any).onHandleLogin = this.onHandleLogin.bind(this);
+    //(this : any).onHandleLogout = this.onHandleLogout.bind(this);
+
     (this : any).onHandleRegistration = this.onHandleRegistration.bind(this);
     (this : any).handleMacroSwitcher = this.handleMacroSwitcher.bind(this);
     (this : any).handleDummy = this.handleDummy.bind(this);
@@ -242,6 +245,13 @@ class LoginContainer extends Component {
   onHandleLogin = () => {
 
     this.loginUser({email: this.state.email, password: this.state.password});
+  }
+
+  onHandleLogout =  (event) =>  {
+
+    this.props.userInfo.success = false;
+    this.forceUpdate();
+
   }
 
   loginUser = (data) => new Promise((resolve, reject) => {
@@ -327,11 +337,15 @@ class LoginContainer extends Component {
     if (userInfo.hasOwnProperty('success')) {
 
       if (userInfo.success == true) {
-        localStorage.removeItem('token');
+
         localStorage.setItem('token', userInfo.token);
         // this.state.isLoggedIn = true;
         this.isLoggedIn = true;
 
+      }
+      else{
+        localStorage.removeItem('token');
+        this.isLoggedIn = false;
       }
     }
 
@@ -371,7 +385,11 @@ class LoginContainer extends Component {
                     classes: {colorPrimary: classes.colorPrimary},
                     color: "primary"
 
-                  }}>Logout</ListItemText>
+                  }}
+                  onClick={
+                    this.onHandleLogout.bind(this)
+                  }
+                  >Logout</ListItemText>
         </ListItem>
           {/*<List>
             {['My Profile', 'Log Out'].map((text, index) => (
