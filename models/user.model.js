@@ -37,7 +37,8 @@ var userSchema = new mongoose.Schema({
                 type: String,
                 enum:['MelUlm', 'BlueUlm', '150Pass', 'OptionA', 'OptionB', 'OptionC', 'OptionD', 'Com']
             },
-        balance:String
+        balance:String,
+        daily_balance: String
     },
     spend_goal:[{
         amount: String,

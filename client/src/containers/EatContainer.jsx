@@ -197,7 +197,9 @@ class EatContainer extends Component {
     var meal_price = parseFloat(price);
     console.log(meal_price);
     var balance = parseFloat(this.props.userInfo.d_plan.balance);
+    var daily_balance = parseFloat(this.props.userInfo.d_plan.daily_balance);
     var new_balance = (balance - meal_price).toString();
+    var new_daily_balance = (daily_balance - meal_price).toFixed(2).toString();
     console.log(new_balance);
     var new_total = c_total - (carb * 4) - (protein * 4) - (fat * 9);
     var new_carb = c_carb - (carb * 4);
@@ -214,7 +216,8 @@ class EatContainer extends Component {
       },
       d_plan: {
         plan: this.props.userInfo.d_plan.plan,
-        balance: new_balance
+        balance: new_balance,
+        daily_balance: new_daily_balance
       }
     }
     setTimeout(() => {

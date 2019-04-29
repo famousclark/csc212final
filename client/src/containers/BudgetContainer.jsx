@@ -189,7 +189,7 @@ class BudgetContainer extends Component {
           <Typography align="center" variant="body1" style={{padding: "40px" }}>
             Declining Left to Spend Today:
             <Typography align="center" variant="h2" style={{ padding: "24px" }}>
-            $ 6.65
+            ${userInfo.d_plan.daily_balance}
             </Typography>
           </Typography>
 

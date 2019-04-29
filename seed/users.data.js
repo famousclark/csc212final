@@ -38,8 +38,9 @@ module.exports.userSeed=[
 
         ],
         d_plan: {
-            plan:"MelUlm",
-            balance:"1000"
+            plan:"OptionA",
+            balance:"2442",
+            daily_balance: "30.00"
         },
         diet: [],
         goal: "maintain",
@@ -87,7 +88,8 @@ module.exports.userSeed=[
         ],
         d_plan: {
             plan:"MelUlm",
-            balance:"1000"
+            balance:"1000",
+            daily_balance: "30.00"
         },
         diet: [],
         goal: "lose",
