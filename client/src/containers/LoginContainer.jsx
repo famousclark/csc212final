@@ -223,7 +223,8 @@ class LoginContainer extends Component {
       exercise: this.state.exercise,
       d_plan: {
         plan: this.state.d_plan,
-        balance: "1000"
+        balance: "1000",
+        daily_balance: "30.00"
       },
       name: this.state.name,
       errMsg:"",

@@ -186,7 +186,7 @@ module.exports.mealSeed=[
         diet_restrinctions: ['vegan'],
         serve_amount: 290,// amount of serving
         nutrition:{
-            calories: 350,
+            calories: 370,
             calories_fat: 10,
             fat: {
                 total: 2,
@@ -196,11 +196,11 @@ module.exports.mealSeed=[
             cholesterol: 20,
             sodium: 50,
             carbs:{
-                total: 11,
+                total: 10,
                 fiber: 3,
                 sugars: 5
             },
-            proteins: 16
+            proteins: 13
         },
         image:"",
         price:"7.99"

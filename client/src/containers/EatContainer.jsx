@@ -429,7 +429,7 @@ class EatContainer extends Component {
               <Typography
               style={{width:"100%"}}>
                   Allergens: {meal.allergens.map(allergen => (<span>{allergen} </span>))} <br/>
-                  Dietary Resitrictions: {meal.diet_restrinctions.map( rest => (<span>{rest} </span>))} <br/>
+                  Dietary Restrictions: {meal.diet_restrinctions.map( rest => (<span>{rest} </span>))} <br/>
                   Proteins: {meal.nutrition.proteins} gms, <br/>
                   Carbs: {meal.nutrition.carbs.total} gms, <br/>
                   Sugars: {meal.nutrition.carbs.total} gms, <br/>
