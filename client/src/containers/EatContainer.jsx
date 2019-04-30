@@ -198,7 +198,7 @@ class EatContainer extends Component {
     console.log(meal_price);
     var balance = parseFloat(this.props.userInfo.d_plan.balance);
     var daily_balance = parseFloat(this.props.userInfo.d_plan.daily_balance);
-    var new_balance = (balance - meal_price).toString();
+    var new_balance = (balance - meal_price).toFixed(2).toString();
     var new_daily_balance = (daily_balance - meal_price).toFixed(2).toString();
     console.log(new_balance);
     var new_total = c_total - (carb * 4) - (protein * 4) - (fat * 9);
