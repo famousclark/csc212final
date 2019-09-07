@@ -1,4 +1,6 @@
-# csc212final
+# UR Eats
+THE NEW NUTRITION AND HEALTH PLANNING SOLUTION FOR THE UR COMMUNITY
+
 
 ## Componets of the application
 - The app runs using Node Js and MERN Stack. 
